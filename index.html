@@ -22,10 +22,10 @@
   .ssp        { font-family:'Source Serif Pro','Source Serif 4', serif; }
   .inter      { font-family:'Inter', sans-serif; font-weight:400; }
 
-  /* 1728px design stage, scaled to viewport width */
+  /* 2002px design stage (1728 + 137px added to each side), scaled to viewport width */
   #stage {
     position:relative;
-    width:1728px;
+    width:2002px;
     height:8778px;
     background:#fff;
     overflow:hidden;
@@ -36,12 +36,14 @@
   .crop > img { position:absolute; max-width:none; }
   .cover  { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   .cover-bottom { object-position:bottom; }
+  /* vertically-centred fixed-height text boxes */
+  .vc { display:flex; flex-direction:column; justify-content:center; }
 
   /* ---- sticky glass nav ---- */
   #nav-track {
     margin-top:95px;
     height:8683px;
-    width:1728px;
+    width:2002px;
     pointer-events:none;
     position:relative;
     z-index:50;
@@ -50,7 +52,7 @@
     position:sticky;
     top:0;
     height:105px;
-    width:1728px;
+    width:2002px;
     pointer-events:auto;
   }
   #nav-glass {
@@ -63,7 +65,7 @@
   }
   .nav-btn {
     position:absolute;
-    height:64.688px;
+    height:64.69px;
     display:flex; flex-direction:column; justify-content:center;
     text-align:center;
     font-size:40px;
@@ -135,7 +137,7 @@
   /* ---- video player ---- */
   #ems-video-wrap {
     position:absolute;
-    left:13px; top:4184px;
+    left:149px; top:4184px;
     width:1111px; height:535px;
     border-radius:90px;
     overflow:hidden;
@@ -155,58 +157,58 @@
 <div id="stage">
 
   <!-- celebrate script -->
-  <img class="abs" src="images/celebrate-script.png" alt="Celebrate" style="left:410px; top:5488px; width:414px; height:171px;">
+  <img class="abs" src="images/celebrate-script.png" alt="Celebrate" style="left:546px; top:5488px; width:414px; height:171px;">
 
   <!-- footer strip image + pink footer bg -->
-  <img class="abs" src="images/footer-strip.png" alt="" style="left:0; top:8070px; width:1728px; height:171px;">
-  <div class="abs" style="left:0; top:8241px; width:1728px; height:706px; background:#F4E8EA;"></div>
+  <img class="abs" src="images/footer-strip.png" alt="" style="left:-33px; top:8070px; width:2153px; height:171px;">
+  <div class="abs" style="left:0; top:8241px; width:2002px; height:706px; background:#F4E8EA;"></div>
 
   <!-- newsletter banner (twice, as in Figma) -->
-  <div class="crop" style="left:76px; top:7526px; width:1575px; height:384px; border-radius:15px;">
+  <div class="crop" style="left:212px; top:7526px; width:1575px; height:384px; border-radius:15px;">
     <img src="images/newsletter-banner.png" alt="" style="height:224.03%; left:0; top:-29.98%; width:100%;">
   </div>
-  <div class="crop" style="left:76px; top:7526px; width:1575px; height:384px; border-radius:15px; filter:blur(0px);">
+  <div class="crop" style="left:212px; top:7526px; width:1575px; height:384px; border-radius:15px; filter:blur(0px);">
     <img src="images/newsletter-banner.png" alt="" style="height:224.03%; left:0; top:-29.98%; width:100%;">
   </div>
 
   <!-- step 1 photo -->
-  <div class="crop" style="left:137px; top:5672px; width:696px; height:556px; border-radius:25px;">
+  <div class="crop" style="left:273px; top:5672px; width:696px; height:556px; border-radius:25px;">
     <img src="images/step1-photo.png" alt="" style="height:100%; left:-13.26%; top:0; width:113.31%;">
   </div>
 
   <!-- what makes us pink panel -->
-  <div class="abs" style="left:73px; top:4952px; width:1578px; height:514px; background:rgba(244,232,234,0.65); border-radius:21px;"></div>
+  <div class="abs" style="left:209px; top:4952px; width:1578px; height:514px; background:rgba(244,232,234,0.65); border-radius:21px;"></div>
 
   <!-- message section strip + white card -->
-  <img class="abs" src="images/message-strip.png" alt="" style="left:0; top:4092px; width:1814px; height:185px;">
-  <div class="abs" style="left:40px; top:4132px; width:1645px; height:699px; background:#fff; border-radius:28px;"></div>
+  <img class="abs" src="images/message-strip.png" alt="" style="left:-13px; top:4092px; width:2018px; height:448px; object-fit:cover;">
+  <div class="abs" style="left:176px; top:4132px; width:1645px; height:699px; background:#fff; border-radius:28px;"></div>
 
   <!-- gallery row 2, image 1 -->
-  <div class="crop" style="left:-63px; top:1459px; width:651px; height:393px;">
+  <div class="crop" style="left:73px; top:1459px; width:651px; height:393px;">
     <img src="images/gallery-4.png" alt="" style="height:116.16%; left:0; top:0; width:100.01%;">
   </div>
 
   <!-- pink header bar -->
-  <div class="abs" style="left:0; top:0; width:1728px; height:95px; background:#CF9AAB;"></div>
-  <p class="abs instrument" style="left:863.5px; top:28px; width:1201px; height:61px; transform:translateX(-50%); font-size:48px; text-align:center; color:#fff;">WNY PRINCESS &amp; SUPERHERO PARTIES</p>
+  <div class="abs" style="left:0; top:0; width:2002px; height:95px; background:#CF9AAB;"></div>
+  <p class="abs instrument" style="left:399px; top:28px; width:1338px; height:61px; font-size:48px; text-align:center; color:#fff;">WNY PRINCESS &amp; SUPERHERO PARTIES</p>
 
   <!-- hero script + since 2017 -->
-  <img class="abs" src="images/magical-memories-script.png" alt="Magical Memories" style="left:723px; top:335px; width:975px; height:238px;">
-  <p class="abs instrument" style="left:738px; top:543px; width:306px; height:60px; font-size:40px; color:#000;">since 2017.</p>
+  <img class="abs" src="images/magical-memories-script.png" alt="Magical Memories" style="left:861px; top:335px; width:975px; height:238px;">
+  <p class="abs instrument" style="left:876px; top:543px; width:443px; height:60px; font-size:40px; color:#000;">since 2017.</p>
 
   <!-- photo strip row 1 -->
-  <div class="crop" style="left:-34px; top:1093px; width:552px; height:368px;">
+  <div class="crop" style="left:102px; top:1093px; width:552px; height:368px;">
     <img src="images/gallery-1.png" alt="" style="height:112.5%; left:-0.1%; top:-12.5%; width:100.2%;">
   </div>
-  <div class="crop" style="left:518px; top:1092px; width:416px; height:367px;">
+  <div class="crop" style="left:654px; top:1092px; width:416px; height:367px;">
     <img src="images/gallery-2.png" alt="" style="height:112.26%; left:-0.05%; top:-5.99%; width:100.09%;">
   </div>
-  <div class="crop" style="left:934px; top:1092px; width:648px; height:367px;">
+  <div class="crop" style="left:1070px; top:1092px; width:648px; height:367px;">
     <img src="images/gallery-3.png" alt="" style="height:122.92%; left:-2.92%; top:-13.39%; width:105.33%;">
   </div>
 
   <!-- BOOK now! button -->
-  <a class="abs book-btn" href="#" style="left:717px; top:819px; width:436px; height:103px;">
+  <a class="abs book-btn" href="#" style="left:855px; top:819px; width:436px; height:103px;">
     <span class="book-bg"></span>
     <span class="abs instrument" style="inset:30.12% 43.42% 27.71% 6.84%; display:flex; flex-direction:column; justify-content:center; font-size:48px; text-align:center; color:#000;">BOOK</span>
     <span class="abs" style="left:46.84%; right:16.05%; top:19px; aspect-ratio:872/286;">
@@ -215,38 +217,38 @@
   </a>
 
   <!-- photo strip row 2 -->
-  <div class="abs" style="left:588px; top:1459px; width:393px; height:392px;">
+  <div class="abs" style="left:724px; top:1459px; width:393px; height:392px;">
     <img class="cover" src="images/gallery-5.png" alt="">
   </div>
-  <div class="abs" style="left:981px; top:1458px; width:522px; height:392px;">
+  <div class="abs" style="left:1117px; top:1458px; width:522px; height:392px;">
     <img class="cover cover-bottom" src="images/gallery-6.png" alt="">
   </div>
-  <div class="crop" style="left:1503px; top:1460px; width:450px; height:392px;">
+  <div class="crop" style="left:1639px; top:1460px; width:450px; height:392px;">
     <img src="images/gallery-7.png" alt="" style="height:100.02%; left:-17.45%; top:-0.01%; width:117.45%;">
   </div>
 
   <!-- hero photo -->
-  <div class="abs" style="left:-13px; top:244px; width:711px; height:794px;">
+  <div class="abs" style="left:102px; top:249px; width:711px; height:794px;">
     <img class="cover" src="images/hero-photo.png" alt="">
   </div>
 
   <!-- hero paragraph -->
-  <p class="abs instrument" style="left:732px; top:688px; width:784px; height:104px; font-size:40px; color:#000;">Join hundreds of happy royal customers in booking WNY&rsquo;s <span style="font-style:italic; color:#D08597;">first choice</span> for character entertainment.</p>
+  <p class="abs instrument" style="left:876px; top:704px; width:784px; height:104px; font-size:36px; color:#000;">Join hundreds of happy royal customers in booking WNY&rsquo;s <span style="font-style:italic; color:#D08597;">first choice</span> for character entertainment.</p>
 
   <!-- header crowns -->
-  <img class="abs" src="images/header-crown.png" alt="" style="left:395px; top:24px; width:111px; height:54px; object-fit:cover;">
-  <img class="abs" src="images/header-crown.png" alt="" style="left:1215px; top:24px; width:111px; height:54px; object-fit:cover;">
+  <img class="abs" src="images/header-crown.png" alt="" style="left:531px; top:24px; width:111px; height:54px; object-fit:cover;">
+  <img class="abs" src="images/header-crown.png" alt="" style="left:1351px; top:24px; width:111px; height:54px; object-fit:cover;">
 
   <!-- reviews band -->
-  <div class="abs" style="left:0; top:2408px; width:1728px; height:773px; background:#CF9AAB;"></div>
-  <div class="abs" style="left:-35px; top:2408px; width:1814px; height:773px; filter:blur(4.55px);">
+  <div class="abs" style="left:-8px; top:2413px; width:2027px; height:768px; background:#CF9AAB;"></div>
+  <div class="abs" style="left:-8px; top:2413px; width:2057px; height:877px; filter:blur(4.55px);">
     <div class="crop" style="inset:0; opacity:0.78;">
       <img src="images/hero-photo.png" alt="" style="height:262.38%; left:-0.03%; top:-54.33%; width:100%;">
     </div>
   </div>
 
   <!-- review cards -->
-  <div class="abs" style="left:40px; top:2438.98px; display:flex; gap:38px; align-items:flex-start;">
+  <div class="abs" style="left:176px; top:2438.98px; display:flex; gap:38px; align-items:flex-start;">
     <div class="review-card" style="height:694.717px;">
       <div class="review-bg"></div>
       <p class="abs ssp" style="inset:24.25% 7.67% 4.02% 7.77%; font-style:italic; opacity:0.77; font-size:29px; color:#000; text-align:center; white-space:pre-wrap;">&ldquo;I am lucky to have experienced MANY princesses with Emmalee's Memories  over the past five years for my daughter's birthday parties. Emmalee's  Memories is the best and most talented princess company in WNY! The  characters not only entertain the kids with games, stories and  activities, they are also talented performers. Truly <span style="color:#C57589;">worth every penny</span> and more!!!</p>
@@ -277,42 +279,39 @@
   </div>
 
   <!-- FROM OUR + royal customers -->
-  <p class="abs instrument" style="left:246px; top:2322px; width:930px; height:170px; font-size:48px; color:#000;">FROM OUR</p>
-  <img class="abs" src="images/gold-flourish.png" alt="" style="left:26px; top:2296px; width:193px; height:94px; object-fit:cover;">
+  <p class="abs instrument" style="left:382px; top:2322px; width:1067px; height:170px; font-size:48px; color:#000;">FROM OUR</p>
+  <img class="abs" src="images/gold-flourish.png" alt="" style="left:162px; top:2296px; width:193px; height:94px; object-fit:cover;">
 
   <!-- white gradient fade over gallery -->
-  <div class="abs" style="left:0; top:1577px; width:1728px; height:276px; background:linear-gradient(to bottom, rgba(217,217,217,0), #fff);"></div>
+  <div class="abs" style="left:-41px; top:1577px; width:2114px; height:276px; background:linear-gradient(to bottom, rgba(217,217,217,0), #fff);"></div>
 
   <!-- cinderella (gallery end) -->
-  <div class="crop" style="left:1577px; top:1092px; width:335.986px; height:367px;">
+  <div class="crop" style="left:1713px; top:1092px; width:335.99px; height:367px;">
     <img src="images/cinderella-photo.png" alt="" style="height:103.94%; left:-0.93%; top:0; width:100.94%;">
   </div>
 
   <!-- planning copy -->
-  <div class="abs" style="left:863.5px; top:2154px; width:1395px; height:98px; transform:translate(-50%,-50%); display:flex; flex-direction:column; justify-content:center; text-align:center;">
-    <p class="playfair" style="font-size:32px; color:#000;">But what if we told you that we could help you create an UNFORGETTABLE experience for your child <span style="font-style:italic; color:#D08597;">without worrying</span> about any of these things?&nbsp;</p>
+  <div class="abs vc" style="left:303px; top:2093px; width:1395px; height:98px; text-align:center;">
+    <p class="playfair" style="font-size:29px; color:#000;">But what if we told you that we could help you create an UNFORGETTABLE experience for your child <span style="font-style:italic; color:#D08597;">without worrying</span> about any of these things?&nbsp;</p>
   </div>
-  <div class="abs" style="left:842.5px; top:2067.5px; transform:translate(-50%,-50%); white-space:nowrap; text-align:center;">
-    <p class="playfair" style="font-size:32px; color:#000;">There&rsquo;s a LOT to it.</p>
-  </div>
-  <div class="abs" style="left:890.5px; top:2008.5px; transform:translate(-50%,-50%); white-space:nowrap; text-align:center;">
-    <p class="playfair" style="font-size:32px; color:#000;">The party flow. The management of guests. The entertainment.&nbsp;</p>
-  </div>
+  <p class="abs playfair" style="left:856px; top:2036px; width:384px; height:39px; font-size:29px; color:#000; text-align:center;">There&rsquo;s a LOT to it.</p>
+  <p class="abs playfair" style="left:619px; top:1977px; width:953px; height:39px; font-size:29px; color:#000; text-align:center;">The party flow. The management of guests. The entertainment.&nbsp;</p>
+  <p class="abs playfair" style="left:472px; top:1918px; width:1210px; height:39px; font-size:29px; color:#000; text-align:center;">Planning your child's birthday party can without a doubt feel <span style="font-style:italic; color:#D08597;">anything but magical</span>...</p>
 
   <!-- hidden white rounded rect (under pink bg, kept for fidelity) -->
-  <div class="abs" style="left:867px; top:3460px; width:845px; height:495px; background:#fff; border:3px solid #fff; border-radius:92px;"></div>
+  <div class="abs" style="left:1003px; top:3460px; width:845px; height:495px; background:#fff; border:3px solid #fff; border-radius:92px;"></div>
 
   <!-- review borders -->
-  <div class="abs" style="left:0; top:2370px; width:1742px; height:43px; background:#fff;"></div>
-  <div class="abs" style="left:-14px; top:3178px; width:1742px; height:43px; background:#fff;"></div>
+  <div class="abs" style="left:136px; top:2370px; width:1742px; height:43px; background:#fff;"></div>
+  <div class="abs" style="left:122px; top:3178px; width:1742px; height:43px; background:#fff;"></div>
 
   <!-- who are we section -->
-  <div class="abs" style="left:-23px; top:3181px; width:1751px; height:926px; background:#F4E8EA;"></div>
-  <div class="crop" style="left:905px; top:3238px; width:780px; height:851px; border-radius:0 20px 20px 0;">
+  <div class="abs" style="left:-55px; top:3181px; width:2302px; height:926px; background:#F4E8EA;"></div>
+  <div class="crop" style="left:1041px; top:3238px; width:780px; height:851px; border-radius:0 20px 20px 0;">
     <img src="images/cinderella-photo.png" alt="" style="height:103.94%; left:-0.93%; top:0; width:100.94%;">
   </div>
-  <div class="abs" style="left:40px; top:3238px; width:870px; height:851px; background:#fff; border-radius:20px 0 0 20px;"></div>
-  <div class="abs playfair" style="left:78px; top:3469px; width:779px; height:638px; font-size:27px; line-height:40px; color:#000;">
+  <div class="abs" style="left:176px; top:3238px; width:870px; height:851px; background:#fff; border-radius:20px 0 0 20px;"></div>
+  <div class="abs playfair" style="left:214px; top:3469px; width:779px; height:638px; font-size:27px; line-height:40px; color:#000;">
     <p>At Emmalee's Memories, we understand how much these Birthday Parties and  Special Events mean to you and your Family. We treat each visit as an  opportunity to create a <span style="font-style:italic; color:#D08597;">one-of-a-kind memory</span> for your Child through Professional Character Entertainment.</p>
     <p>&#8203;</p>
     <p>Our Royal Staff will work alongside you to plan the most MAGICAL day that  your Child and Guests will remember for the rest of their lives.</p>
@@ -329,190 +328,185 @@
   </div>
 
   <!-- who are we script -->
-  <img class="abs" src="images/who-are-we-script.png" alt="Who Are We?" style="left:32px; top:3238px; width:878px; height:222px; mix-blend-mode:darken; object-fit:cover;">
+  <img class="abs" src="images/who-are-we-script.png" alt="Who Are We?" style="left:168px; top:3238px; width:878px; height:222px; mix-blend-mode:darken; object-fit:cover;">
 
   <!-- royal customers script -->
-  <div class="crop" style="left:414px; top:2233px; width:703px; height:236px; mix-blend-mode:multiply;">
+  <div class="crop" style="left:550px; top:2233px; width:703px; height:236px; mix-blend-mode:multiply;">
     <img src="images/royal-customers-script.png" alt="Royal Customers" style="height:100.11%; left:0; top:-0.06%; width:100%;">
   </div>
 
   <!-- trusted by script -->
-  <img class="abs" src="images/trusted-by-script.png" alt="Trusted by..." style="left:94px; top:6911px; width:429px; height:157px; mix-blend-mode:multiply; object-fit:cover;">
-
-  <!-- planning line 1 -->
-  <div class="abs" style="left:871px; top:1949.5px; transform:translate(-50%,-50%); white-space:nowrap; text-align:center;">
-    <p class="playfair" style="font-size:32px; color:#000;">Planning your child's birthday party can without a doubt feel <span style="font-style:italic; color:#D08597;">anything but magical</span>...</p>
-  </div>
+  <img class="abs" src="images/trusted-by-script.png" alt="Trusted by..." style="left:246px; top:6911px; width:429px; height:157px; mix-blend-mode:multiply; object-fit:cover;">
 
   <!-- a message from -->
-  <p class="abs instrument" style="left:1068px; top:4210px; width:352px; height:67px; font-size:48px; color:#000;">A MESSAGE FROM</p>
-  <img class="abs" src="images/emmalee-script.png" alt="Emmalee" style="left:952px; top:4230px; width:714px; height:266px; mix-blend-mode:darken; object-fit:cover;">
+  <p class="abs instrument" style="left:1204px; top:4210px; width:489px; height:67px; font-size:48px; color:#000;">A MESSAGE FROM</p>
+  <img class="abs" src="images/emmalee-script.png" alt="Emmalee" style="left:1088px; top:4230px; width:714px; height:266px; mix-blend-mode:darken; object-fit:cover;">
 
   <!-- trusted by logos -->
-  <img class="abs" src="images/logo-aquarium.png" alt="Aquarium of Niagara" style="left:343.97px; top:7105.07px; width:283.077px; height:135.877px; object-fit:cover;">
-  <img class="abs" src="images/logo-curtiss.png" alt="Curtiss Hotel" style="left:90px; top:7064px; width:206.119px; height:211.777px; object-fit:cover;">
-  <img class="abs" src="images/logo-summit.png" alt="The Summit Center" style="left:950.85px; top:7065.69px; width:273.077px; height:183.974px; object-fit:cover;">
-  <img class="abs" src="images/logo-salvatores.png" alt="" style="left:667.89px; top:7067.96px; width:215.044px; height:215.044px; object-fit:cover;">
-  <img class="abs" src="images/logo-moog.png" alt="MOOG" style="left:1283.73px; top:7156.29px; width:341.266px; height:44.247px; object-fit:cover;">
+  <img class="abs" src="images/logo-aquarium.png" alt="Aquarium of Niagara" style="left:445px; top:7104px; width:283.08px; height:135.88px; object-fit:cover;">
+  <img class="abs" src="images/logo-curtiss.png" alt="Curtiss Hotel" style="left:127px; top:7066px; width:206.12px; height:211.78px; object-fit:cover;">
+  <img class="abs" src="images/logo-summit.png" alt="The Summit Center" style="left:1165px; top:7066px; width:273.08px; height:183.97px; object-fit:cover;">
+  <img class="abs" src="images/logo-salvatores.png" alt="" style="left:839px; top:7068px; width:215.04px; height:215.04px; object-fit:cover;">
+  <img class="abs" src="images/logo-moog.png" alt="MOOG" style="left:1549px; top:7158px; width:341.27px; height:44.25px; object-fit:cover;">
 
   <!-- footer legal -->
-  <p class="abs inter" style="left:863.5px; top:8597px; width:1061px; transform:translateX(-50%); font-size:20px; color:#91576D; text-align:center; white-space:pre-wrap;">We do not offer licensed and/or trademarked characters. All characters  shown come from fairy tales and storybooks that are public domain or are original characters. We are not affiliated with any copyright designs  nor do we intend to infringe on any Copyrighted materials.</p>
-  <p class="abs inter" style="left:863.5px; top:8693px; width:1061px; transform:translateX(-50%); font-size:20px; color:#91576D; text-align:center;">&copy; 2026 by Emmalee's Memories</p>
-  <p class="abs inter" style="left:863.5px; top:8549px; width:1061px; transform:translateX(-50%); font-size:20px; color:#91576D; text-align:center; text-decoration:underline;">Privacy Policy</p>
+  <p class="abs inter" style="left:469px; top:8597px; width:1061px; font-size:20px; color:#91576D; text-align:center; white-space:pre-wrap;">We do not offer licensed and/or trademarked characters. All characters  shown come from fairy tales and storybooks that are public domain or are original characters. We are not affiliated with any copyright designs  nor do we intend to infringe on any Copyrighted materials.</p>
+  <p class="abs inter" style="left:469px; top:8693px; width:1198px; font-size:20px; color:#91576D; text-align:center;">&copy; 2026 by Emmalee's Memories</p>
+  <p class="abs inter" style="left:469px; top:8549px; width:1198px; font-size:20px; color:#91576D; text-align:center; text-decoration:underline;">Privacy Policy</p>
 
   <!-- checklist items -->
-  <div class="abs" style="left:255px; top:5030.5px; width:1149.12px; height:65px; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center;">
+  <div class="abs vc" style="left:391px; top:4998px; width:1149.12px; height:65px;">
     <p class="playfair" style="font-size:32px; color:#000;"><span style="font-style:italic; color:#B96C7F;">Theatrical-grade performances</span> with singing, dancing, and more!</p>
   </div>
-  <div class="abs" style="left:255px; top:5125.5px; width:1375.431px; height:63px; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center;">
+  <div class="abs vc" style="left:391px; top:5094px; width:1375.43px; height:63px;">
     <p class="playfair" style="font-size:32px; color:#000;">Highly trained &amp; strictly casted Featured Performers that have <span style="font-style:italic; color:#B96C7F;">extensive experience</span> working with children</p>
   </div>
-  <div class="abs" style="left:255px; top:5216.5px; width:1424px; height:81px; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center;">
+  <div class="abs vc" style="left:391px; top:5176px; width:1424px; height:81px;">
     <p class="playfair" style="font-size:32px; color:#000;">Interactive &amp; engaging activities that <span style="font-style:italic; color:#B96C7F;">captivate guests</span> of all ages from start to finish</p>
   </div>
-  <div class="abs" style="left:255px; top:5288.5px; width:1235.925px; height:89px; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center;">
+  <div class="abs vc" style="left:391px; top:5244px; width:1235.92px; height:89px;">
     <p class="playfair" style="font-size:32px; color:#000;">Customization to ensure that each visit feels <span style="font-style:italic; color:#B96C7F;">special and unique</span></p>
   </div>
-  <div class="abs" style="left:255px; top:5364px; width:1287.594px; height:108px; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center;">
+  <div class="abs vc" style="left:391px; top:5310px; width:1287.59px; height:108px;">
     <p class="playfair" style="font-size:32px; color:#000;">24/7 on-call Royal Staff available</p>
   </div>
 
   <!-- & many more -->
-  <p class="abs instrument" style="left:1024px; top:7283px; width:559px; height:97px; font-style:italic; font-size:48px; color:#000; text-align:right;">&amp; many more!</p>
+  <p class="abs instrument" style="left:1027px; top:7296px; width:696px; height:97px; font-style:italic; font-size:48px; color:#000; text-align:right;">&amp; many more!</p>
 
   <!-- founder -->
-  <img class="abs" src="images/ems-logo.png" alt="Emmalee's Memories logo" style="left:1068px; top:4582px; width:136px; height:135px; object-fit:cover;">
-  <p class="abs instrument" style="left:1227px; top:4602px; width:424px; height:78px; font-size:36px; color:#000;">Emmalee Cinnotti, founder of Emmalee&rsquo;s Memories</p>
+  <img class="abs" src="images/ems-logo.png" alt="Emmalee's Memories logo" style="left:1204px; top:4582px; width:136px; height:135px; object-fit:cover;">
+  <p class="abs instrument" style="left:1363px; top:4602px; width:424px; height:78px; font-size:36px; color:#000;">Emmalee Cinnotti, founder of Emmalee&rsquo;s Memories</p>
 
   <!-- what makes us -->
-  <div class="abs" style="left:286px; top:4897px; width:389px; height:96px; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center;">
+  <div class="abs vc" style="left:422px; top:4849px; width:526px; height:96px;">
     <p class="instrument" style="font-size:48px; color:#000;">WHAT MAKES US</p>
   </div>
-  <img class="abs" src="images/perfect-party-script.png" alt="Perfect for Your Party?" style="left:537px; top:4814px; width:859px; height:205px; mix-blend-mode:multiply; object-fit:cover;">
-  <img class="abs" src="images/gold-flourish.png" alt="" style="left:73px; top:4835px; width:193px; height:94px; object-fit:cover;">
+  <img class="abs" src="images/perfect-party-script.png" alt="Perfect for Your Party?" style="left:673px; top:4814px; width:859px; height:205px; mix-blend-mode:multiply; object-fit:cover;">
+  <img class="abs" src="images/gold-flourish.png" alt="" style="left:209px; top:4835px; width:193px; height:94px; object-fit:cover;">
 
   <!-- contact info -->
-  <p class="abs instrument" style="left:362px; top:8385px; width:805px; height:279px; font-size:40px; color:#000; white-space:pre-wrap;"> Emmalee's Memories<br> 21 Elm Street, East Aurora, NY 14052</p>
-  <div class="abs instrument" style="left:655px; top:8385px; width:698px; height:208px; font-size:40px; color:#000; text-align:right;">
+  <p class="abs instrument" style="left:498px; top:8385px; width:805px; height:279px; font-size:40px; color:#000; white-space:pre-wrap;"> Emmalee's Memories<br> 21 Elm Street, East Aurora, NY 14052</p>
+  <div class="abs instrument" style="left:791px; top:8385px; width:698px; height:208px; font-size:40px; color:#000; text-align:right;">
     <p> 716-997-8518&nbsp;&nbsp;</p>
     <p>info@emmaleesmemories.com</p>
   </div>
 
   <!-- socials -->
-  <img class="abs" src="images/social-instagram.png" alt="Instagram" style="left:689px; top:8278px; width:81.405px; height:76.051px; object-fit:cover;">
-  <img class="abs" src="images/social-facebook.png" alt="Facebook" style="left:831.29px; top:8278.82px; width:74.565px; height:74.416px; object-fit:cover;">
-  <img class="abs" src="images/social-tiktok.png" alt="TikTok" style="left:966.22px; top:8281.27px; width:72.494px; height:69.509px; object-fit:cover;">
+  <img class="abs" src="images/social-instagram.png" alt="Instagram" style="left:825px; top:8278px; width:81.4px; height:76.05px; object-fit:cover;">
+  <img class="abs" src="images/social-facebook.png" alt="Facebook" style="left:967.29px; top:8278.82px; width:74.57px; height:74.42px; object-fit:cover;">
+  <img class="abs" src="images/social-tiktok.png" alt="TikTok" style="left:1102.22px; top:8281.27px; width:72.49px; height:69.51px; object-fit:cover;">
 
   <!-- contact us script -->
-  <div class="crop" style="left:622px; top:8085px; width:501px; height:178px; mix-blend-mode:multiply;">
+  <div class="crop" style="left:758px; top:8085px; width:501px; height:178px; mix-blend-mode:multiply;">
     <img src="images/contact-us-script.png" alt="Contact Us:" style="height:100%; left:-0.06%; top:0; width:103.11%;">
   </div>
 
   <!-- steps photos 2-4 -->
-  <div class="abs" style="left:137px; top:6270px; width:694px; height:558px; border-radius:25px; overflow:hidden;">
+  <div class="abs" style="left:273px; top:6270px; width:694px; height:558px; border-radius:25px; overflow:hidden;">
     <img class="cover cover-bottom" src="images/step3-photo.png" alt="" style="border-radius:25px;">
   </div>
-  <div class="crop" style="left:890px; top:6274px; width:695px; height:556px; border-radius:25px;">
+  <div class="crop" style="left:1026px; top:6274px; width:695px; height:556px; border-radius:25px;">
     <img src="images/step4-photo.png" alt="" style="height:114.47%; left:0.29%; top:-3.09%; width:103.79%;">
   </div>
-  <div class="abs" style="left:890px; top:5672px; width:696px; height:556px; border-radius:25px; overflow:hidden;">
+  <div class="abs" style="left:1026px; top:5672px; width:696px; height:556px; border-radius:25px; overflow:hidden;">
     <img class="cover cover-bottom" src="images/step2-photo.png" alt="" style="border-radius:25px;">
   </div>
 
   <!-- step card hover overlays (dark multiply + glass), grouped per card -->
-  <div class="step-zone" style="left:137px; top:5670px;">
+  <div class="step-zone" style="left:273px; top:5670px;">
     <div class="step-dark"><div class="step-dark-inner"></div></div>
     <div class="step-glass"><div class="step-glass-inner"></div></div>
   </div>
-  <div class="step-zone" style="left:889px; top:5670px;">
+  <div class="step-zone" style="left:1025px; top:5670px;">
     <div class="step-dark"><div class="step-dark-inner"></div></div>
     <div class="step-glass" style="left:2px;"><div class="step-glass-inner"></div></div>
   </div>
-  <div class="step-zone" style="left:137px; top:6270px;">
+  <div class="step-zone" style="left:273px; top:6270px;">
     <div class="step-dark"><div class="step-dark-inner"></div></div>
     <div class="step-glass"><div class="step-glass-inner"></div></div>
   </div>
-  <div class="step-zone" style="left:889px; top:6270px;">
-    <div class="step-dark" style="left:2px; top:4px;"><div class="step-dark-inner"></div></div>
-    <div class="step-glass" style="left:2px; top:4px; border-radius:25px;"><div class="step-glass-inner"></div></div>
+  <div class="step-zone" style="left:1027px; top:6274px;">
+    <div class="step-dark"><div class="step-dark-inner"></div></div>
+    <div class="step-glass" style="border-radius:25px;"><div class="step-glass-inner"></div></div>
   </div>
 
   <!-- step scripts -->
-  <img class="abs" src="images/step1-script.png" alt="Step 1:" style="left:94px; top:5609px; width:571px; height:372px; mix-blend-mode:screen; object-fit:cover;">
-  <img class="abs" src="images/step2-script.png" alt="Step 2:" style="left:888px; top:5642px; width:508px; height:339px; mix-blend-mode:lighten; object-fit:cover;">
-  <img class="abs" src="images/step3-script.png" alt="Step 3:" style="left:131px; top:6252px; width:513px; height:317px; mix-blend-mode:lighten; object-fit:cover;">
-  <img class="abs" src="images/step4-script.png" alt="Step 4:" style="left:864px; top:6253px; width:491px; height:297px; mix-blend-mode:lighten; object-fit:cover;">
+  <img class="abs" src="images/step1-script.png" alt="Step 1:" style="left:230px; top:5609px; width:571px; height:372px; mix-blend-mode:screen; object-fit:cover;">
+  <img class="abs" src="images/step2-script.png" alt="Step 2:" style="left:1024px; top:5642px; width:508px; height:339px; mix-blend-mode:lighten; object-fit:cover;">
+  <img class="abs" src="images/step3-script.png" alt="Step 3:" style="left:267px; top:6252px; width:513px; height:317px; mix-blend-mode:lighten; object-fit:cover;">
+  <img class="abs" src="images/step4-script.png" alt="Step 4:" style="left:1000px; top:6253px; width:491px; height:297px; mix-blend-mode:lighten; object-fit:cover;">
 
   <!-- step captions -->
-  <div class="abs" style="left:162px; top:5965px; width:702px; height:144px; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center;">
+  <div class="abs vc" style="left:298px; top:5893px; width:839px; height:144px;">
     <p class="instrument" style="font-size:40px; line-height:49px; color:#fff;">Choose your princess or superhero</p>
   </div>
-  <div class="abs" style="left:914px; top:5967px; width:505px; height:144px; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center;">
+  <div class="abs vc" style="left:1050px; top:5895px; width:642px; height:144px;">
     <p class="instrument" style="font-size:40px; line-height:49px; color:#fff;">Select your party package</p>
   </div>
-  <div class="abs" style="left:162px; top:6550px; width:505px; height:144px; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center;">
+  <div class="abs vc" style="left:298px; top:6478px; width:642px; height:144px;">
     <p class="instrument" style="font-size:40px; line-height:49px; color:#fff;">Complete your booking form</p>
   </div>
-  <div class="abs" style="left:914px; top:6550px; width:622px; height:144px; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center;">
+  <div class="abs vc" style="left:1050px; top:6478px; width:759px; height:144px;">
     <p class="instrument" style="font-size:40px; line-height:49px; color:#fff;">Watch your child&rsquo;s dream come true!</p>
   </div>
-  <div class="abs" style="left:914px; top:6181.5px; width:635px; height:49px; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center;">
+  <div class="abs vc" style="left:1050px; top:6157px; width:772px; height:49px;">
     <p class="instrument" style="font-size:40px; line-height:49px; color:#fff;">Birthday party pricing starting at $190.</p>
   </div>
 
   <!-- step pill buttons + flourishes -->
-  <a class="pill-btn instrument" href="#" style="left:157px; top:6019px; width:469px; height:92px;">
+  <a class="pill-btn instrument" href="#" style="left:293px; top:6019px; width:469px; height:92px;">
     <span class="pill-bg"></span><span class="pill-label">CHARACTER LIST</span>
   </a>
-  <a class="pill-btn instrument" href="#" style="left:914px; top:6019px; width:456px; height:92px;">
+  <a class="pill-btn instrument" href="#" style="left:1050px; top:6019px; width:456px; height:92px;">
     <span class="pill-bg"></span><span class="pill-label">VIEW PACKAGES</span>
   </a>
-  <img class="abs" src="images/gold-flourish.png" alt="" style="left:1207px; top:6037px; width:104px; height:51px; object-fit:cover;">
-  <img class="abs" src="images/gold-flourish.png" alt="" style="left:460px; top:6037px; width:104px; height:51px; object-fit:cover;">
-  <a class="pill-btn instrument" href="#" style="left:152px; top:6603px; width:456px; height:92px;">
+  <img class="abs" src="images/gold-flourish.png" alt="" style="left:1343px; top:6037px; width:104px; height:51px; object-fit:cover;">
+  <img class="abs" src="images/gold-flourish.png" alt="" style="left:596px; top:6037px; width:104px; height:51px; object-fit:cover;">
+  <a class="pill-btn instrument" href="#" style="left:288px; top:6603px; width:456px; height:92px;">
     <span class="pill-bg"></span><span class="pill-label">SCHEDULE HERE</span>
   </a>
-  <a class="pill-btn instrument" href="#" style="left:914px; top:6606px; width:437px; height:92px;">
+  <a class="pill-btn instrument" href="#" style="left:1050px; top:6606px; width:437px; height:92px;">
     <span class="pill-bg"></span><span class="pill-label">LEAVE A REVIEW</span>
   </a>
-  <img class="abs" src="images/gold-flourish.png" alt="" style="left:452px; top:6620px; width:104px; height:51px; object-fit:cover;">
-  <img class="abs" src="images/gold-flourish.png" alt="" style="left:1203px; top:6623px; width:104px; height:51px; object-fit:cover;">
+  <img class="abs" src="images/gold-flourish.png" alt="" style="left:588px; top:6620px; width:104px; height:51px; object-fit:cover;">
+  <img class="abs" src="images/gold-flourish.png" alt="" style="left:1339px; top:6623px; width:104px; height:51px; object-fit:cover;">
 
   <!-- newsletter -->
-  <p class="abs instrument" style="left:858px; top:7437px; width:1354px; height:104px; transform:translateX(-50%); font-size:64px; color:#000; text-align:center; text-transform:capitalize;">Discounts. Upcoming events. Exclusive character content.</p>
-  <div class="abs" style="left:143px; top:7644px; width:956px; height:123px; background:#fff; border-radius:15px;"></div>
-  <p class="abs instrument" style="left:179px; top:7680px; font-size:40px; color:#705962; white-space:nowrap;">Enter your email address here</p>
-  <div class="abs" style="left:1056px; top:7644px; width:516px; height:123px; background:#F4E8EA; border-radius:0 15px 15px 0;"></div>
-  <p class="abs instrument" style="left:1087.51px; top:7679px; width:205.857px; height:53px; font-size:40px; color:#000;">Join our</p>
-  <img class="abs" src="images/royal-newsletter-script.png" alt="royal newsletter" style="left:1204px; top:7656px; width:349px; height:105px; mix-blend-mode:darken; object-fit:cover;">
-  <p class="abs instrument" style="left:854px; top:7925px; width:1528px; height:184px; transform:translateX(-50%); font-size:32px; color:#81525E; text-align:center;">Get exclusive discounts, enchanting bonus material, and get the inside info on all the MAGICAL events by signing up for our mailing list!</p>
+  <p class="abs instrument" style="left:317px; top:7437px; width:1491px; height:104px; font-size:64px; color:#000; text-align:center; text-transform:capitalize;">Discounts. Upcoming events. Exclusive character content.</p>
+  <div class="abs" style="left:279px; top:7644px; width:956px; height:123px; background:#fff; border-radius:15px;"></div>
+  <p class="abs instrument" style="left:315px; top:7680px; width:405px; height:52px; font-size:40px; color:#705962; white-space:nowrap;">Enter your email address here</p>
+  <div class="abs" style="left:1192px; top:7644px; width:516px; height:123px; background:#F4E8EA; border-radius:0 15px 15px 0;"></div>
+  <p class="abs instrument" style="left:1223.51px; top:7679px; width:205.86px; height:53px; font-size:40px; color:#000;">Join our</p>
+  <img class="abs" src="images/royal-newsletter-script.png" alt="royal newsletter" style="left:1340px; top:7656px; width:349px; height:105px; mix-blend-mode:darken; object-fit:cover;">
+  <p class="abs instrument" style="left:226px; top:7925px; width:1665px; height:184px; font-size:32px; color:#81525E; text-align:center;">Get exclusive discounts, enchanting bonus material, and get the inside info on all the MAGICAL events by signing up for our mailing list!</p>
 
   <!-- celebrate heading -->
-  <p class="abs instrument" style="left:1020px; top:5568px; width:1424px; height:128px; transform:translateX(-50%); font-size:48px; color:#000; text-align:center;">with Emmalee&rsquo;s Memories!</p>
+  <p class="abs instrument" style="left:444px; top:5568px; width:1561px; height:128px; font-size:48px; color:#000; text-align:center;">with Emmalee&rsquo;s Memories!</p>
 
   <!-- footer flourishes -->
-  <img class="abs" src="images/gold-flourish.png" alt="" style="left:382px; top:8111px; width:193px; height:94px; object-fit:cover;">
-  <img class="abs" src="images/gold-flourish.png" alt="" style="left:1170px; top:8124px; width:193px; height:94px; object-fit:cover;">
+  <img class="abs" src="images/gold-flourish.png" alt="" style="left:518px; top:8111px; width:193px; height:94px; object-fit:cover;">
+  <img class="abs" src="images/gold-flourish.png" alt="" style="left:1306px; top:8124px; width:193px; height:94px; object-fit:cover;">
 
   <!-- checklist checkboxes + hearts -->
-  <div class="abs" style="left:138.21px; top:5008px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
-  <img class="abs" src="images/checklist-heart.png" alt="" style="left:135.21px; top:4941px; width:87px; height:134px; object-fit:cover;">
-  <div class="abs" style="left:138.21px; top:5085px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
-  <div class="abs" style="left:129px; top:5029.18px; width:89.423px; height:126.632px; display:flex; align-items:center; justify-content:center;">
+  <div class="abs" style="left:274.21px; top:5008px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
+  <img class="abs" src="images/checklist-heart.png" alt="" style="left:271.21px; top:4941px; width:87px; height:134px; object-fit:cover;">
+  <div class="abs" style="left:274.21px; top:5085px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
+  <div class="abs" style="left:265px; top:5029.18px; width:89.42px; height:126.63px; display:flex; align-items:center; justify-content:center;">
     <div style="transform:rotate(6.21deg); flex:none;">
       <img src="images/checklist-heart.png" alt="" style="width:77px; height:119px; object-fit:cover;">
     </div>
   </div>
-  <div class="abs" style="left:138.21px; top:5197px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
-  <div class="abs" style="left:131.51px; top:5136.72px; width:88.888px; height:129.98px; display:flex; align-items:center; justify-content:center;">
+  <div class="abs" style="left:274.21px; top:5197px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
+  <div class="abs" style="left:267.51px; top:5136.72px; width:88.89px; height:129.98px; display:flex; align-items:center; justify-content:center;">
     <div style="transform:rotate(-3.75deg); flex:none;">
       <img src="images/checklist-heart.png" alt="" style="width:80.891px; height:124.959px; object-fit:cover;">
     </div>
   </div>
-  <div class="abs" style="left:138.21px; top:5271px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
-  <img class="abs" src="images/checklist-heart.png" alt="" style="left:135.21px; top:5204px; width:87px; height:134px; object-fit:cover;">
-  <div class="abs" style="left:138.21px; top:5347.65px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
-  <div class="abs" style="left:131px; top:5289px; width:86.441px; height:127.231px; display:flex; align-items:center; justify-content:center;">
+  <div class="abs" style="left:274.21px; top:5271px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
+  <img class="abs" src="images/checklist-heart.png" alt="" style="left:271.21px; top:5204px; width:87px; height:134px; object-fit:cover;">
+  <div class="abs" style="left:274.21px; top:5347.65px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
+  <div class="abs" style="left:267px; top:5289px; width:86.44px; height:127.23px; display:flex; align-items:center; justify-content:center;">
     <div style="transform:rotate(3.28deg); flex:none;">
       <img src="images/checklist-heart.png" alt="" style="width:79.549px; height:122.886px; object-fit:cover;">
     </div>
@@ -522,23 +516,24 @@
   <div id="nav-track">
     <div id="nav-sticky">
       <div id="nav-glass"></div>
-      <a class="nav-btn instrument" href="#" style="left:237px; top:25.75px; width:158px;">Packages</a>
-      <a class="nav-btn instrument" href="#" style="left:543px; top:25.75px; width:165px;">Performers</a>
-      <a class="nav-btn instrument" href="#" style="left:856px; top:26.69px; width:176px;">Book online</a>
-      <a class="nav-btn instrument" href="#" style="left:1173px; top:26.69px; width:202px;">Event inquiry</a>
-      <a class="nav-btn instrument" href="#" style="left:1516px; top:26.69px; width:84px;">More</a>
-      <img src="images/ems-logo.png" alt="Emmalee's Memories" style="position:absolute; left:14.06px; top:8.16px; width:89.637px; height:89.027px; object-fit:cover;">
+      <a class="nav-btn instrument" href="#" style="left:274.58px; top:25.75px; width:183.05px;">Packages</a>
+      <a class="nav-btn instrument" href="#" style="left:629.1px; top:25.75px; width:191.16px;">Performers</a>
+      <a class="nav-btn instrument" href="#" style="left:991.73px; top:26.69px; width:203.91px;">Book online</a>
+      <a class="nav-btn instrument" href="#" style="left:1359px; top:26.69px; width:234.03px;">Event inquiry</a>
+      <a class="nav-btn instrument" href="#" style="left:1756.38px; top:26.69px; width:97.32px;">More</a>
+      <img src="images/ems-logo.png" alt="Emmalee's Memories" style="position:absolute; left:19.97px; top:4.76px; width:96.48px; height:95.83px; object-fit:cover;">
     </div>
   </div>
 
 </div>
 
 <script>
-  // Scale the fixed 1728px design to the viewport width (preserves the exact layout).
+  // Scale the fixed 2002px design to the viewport width (preserves the exact layout).
   (function () {
+    var DESIGN_WIDTH = 2002;
     var scale = 1;
     function fit() {
-      scale = window.innerWidth / 1728;
+      scale = window.innerWidth / DESIGN_WIDTH;
       document.body.style.zoom = scale;
       stick();
     }
