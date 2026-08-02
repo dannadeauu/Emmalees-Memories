@@ -14,6 +14,7 @@ Static HTML conversion of the [ems-mems Figma design](https://www.figma.com/desi
   - Step cards: 300ms ease-out dissolve of both overlay layers on hover.
   - Pill buttons (CHARACTER LIST, VIEW PACKAGES, SCHEDULE HERE, LEAVE A REVIEW): 300ms dissolve to `#F8ECEE` on hover.
   - Sticky glass nav bar (sticks to the top of the viewport once the pink header scrolls away).
+  - Hero intro: the "Magical Memories" heading writes itself on in ~2s (SVG stroke mask over the original heading PNG, so the finished state is identical to the static heading), then "since 2017.", the intro paragraph and the BOOK button fade in at 2.0s / 2.6s / 3.2s. Honours `prefers-reduced-motion`.
 - **Video** — the "A message from Emmalee" placeholder is a real `<video>` player (`video/emmalee-message.mp4`, 1080p, extracted from emmaleesmemories.com) with the Figma frame as its poster.
 
 ## Hosting
