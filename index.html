@@ -186,10 +186,15 @@
   .hero-fade { opacity:0; animation:hero-fade-in 0.7s ease-out forwards; }
   @keyframes hero-fade-in { from { opacity:0; } to { opacity:1; } }
 
+  /* the four intro lines fade in one after another when scrolled to */
+  .reveal-line { opacity:0; transition:opacity 0.35s ease-out; }
+  .reveal-line.is-visible { opacity:1; }
+
   @media (prefers-reduced-motion: reduce) {
     .mm-s { stroke-dashoffset:0; animation:none; }
     .mm-d { opacity:1; animation:none; }
     .hero-fade { opacity:1; animation:none; }
+    .reveal-line { opacity:1; transition:none; }
   }
 </style>
 </head>
@@ -392,12 +397,12 @@
   </div>
 
   <!-- planning copy -->
-  <div class="abs vc" style="left:303px; top:2093px; width:1395px; height:98px; text-align:center;">
+  <div class="abs vc reveal-line" style="left:303px; top:2093px; width:1395px; height:98px; text-align:center;">
     <p class="playfair" style="font-size:29px; color:#000;">But what if we told you that we could help you create an UNFORGETTABLE experience for your child <span style="font-style:italic; color:#D08597;">without worrying</span> about any of these things?&nbsp;</p>
   </div>
-  <p class="abs playfair" style="left:856px; top:2036px; width:384px; height:39px; font-size:29px; color:#000; text-align:center;">There&rsquo;s a LOT to it.</p>
-  <p class="abs playfair" style="left:619px; top:1977px; width:953px; height:39px; font-size:29px; color:#000; text-align:center;">The party flow. The management of guests. The entertainment.&nbsp;</p>
-  <p class="abs playfair" style="left:472px; top:1918px; width:1210px; height:39px; font-size:29px; color:#000; text-align:center;">Planning your child's birthday party can without a doubt feel <span style="font-style:italic; color:#D08597;">anything but magical</span>...</p>
+  <p class="abs playfair reveal-line" style="left:856px; top:2036px; width:384px; height:39px; font-size:29px; color:#000; text-align:center;">There&rsquo;s a LOT to it.</p>
+  <p class="abs playfair reveal-line" style="left:619px; top:1977px; width:953px; height:39px; font-size:29px; color:#000; text-align:center;">The party flow. The management of guests. The entertainment.&nbsp;</p>
+  <p class="abs playfair reveal-line" style="left:472px; top:1918px; width:1210px; height:39px; font-size:29px; color:#000; text-align:center;">Planning your child's birthday party can without a doubt feel <span style="font-style:italic; color:#D08597;">anything but magical</span>...</p>
 
   <!-- hidden white rounded rect (under pink bg, kept for fidelity) -->
   <div class="abs" style="left:1003px; top:3460px; width:845px; height:495px; background:#fff; border:3px solid #fff; border-radius:92px;"></div>
@@ -660,6 +665,31 @@
     window.addEventListener('resize', fit);
     window.addEventListener('scroll', stick, { passive: true });
     fit();
+  })();
+
+  // Reveal the four intro lines in quick succession once the block is scrolled
+  // into view. They are ordered by vertical position rather than document
+  // order, because in the markup they run bottom-to-top.
+  (function () {
+    var lines = Array.prototype.slice.call(document.querySelectorAll('.reveal-line'))
+      .sort(function (a, b) { return a.getBoundingClientRect().top - b.getBoundingClientRect().top; });
+    if (!lines.length) return;
+
+    function revealAll() {
+      lines.forEach(function (el, i) {
+        el.style.transitionDelay = (i * 0.14) + 's';
+        el.classList.add('is-visible');
+      });
+    }
+
+    if (!('IntersectionObserver' in window)) { revealAll(); return; }
+    var io = new IntersectionObserver(function (entries) {
+      if (entries.some(function (e) { return e.isIntersecting; })) {
+        revealAll();
+        io.disconnect();
+      }
+    }, { threshold: 0.35 });
+    io.observe(lines[0]);
   })();
 </script>
 </body>
