@@ -310,7 +310,7 @@
   </div>
 
   <!-- BOOK now! button -->
-  <a class="abs book-btn hero-fade" href="#" style="left:855px; top:819px; width:436px; height:103px; animation-delay:2.6s;">
+  <a class="abs book-btn hero-fade" href="#" style="left:855px; top:819px; width:436px; height:103px; animation-delay:2.8s;">
     <span class="book-bg"></span>
     <span class="abs instrument" style="inset:30.12% 43.42% 27.71% 6.84%; display:flex; flex-direction:column; justify-content:center; font-size:48px; text-align:center; color:#000;">BOOK</span>
     <span class="abs" style="left:46.84%; right:16.05%; top:19px; aspect-ratio:872/286;">
@@ -675,9 +675,13 @@
       .sort(function (a, b) { return a.getBoundingClientRect().top - b.getBoundingClientRect().top; });
     if (!lines.length) return;
 
+    // A lead-in before the first line so the sequence starts once the block is
+    // properly in view, rather than the instant its top edge crosses the fold.
+    var LEAD_IN = 0.35, STEP = 0.14;
+
     function revealAll() {
       lines.forEach(function (el, i) {
-        el.style.transitionDelay = (i * 0.14) + 's';
+        el.style.transitionDelay = (LEAD_IN + i * STEP) + 's';
         el.classList.add('is-visible');
       });
     }
