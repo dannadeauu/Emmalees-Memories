@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emmalee's Memories | WNY Princess &amp; Superhero Parties</title>
+<link rel="icon" type="image/png" href="images/ems-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300;1,8..60,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background:#fff; }
+  body { overflow-x:hidden; }
+  img { display:block; }
+  a { text-decoration:none; color:inherit; }
+
+  .instrument { font-family:'Instrument Serif', serif; font-weight:400; }
+  .playfair   { font-family:'Playfair Display', serif; font-weight:400; }
+  .ssp        { font-family:'Source Serif Pro','Source Serif 4', serif; }
+  .inter      { font-family:'Inter', sans-serif; font-weight:400; }
+
+  /* 1728px design stage, scaled to viewport width */
+  #stage {
+    position:relative;
+    width:1728px;
+    height:8778px;
+    background:#fff;
+    overflow:hidden;
+  }
+
+  .abs  { position:absolute; }
+  .crop { position:absolute; overflow:hidden; }
+  .crop > img { position:absolute; max-width:none; }
+  .cover  { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .cover-bottom { object-position:bottom; }
+
+  /* ---- sticky glass nav ---- */
+  #nav-track {
+    margin-top:95px;
+    height:8683px;
+    width:1728px;
+    pointer-events:none;
+    position:relative;
+    z-index:50;
+  }
+  #nav-sticky {
+    position:sticky;
+    top:0;
+    height:105px;
+    width:1728px;
+    pointer-events:auto;
+  }
+  #nav-glass {
+    position:absolute; inset:0;
+    background:rgba(244,232,234,0.82);
+    mix-blend-mode:overlay;
+    opacity:0.9;
+    -webkit-backdrop-filter:blur(53px);
+    backdrop-filter:blur(53px);
+  }
+  .nav-btn {
+    position:absolute;
+    height:64.688px;
+    display:flex; flex-direction:column; justify-content:center;
+    text-align:center;
+    font-size:40px;
+    color:#000;
+    cursor:pointer;
+    transition:color 0.2s ease-out; /* Figma: smart animate 200ms ease-out */
+  }
+  .nav-btn:hover { color:#91576D; }
+
+  /* ---- book button ---- */
+  .book-btn { display:block; cursor:pointer; }
+  .book-btn .book-bg {
+    position:absolute; inset:0;
+    background:#F4E8EA;
+    border-radius:67px;
+    transition:background-color 0.3s ease-out; /* Figma: dissolve 300ms ease-out */
+  }
+  .book-btn:hover .book-bg { background:#F4D7DB; }
+
+  /* ---- step card overlays (glass) ---- */
+  .step-zone { position:absolute; width:696px; height:558px; }
+  .step-dark {
+    position:absolute; inset:0;
+    background:rgba(123,88,88,0.53);
+    mix-blend-mode:multiply;
+    border-radius:25px;
+    transition:background-color 0.3s ease-out; /* Figma: dissolve 300ms ease-out */
+  }
+  .step-dark-inner {
+    position:absolute; inset:0;
+    background:rgba(226,214,217,0.62);
+    border-radius:25px;
+    -webkit-backdrop-filter:blur(20px);
+    backdrop-filter:blur(20px);
+  }
+  .step-glass {
+    position:absolute; inset:0;
+    background:rgba(255,255,255,0.02);
+    transition:background-color 0.3s ease-out, border-radius 0.3s ease-out;
+  }
+  .step-glass-inner {
+    position:absolute; inset:0;
+    background:rgba(207,199,199,0.28);
+    border-radius:25px;
+    -webkit-backdrop-filter:blur(29px);
+    backdrop-filter:blur(29px);
+    transition:background-color 0.3s ease-out;
+  }
+  .step-zone:hover .step-dark { background:rgba(96,19,33,0.66); }
+  .step-zone:hover .step-glass { background:rgba(176,52,70,0.29); border-radius:25px; }
+  .step-zone:hover .step-glass-inner { background:rgba(207,199,199,0.66); }
+
+  /* ---- pill buttons (CHARACTER LIST etc.) ---- */
+  .pill-btn { position:absolute; cursor:pointer; display:block; }
+  .pill-btn .pill-bg {
+    position:absolute; inset:0;
+    background:#fff;
+    border-radius:119px;
+    transition:background-color 0.3s ease-out; /* Figma: dissolve 300ms ease-out */
+  }
+  .pill-btn:hover .pill-bg { background:#F8ECEE; }
+  .pill-btn .pill-label {
+    position:absolute;
+    inset:22.83% 19.04% 22.83% 7.66%;
+    display:flex; flex-direction:column; justify-content:center;
+    font-size:40px; line-height:49px; color:#000;
+  }
+
+  /* ---- video player ---- */
+  #ems-video-wrap {
+    position:absolute;
+    left:13px; top:4184px;
+    width:1111px; height:535px;
+    border-radius:90px;
+    overflow:hidden;
+  }
+  #ems-video {
+    width:100%; height:100%;
+    object-fit:cover;
+    border-radius:90px;
+    background:#000;
+  }
+
+  .review-card { position:relative; flex-shrink:0; width:566px; }
+  .review-bg { position:absolute; inset:0; background:#fff; border-radius:20px; }
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- celebrate script -->
+  <img class="abs" src="images/celebrate-script.png" alt="Celebrate" style="left:410px; top:5488px; width:414px; height:171px;">
+
+  <!-- footer strip image + pink footer bg -->
+  <img class="abs" src="images/footer-strip.png" alt="" style="left:0; top:8070px; width:1728px; height:171px;">
+  <div class="abs" style="left:0; top:8241px; width:1728px; height:706px; background:#F4E8EA;"></div>
+
+  <!-- newsletter banner (twice, as in Figma) -->
+  <div class="crop" style="left:76px; top:7526px; width:1575px; height:384px; border-radius:15px;">
+    <img src="images/newsletter-banner.png" alt="" style="height:224.03%; left:0; top:-29.98%; width:100%;">
+  </div>
+  <div class="crop" style="left:76px; top:7526px; width:1575px; height:384px; border-radius:15px; filter:blur(0px);">
+    <img src="images/newsletter-banner.png" alt="" style="height:224.03%; left:0; top:-29.98%; width:100%;">
+  </div>
+
+  <!-- step 1 photo -->
+  <div class="crop" style="left:137px; top:5672px; width:696px; height:556px; border-radius:25px;">
+    <img src="images/step1-photo.png" alt="" style="height:100%; left:-13.26%; top:0; width:113.31%;">
+  </div>
+
+  <!-- what makes us pink panel -->
+  <div class="abs" style="left:73px; top:4952px; width:1578px; height:514px; background:rgba(244,232,234,0.65); border-radius:21px;"></div>
+
+  <!-- message section strip + white card -->
+  <img class="abs" src="images/message-strip.png" alt="" style="left:0; top:4092px; width:1814px; height:185px;">
+  <div class="abs" style="left:40px; top:4132px; width:1645px; height:699px; background:#fff; border-radius:28px;"></div>
+
+  <!-- gallery row 2, image 1 -->
+  <div class="crop" style="left:-63px; top:1459px; width:651px; height:393px;">
+    <img src="images/gallery-4.png" alt="" style="height:116.16%; left:0; top:0; width:100.01%;">
+  </div>
+
+  <!-- pink header bar -->
+  <div class="abs" style="left:0; top:0; width:1728px; height:95px; background:#CF9AAB;"></div>
+  <p class="abs instrument" style="left:863.5px; top:28px; width:1201px; height:61px; transform:translateX(-50%); font-size:48px; text-align:center; color:#fff;">WNY PRINCESS &amp; SUPERHERO PARTIES</p>
+
+  <!-- hero script + since 2017 -->
+  <img class="abs" src="images/magical-memories-script.png" alt="Magical Memories" style="left:723px; top:335px; width:975px; height:238px;">
+  <p class="abs instrument" style="left:738px; top:543px; width:306px; height:60px; font-size:40px; color:#000;">since 2017.</p>
+
+  <!-- photo strip row 1 -->
+  <div class="crop" style="left:-34px; top:1093px; width:552px; height:368px;">
+    <img src="images/gallery-1.png" alt="" style="height:112.5%; left:-0.1%; top:-12.5%; width:100.2%;">
+  </div>
+  <div class="crop" style="left:518px; top:1092px; width:416px; height:367px;">
+    <img src="images/gallery-2.png" alt="" style="height:112.26%; left:-0.05%; top:-5.99%; width:100.09%;">
+  </div>
+  <div class="crop" style="left:934px; top:1092px; width:648px; height:367px;">
+    <img src="images/gallery-3.png" alt="" style="height:122.92%; left:-2.92%; top:-13.39%; width:105.33%;">
+  </div>
+
+  <!-- BOOK now! button -->
+  <a class="abs book-btn" href="#" style="left:717px; top:819px; width:436px; height:103px;">
+    <span class="book-bg"></span>
+    <span class="abs instrument" style="inset:30.12% 43.42% 27.71% 6.84%; display:flex; flex-direction:column; justify-content:center; font-size:48px; text-align:center; color:#000;">BOOK</span>
+    <span class="abs" style="left:46.84%; right:16.05%; top:19px; aspect-ratio:872/286;">
+      <img src="images/book-now-script.png" alt="now!" class="cover" style="pointer-events:none;">
+    </span>
+  </a>
+
+  <!-- photo strip row 2 -->
+  <div class="abs" style="left:588px; top:1459px; width:393px; height:392px;">
+    <img class="cover" src="images/gallery-5.png" alt="">
+  </div>
+  <div class="abs" style="left:981px; top:1458px; width:522px; height:392px;">
+    <img class="cover cover-bottom" src="images/gallery-6.png" alt="">
+  </div>
+  <div class="crop" style="left:1503px; top:1460px; width:450px; height:392px;">
+    <img src="images/gallery-7.png" alt="" style="height:100.02%; left:-17.45%; top:-0.01%; width:117.45%;">
+  </div>
+
+  <!-- hero photo -->
+  <div class="abs" style="left:-13px; top:244px; width:711px; height:794px;">
+    <img class="cover" src="images/hero-photo.png" alt="">
+  </div>
+
+  <!-- hero paragraph -->
+  <p class="abs instrument" style="left:732px; top:688px; width:784px; height:104px; font-size:40px; color:#000;">Join hundreds of happy royal customers in booking WNY&rsquo;s <span style="font-style:italic; color:#D08597;">first choice</span> for character entertainment.</p>
+
+  <!-- header crowns -->
+  <img class="abs" src="images/header-crown.png" alt="" style="left:395px; top:24px; width:111px; height:54px; object-fit:cover;">
+  <img class="abs" src="images/header-crown.png" alt="" style="left:1215px; top:24px; width:111px; height:54px; object-fit:cover;">
+
+  <!-- reviews band -->
+  <div class="abs" style="left:0; top:2408px; width:1728px; height:773px; background:#CF9AAB;"></div>
+  <div class="abs" style="left:-35px; top:2408px; width:1814px; height:773px; filter:blur(4.55px);">
+    <div class="crop" style="inset:0; opacity:0.78;">
+      <img src="images/hero-photo.png" alt="" style="height:262.38%; left:-0.03%; top:-54.33%; width:100%;">
+    </div>
+  </div>
+
+  <!-- review cards -->
+  <div class="abs" style="left:40px; top:2438.98px; display:flex; gap:38px; align-items:flex-start;">
+    <div class="review-card" style="height:694.717px;">
+      <div class="review-bg"></div>
+      <p class="abs ssp" style="inset:24.25% 7.67% 4.02% 7.77%; font-style:italic; opacity:0.77; font-size:29px; color:#000; text-align:center; white-space:pre-wrap;">&ldquo;I am lucky to have experienced MANY princesses with Emmalee's Memories  over the past five years for my daughter's birthday parties. Emmalee's  Memories is the best and most talented princess company in WNY! The  characters not only entertain the kids with games, stories and  activities, they are also talented performers. Truly <span style="color:#C57589;">worth every penny</span> and more!!!</p>
+      <p class="abs playfair" style="inset:74.46% 49.59% 1% 39.84%; font-style:italic; font-size:128px; color:#000; text-align:center;">&rdquo;</p>
+      <div class="abs ssp" style="inset:4.88% -4.24% 66.71% -7.77%; font-weight:300; font-size:36px; color:#000; text-align:center;">
+        <p>DALPHNE B.</p>
+        <p>EAST AMHERST, NY</p>
+      </div>
+    </div>
+    <div class="review-card" style="height:693.72px;">
+      <div class="review-bg"></div>
+      <p class="abs ssp" style="inset:24.28% 6.21% 9.87% 6.18%; font-style:italic; opacity:0.77; font-size:29px; color:#000; text-align:center; white-space:pre-wrap;">&ldquo;We had *The Snow Queen* visit my daughter's 4th birthday party last  weekend, and she was wonderful!!! She did a great job holding the kids'  attention (from babies to older kids) with activities and sing-alongs,  she definitely made my daughter feel like a queen! She <span style="color:#B96C7F;">hasn't stopped talking about it</span> since! Very professional and easy to work with. Thanks  so much!!</p>
+      <p class="abs playfair" style="inset:74.57% 47.59% 2.91% 41.46%; font-style:italic; font-size:128px; color:#000; text-align:center;">&rdquo;</p>
+      <div class="abs ssp" style="inset:4.89% -4.24% 66.67% -7.77%; font-weight:300; font-size:36px; color:#000; text-align:center;">
+        <p>APRIL H.</p>
+        <p>WILLIAMSVILLE, NY</p>
+      </div>
+    </div>
+    <div class="review-card" style="height:693.72px;">
+      <div class="review-bg"></div>
+      <div class="abs ssp" style="inset:4.89% -4.24% 66.67% -7.77%; font-weight:300; font-size:36px; color:#000; text-align:center;">
+        <p>MARCIA D.</p>
+        <p>LANCASTER, NY</p>
+      </div>
+      <p class="abs ssp" style="inset:21.12% 5.69% 1.6% 5.49%; font-style:italic; opacity:0.77; font-size:29px; color:#000; text-align:center; white-space:pre-wrap;">&ldquo;We invited *Beauty Princess* to my daughter's birthday party... Emmalee's  Memories crew took care of everything. They managed the children, took  pictures, and made my daughter's birthday a <span style="color:#B96C7F;">very memorable one</span>. I loved  how I could sit back and watch my daughter enjoy the story, songs, dance party and more. We definitely will use Emmalee's Memories in the  future.</p>
+      <p class="abs playfair" style="inset:74.24% 48.18% 11.84% 40.72%; font-style:italic; font-size:128px; color:#000; text-align:center;">&rdquo;</p>
+    </div>
+  </div>
+
+  <!-- FROM OUR + royal customers -->
+  <p class="abs instrument" style="left:246px; top:2322px; width:930px; height:170px; font-size:48px; color:#000;">FROM OUR</p>
+  <img class="abs" src="images/gold-flourish.png" alt="" style="left:26px; top:2296px; width:193px; height:94px; object-fit:cover;">
+
+  <!-- white gradient fade over gallery -->
+  <div class="abs" style="left:0; top:1577px; width:1728px; height:276px; background:linear-gradient(to bottom, rgba(217,217,217,0), #fff);"></div>
+
+  <!-- cinderella (gallery end) -->
+  <div class="crop" style="left:1577px; top:1092px; width:335.986px; height:367px;">
+    <img src="images/cinderella-photo.png" alt="" style="height:103.94%; left:-0.93%; top:0; width:100.94%;">
+  </div>
+
+  <!-- planning copy -->
+  <div class="abs" style="left:863.5px; top:2154px; width:1395px; height:98px; transform:translate(-50%,-50%); display:flex; flex-direction:column; justify-content:center; text-align:center;">
+    <p class="playfair" style="font-size:32px; color:#000;">But what if we told you that we could help you create an UNFORGETTABLE experience for your child <span style="font-style:italic; color:#D08597;">without worrying</span> about any of these things?&nbsp;</p>
+  </div>
+  <div class="abs" style="left:842.5px; top:2067.5px; transform:translate(-50%,-50%); white-space:nowrap; text-align:center;">
+    <p class="playfair" style="font-size:32px; color:#000;">There&rsquo;s a LOT to it.</p>
+  </div>
+  <div class="abs" style="left:890.5px; top:2008.5px; transform:translate(-50%,-50%); white-space:nowrap; text-align:center;">
+    <p class="playfair" style="font-size:32px; color:#000;">The party flow. The management of guests. The entertainment.&nbsp;</p>
+  </div>
+
+  <!-- hidden white rounded rect (under pink bg, kept for fidelity) -->
+  <div class="abs" style="left:867px; top:3460px; width:845px; height:495px; background:#fff; border:3px solid #fff; border-radius:92px;"></div>
+
+  <!-- review borders -->
+  <div class="abs" style="left:0; top:2370px; width:1742px; height:43px; background:#fff;"></div>
+  <div class="abs" style="left:-14px; top:3178px; width:1742px; height:43px; background:#fff;"></div>
+
+  <!-- who are we section -->
+  <div class="abs" style="left:-23px; top:3181px; width:1751px; height:926px; background:#F4E8EA;"></div>
+  <div class="crop" style="left:905px; top:3238px; width:780px; height:851px; border-radius:0 20px 20px 0;">
+    <img src="images/cinderella-photo.png" alt="" style="height:103.94%; left:-0.93%; top:0; width:100.94%;">
+  </div>
+  <div class="abs" style="left:40px; top:3238px; width:870px; height:851px; background:#fff; border-radius:20px 0 0 20px;"></div>
+  <div class="abs playfair" style="left:78px; top:3469px; width:779px; height:638px; font-size:27px; line-height:40px; color:#000;">
+    <p>At Emmalee's Memories, we understand how much these Birthday Parties and  Special Events mean to you and your Family. We treat each visit as an  opportunity to create a <span style="font-style:italic; color:#D08597;">one-of-a-kind memory</span> for your Child through Professional Character Entertainment.</p>
+    <p>&#8203;</p>
+    <p>Our Royal Staff will work alongside you to plan the most MAGICAL day that  your Child and Guests will remember for the rest of their lives.</p>
+    <p>&#8203;</p>
+    <p>Whether your gathering is a large community event or a small, intimate birthday visit, we've got you covered with the <span style="font-style:italic; color:#D08597;">perfect, "glass-slipper fit"  package </span>- filled with activities, sing-alongs, dancing, laughter and  more!</p>
+  </div>
+
+  <!-- video player (replaces Figma placeholder image) -->
+  <div id="ems-video-wrap">
+    <video id="ems-video" controls preload="metadata" poster="images/video-poster.png">
+      <source src="video/emmalee-message.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <!-- who are we script -->
+  <img class="abs" src="images/who-are-we-script.png" alt="Who Are We?" style="left:32px; top:3238px; width:878px; height:222px; mix-blend-mode:darken; object-fit:cover;">
+
+  <!-- royal customers script -->
+  <div class="crop" style="left:414px; top:2233px; width:703px; height:236px; mix-blend-mode:multiply;">
+    <img src="images/royal-customers-script.png" alt="Royal Customers" style="height:100.11%; left:0; top:-0.06%; width:100%;">
+  </div>
+
+  <!-- trusted by script -->
+  <img class="abs" src="images/trusted-by-script.png" alt="Trusted by..." style="left:94px; top:6911px; width:429px; height:157px; mix-blend-mode:multiply; object-fit:cover;">
+
+  <!-- planning line 1 -->
+  <div class="abs" style="left:871px; top:1949.5px; transform:translate(-50%,-50%); white-space:nowrap; text-align:center;">
+    <p class="playfair" style="font-size:32px; color:#000;">Planning your child's birthday party can without a doubt feel <span style="font-style:italic; color:#D08597;">anything but magical</span>...</p>
+  </div>
+
+  <!-- a message from -->
+  <p class="abs instrument" style="left:1068px; top:4210px; width:352px; height:67px; font-size:48px; color:#000;">A MESSAGE FROM</p>
+  <img class="abs" src="images/emmalee-script.png" alt="Emmalee" style="left:952px; top:4230px; width:714px; height:266px; mix-blend-mode:darken; object-fit:cover;">
+
+  <!-- trusted by logos -->
+  <img class="abs" src="images/logo-aquarium.png" alt="Aquarium of Niagara" style="left:343.97px; top:7105.07px; width:283.077px; height:135.877px; object-fit:cover;">
+  <img class="abs" src="images/logo-curtiss.png" alt="Curtiss Hotel" style="left:90px; top:7064px; width:206.119px; height:211.777px; object-fit:cover;">
+  <img class="abs" src="images/logo-summit.png" alt="The Summit Center" style="left:950.85px; top:7065.69px; width:273.077px; height:183.974px; object-fit:cover;">
+  <img class="abs" src="images/logo-salvatores.png" alt="" style="left:667.89px; top:7067.96px; width:215.044px; height:215.044px; object-fit:cover;">
+  <img class="abs" src="images/logo-moog.png" alt="MOOG" style="left:1283.73px; top:7156.29px; width:341.266px; height:44.247px; object-fit:cover;">
+
+  <!-- footer legal -->
+  <p class="abs inter" style="left:863.5px; top:8597px; width:1061px; transform:translateX(-50%); font-size:20px; color:#91576D; text-align:center; white-space:pre-wrap;">We do not offer licensed and/or trademarked characters. All characters  shown come from fairy tales and storybooks that are public domain or are original characters. We are not affiliated with any copyright designs  nor do we intend to infringe on any Copyrighted materials.</p>
+  <p class="abs inter" style="left:863.5px; top:8693px; width:1061px; transform:translateX(-50%); font-size:20px; color:#91576D; text-align:center;">&copy; 2026 by Emmalee's Memories</p>
+  <p class="abs inter" style="left:863.5px; top:8549px; width:1061px; transform:translateX(-50%); font-size:20px; color:#91576D; text-align:center; text-decoration:underline;">Privacy Policy</p>
+
+  <!-- checklist items -->
+  <div class="abs" style="left:255px; top:5030.5px; width:1149.12px; height:65px; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center;">
+    <p class="playfair" style="font-size:32px; color:#000;"><span style="font-style:italic; color:#B96C7F;">Theatrical-grade performances</span> with singing, dancing, and more!</p>
+  </div>
+  <div class="abs" style="left:255px; top:5125.5px; width:1375.431px; height:63px; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center;">
+    <p class="playfair" style="font-size:32px; color:#000;">Highly trained &amp; strictly casted Featured Performers that have <span style="font-style:italic; color:#B96C7F;">extensive experience</span> working with children</p>
+  </div>
+  <div class="abs" style="left:255px; top:5216.5px; width:1424px; height:81px; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center;">
+    <p class="playfair" style="font-size:32px; color:#000;">Interactive &amp; engaging activities that <span style="font-style:italic; color:#B96C7F;">captivate guests</span> of all ages from start to finish</p>
+  </div>
+  <div class="abs" style="left:255px; top:5288.5px; width:1235.925px; height:89px; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center;">
+    <p class="playfair" style="font-size:32px; color:#000;">Customization to ensure that each visit feels <span style="font-style:italic; color:#B96C7F;">special and unique</span></p>
+  </div>
+  <div class="abs" style="left:255px; top:5364px; width:1287.594px; height:108px; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center;">
+    <p class="playfair" style="font-size:32px; color:#000;">24/7 on-call Royal Staff available</p>
+  </div>
+
+  <!-- & many more -->
+  <p class="abs instrument" style="left:1024px; top:7283px; width:559px; height:97px; font-style:italic; font-size:48px; color:#000; text-align:right;">&amp; many more!</p>
+
+  <!-- founder -->
+  <img class="abs" src="images/ems-logo.png" alt="Emmalee's Memories logo" style="left:1068px; top:4582px; width:136px; height:135px; object-fit:cover;">
+  <p class="abs instrument" style="left:1227px; top:4602px; width:424px; height:78px; font-size:36px; color:#000;">Emmalee Cinnotti, founder of Emmalee&rsquo;s Memories</p>
+
+  <!-- what makes us -->
+  <div class="abs" style="left:286px; top:4897px; width:389px; height:96px; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center;">
+    <p class="instrument" style="font-size:48px; color:#000;">WHAT MAKES US</p>
+  </div>
+  <img class="abs" src="images/perfect-party-script.png" alt="Perfect for Your Party?" style="left:537px; top:4814px; width:859px; height:205px; mix-blend-mode:multiply; object-fit:cover;">
+  <img class="abs" src="images/gold-flourish.png" alt="" style="left:73px; top:4835px; width:193px; height:94px; object-fit:cover;">
+
+  <!-- contact info -->
+  <p class="abs instrument" style="left:362px; top:8385px; width:805px; height:279px; font-size:40px; color:#000; white-space:pre-wrap;"> Emmalee's Memories<br> 21 Elm Street, East Aurora, NY 14052</p>
+  <div class="abs instrument" style="left:655px; top:8385px; width:698px; height:208px; font-size:40px; color:#000; text-align:right;">
+    <p> 716-997-8518&nbsp;&nbsp;</p>
+    <p>info@emmaleesmemories.com</p>
+  </div>
+
+  <!-- socials -->
+  <img class="abs" src="images/social-instagram.png" alt="Instagram" style="left:689px; top:8278px; width:81.405px; height:76.051px; object-fit:cover;">
+  <img class="abs" src="images/social-facebook.png" alt="Facebook" style="left:831.29px; top:8278.82px; width:74.565px; height:74.416px; object-fit:cover;">
+  <img class="abs" src="images/social-tiktok.png" alt="TikTok" style="left:966.22px; top:8281.27px; width:72.494px; height:69.509px; object-fit:cover;">
+
+  <!-- contact us script -->
+  <div class="crop" style="left:622px; top:8085px; width:501px; height:178px; mix-blend-mode:multiply;">
+    <img src="images/contact-us-script.png" alt="Contact Us:" style="height:100%; left:-0.06%; top:0; width:103.11%;">
+  </div>
+
+  <!-- steps photos 2-4 -->
+  <div class="abs" style="left:137px; top:6270px; width:694px; height:558px; border-radius:25px; overflow:hidden;">
+    <img class="cover cover-bottom" src="images/step3-photo.png" alt="" style="border-radius:25px;">
+  </div>
+  <div class="crop" style="left:890px; top:6274px; width:695px; height:556px; border-radius:25px;">
+    <img src="images/step4-photo.png" alt="" style="height:114.47%; left:0.29%; top:-3.09%; width:103.79%;">
+  </div>
+  <div class="abs" style="left:890px; top:5672px; width:696px; height:556px; border-radius:25px; overflow:hidden;">
+    <img class="cover cover-bottom" src="images/step2-photo.png" alt="" style="border-radius:25px;">
+  </div>
+
+  <!-- step card hover overlays (dark multiply + glass), grouped per card -->
+  <div class="step-zone" style="left:137px; top:5670px;">
+    <div class="step-dark"><div class="step-dark-inner"></div></div>
+    <div class="step-glass"><div class="step-glass-inner"></div></div>
+  </div>
+  <div class="step-zone" style="left:889px; top:5670px;">
+    <div class="step-dark"><div class="step-dark-inner"></div></div>
+    <div class="step-glass" style="left:2px;"><div class="step-glass-inner"></div></div>
+  </div>
+  <div class="step-zone" style="left:137px; top:6270px;">
+    <div class="step-dark"><div class="step-dark-inner"></div></div>
+    <div class="step-glass"><div class="step-glass-inner"></div></div>
+  </div>
+  <div class="step-zone" style="left:889px; top:6270px;">
+    <div class="step-dark" style="left:2px; top:4px;"><div class="step-dark-inner"></div></div>
+    <div class="step-glass" style="left:2px; top:4px; border-radius:25px;"><div class="step-glass-inner"></div></div>
+  </div>
+
+  <!-- step scripts -->
+  <img class="abs" src="images/step1-script.png" alt="Step 1:" style="left:94px; top:5609px; width:571px; height:372px; mix-blend-mode:screen; object-fit:cover;">
+  <img class="abs" src="images/step2-script.png" alt="Step 2:" style="left:888px; top:5642px; width:508px; height:339px; mix-blend-mode:lighten; object-fit:cover;">
+  <img class="abs" src="images/step3-script.png" alt="Step 3:" style="left:131px; top:6252px; width:513px; height:317px; mix-blend-mode:lighten; object-fit:cover;">
+  <img class="abs" src="images/step4-script.png" alt="Step 4:" style="left:864px; top:6253px; width:491px; height:297px; mix-blend-mode:lighten; object-fit:cover;">
+
+  <!-- step captions -->
+  <div class="abs" style="left:162px; top:5965px; width:702px; height:144px; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center;">
+    <p class="instrument" style="font-size:40px; line-height:49px; color:#fff;">Choose your princess or superhero</p>
+  </div>
+  <div class="abs" style="left:914px; top:5967px; width:505px; height:144px; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center;">
+    <p class="instrument" style="font-size:40px; line-height:49px; color:#fff;">Select your party package</p>
+  </div>
+  <div class="abs" style="left:162px; top:6550px; width:505px; height:144px; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center;">
+    <p class="instrument" style="font-size:40px; line-height:49px; color:#fff;">Complete your booking form</p>
+  </div>
+  <div class="abs" style="left:914px; top:6550px; width:622px; height:144px; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center;">
+    <p class="instrument" style="font-size:40px; line-height:49px; color:#fff;">Watch your child&rsquo;s dream come true!</p>
+  </div>
+  <div class="abs" style="left:914px; top:6181.5px; width:635px; height:49px; transform:translateY(-50%); display:flex; flex-direction:column; justify-content:center;">
+    <p class="instrument" style="font-size:40px; line-height:49px; color:#fff;">Birthday party pricing starting at $190.</p>
+  </div>
+
+  <!-- step pill buttons + flourishes -->
+  <a class="pill-btn instrument" href="#" style="left:157px; top:6019px; width:469px; height:92px;">
+    <span class="pill-bg"></span><span class="pill-label">CHARACTER LIST</span>
+  </a>
+  <a class="pill-btn instrument" href="#" style="left:914px; top:6019px; width:456px; height:92px;">
+    <span class="pill-bg"></span><span class="pill-label">VIEW PACKAGES</span>
+  </a>
+  <img class="abs" src="images/gold-flourish.png" alt="" style="left:1207px; top:6037px; width:104px; height:51px; object-fit:cover;">
+  <img class="abs" src="images/gold-flourish.png" alt="" style="left:460px; top:6037px; width:104px; height:51px; object-fit:cover;">
+  <a class="pill-btn instrument" href="#" style="left:152px; top:6603px; width:456px; height:92px;">
+    <span class="pill-bg"></span><span class="pill-label">SCHEDULE HERE</span>
+  </a>
+  <a class="pill-btn instrument" href="#" style="left:914px; top:6606px; width:437px; height:92px;">
+    <span class="pill-bg"></span><span class="pill-label">LEAVE A REVIEW</span>
+  </a>
+  <img class="abs" src="images/gold-flourish.png" alt="" style="left:452px; top:6620px; width:104px; height:51px; object-fit:cover;">
+  <img class="abs" src="images/gold-flourish.png" alt="" style="left:1203px; top:6623px; width:104px; height:51px; object-fit:cover;">
+
+  <!-- newsletter -->
+  <p class="abs instrument" style="left:858px; top:7437px; width:1354px; height:104px; transform:translateX(-50%); font-size:64px; color:#000; text-align:center; text-transform:capitalize;">Discounts. Upcoming events. Exclusive character content.</p>
+  <div class="abs" style="left:143px; top:7644px; width:956px; height:123px; background:#fff; border-radius:15px;"></div>
+  <p class="abs instrument" style="left:179px; top:7680px; font-size:40px; color:#705962; white-space:nowrap;">Enter your email address here</p>
+  <div class="abs" style="left:1056px; top:7644px; width:516px; height:123px; background:#F4E8EA; border-radius:0 15px 15px 0;"></div>
+  <p class="abs instrument" style="left:1087.51px; top:7679px; width:205.857px; height:53px; font-size:40px; color:#000;">Join our</p>
+  <img class="abs" src="images/royal-newsletter-script.png" alt="royal newsletter" style="left:1204px; top:7656px; width:349px; height:105px; mix-blend-mode:darken; object-fit:cover;">
+  <p class="abs instrument" style="left:854px; top:7925px; width:1528px; height:184px; transform:translateX(-50%); font-size:32px; color:#81525E; text-align:center;">Get exclusive discounts, enchanting bonus material, and get the inside info on all the MAGICAL events by signing up for our mailing list!</p>
+
+  <!-- celebrate heading -->
+  <p class="abs instrument" style="left:1020px; top:5568px; width:1424px; height:128px; transform:translateX(-50%); font-size:48px; color:#000; text-align:center;">with Emmalee&rsquo;s Memories!</p>
+
+  <!-- footer flourishes -->
+  <img class="abs" src="images/gold-flourish.png" alt="" style="left:382px; top:8111px; width:193px; height:94px; object-fit:cover;">
+  <img class="abs" src="images/gold-flourish.png" alt="" style="left:1170px; top:8124px; width:193px; height:94px; object-fit:cover;">
+
+  <!-- checklist checkboxes + hearts -->
+  <div class="abs" style="left:138.21px; top:5008px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
+  <img class="abs" src="images/checklist-heart.png" alt="" style="left:135.21px; top:4941px; width:87px; height:134px; object-fit:cover;">
+  <div class="abs" style="left:138.21px; top:5085px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
+  <div class="abs" style="left:129px; top:5029.18px; width:89.423px; height:126.632px; display:flex; align-items:center; justify-content:center;">
+    <div style="transform:rotate(6.21deg); flex:none;">
+      <img src="images/checklist-heart.png" alt="" style="width:77px; height:119px; object-fit:cover;">
+    </div>
+  </div>
+  <div class="abs" style="left:138.21px; top:5197px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
+  <div class="abs" style="left:131.51px; top:5136.72px; width:88.888px; height:129.98px; display:flex; align-items:center; justify-content:center;">
+    <div style="transform:rotate(-3.75deg); flex:none;">
+      <img src="images/checklist-heart.png" alt="" style="width:80.891px; height:124.959px; object-fit:cover;">
+    </div>
+  </div>
+  <div class="abs" style="left:138.21px; top:5271px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
+  <img class="abs" src="images/checklist-heart.png" alt="" style="left:135.21px; top:5204px; width:87px; height:134px; object-fit:cover;">
+  <div class="abs" style="left:138.21px; top:5347.65px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
+  <div class="abs" style="left:131px; top:5289px; width:86.441px; height:127.231px; display:flex; align-items:center; justify-content:center;">
+    <div style="transform:rotate(3.28deg); flex:none;">
+      <img src="images/checklist-heart.png" alt="" style="width:79.549px; height:122.886px; object-fit:cover;">
+    </div>
+  </div>
+
+  <!-- sticky glass nav (topmost) -->
+  <div id="nav-track">
+    <div id="nav-sticky">
+      <div id="nav-glass"></div>
+      <a class="nav-btn instrument" href="#" style="left:237px; top:25.75px; width:158px;">Packages</a>
+      <a class="nav-btn instrument" href="#" style="left:543px; top:25.75px; width:165px;">Performers</a>
+      <a class="nav-btn instrument" href="#" style="left:856px; top:26.69px; width:176px;">Book online</a>
+      <a class="nav-btn instrument" href="#" style="left:1173px; top:26.69px; width:202px;">Event inquiry</a>
+      <a class="nav-btn instrument" href="#" style="left:1516px; top:26.69px; width:84px;">More</a>
+      <img src="images/ems-logo.png" alt="Emmalee's Memories" style="position:absolute; left:14.06px; top:8.16px; width:89.637px; height:89.027px; object-fit:cover;">
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Scale the fixed 1728px design to the viewport width (preserves the exact layout).
+  (function () {
+    var scale = 1;
+    function fit() {
+      scale = window.innerWidth / 1728;
+      document.body.style.zoom = scale;
+      stick();
+    }
+    // position:sticky does not engage inside a zoomed subtree in Chromium,
+    // so the nav is pinned manually once the pink header scrolls away.
+    var nav = document.getElementById('nav-sticky');
+    function stick() {
+      if (window.scrollY >= 95 * scale) {
+        nav.style.position = 'fixed';
+        nav.style.top = '0';
+        nav.style.left = '0';
+      } else {
+        nav.style.position = 'sticky';
+        nav.style.top = '0';
+        nav.style.left = '';
+      }
+    }
+    window.addEventListener('resize', fit);
+    window.addEventListener('scroll', stick, { passive: true });
+    fit();
+  })();
+</script>
+</body>
+</html>
