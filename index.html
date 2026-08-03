@@ -62,13 +62,17 @@
      Child tops are container-relative: stage y minus 2890. The container starts
      100px above where the backdrop should read, because it drifts that far down
      at full parallax -- the reviews band covers the overhang until then. */
+  /* --bleed reaches out of the stage into the window gutters, sized by fit() so
+     exactly 25 real pixels of white remain at each window edge. */
   #sparkle-bg {
     position:absolute;
-    left:6px; top:2890px; width:1990px; height:5888px;
+    left:calc(-1 * var(--bleed, 0px)); top:2890px;
+    width:calc(2002px + 2 * var(--bleed, 0px)); height:5888px;
   }
   #sparkle-bg > div { position:absolute; left:0; width:100%; }
-  /* 4033 = 1990 x the art's 3648/1800 aspect, so the tiles stay undistorted */
-  .sp-img { height:4033px; background:url('images/sparkle-bg.jpg') center top / 100% 100% no-repeat; }
+  /* cover, not stretch: the container width varies with the window, so a fixed
+     height would distort the art; cover center-crops it instead */
+  .sp-img { height:4033px; background:url('images/sparkle-bg.jpg') center top / cover no-repeat; }
 
   .abs  { position:absolute; }
   .crop { position:absolute; overflow:hidden; }
@@ -772,6 +776,10 @@
       pad = margin / scale;
       document.body.style.zoom = scale;
       document.documentElement.style.setProperty('--pad', pad + 'px');
+      // --bleed lets the backdrop reach out of the stage into the gutters,
+      // leaving exactly 25 real pixels of white at each window edge.
+      var bleed = Math.max(margin - 25, 0) / scale;
+      document.documentElement.style.setProperty('--bleed', bleed + 'px');
       stick();
     }
     // position:sticky does not engage inside a zoomed subtree in Chromium,
@@ -806,9 +814,13 @@
     var bg = document.querySelectorAll('.px-bg');
     if (!rise.length && !lag.length && !bg.length) return;
 
-    // The backdrop runs on its own progress, spanning the whole lower page, and
-    // drifts down as you scroll so it reads slower than the content over it.
-    var BG = 100, BG_TOP = 2890, BG_BOTTOM = 8778;
+    // The backdrop trails the scroll by BG_K stage px for every stage px the
+    // viewport centre moves -- a true speed differential, so the depth effect is
+    // visible on every screenful (~30 real px of relative motion per viewport).
+    // Displacement is zero when the section's centre is centred in the window,
+    // which keeps the white block and pink anchors on spec where you see them,
+    // and the clamp keeps the drift inside the layers' painted overhangs.
+    var BG_K = 0.035, BG_CENTER = 5834, BG_MAX = 110;
 
     var RISE = 45, LAG = 22.5;  // stage px of travel across the whole pass
     var END = 2 / 3;            // fraction down the window where the travel
@@ -839,11 +851,11 @@
       for (var i = 0; i < rise.length; i++) rise[i].style.transform = up;
       for (var j = 0; j < lag.length; j++) lag[j].style.transform = down;
 
-      // 0 as the backdrop enters at the bottom of the window, 1 once it has
-      // cleared the top; linear, so the drift stays even the whole way down.
-      var q = (vh - (innerTop + BG_TOP * z)) / (vh + (BG_BOTTOM - BG_TOP) * z);
-      q = q < 0 ? 0 : q > 1 ? 1 : q;
-      var back = 'translateY(' + (q * BG).toFixed(2) + 'px)';
+      // stage-space y currently sitting at the viewport centre
+      var centre = (vh / 2 - innerTop) / z;
+      var t = BG_K * (centre - BG_CENTER);
+      t = t < -BG_MAX ? -BG_MAX : t > BG_MAX ? BG_MAX : t;
+      var back = 'translateY(' + t.toFixed(2) + 'px)';
       for (var k = 0; k < bg.length; k++) bg[k].style.transform = back;
     }
 
