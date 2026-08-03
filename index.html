@@ -264,9 +264,9 @@
   <div class="abs" style="left:209px; top:4952px; width:1578px; height:514px; background:rgba(244,232,234,0.65); border-radius:21px;"></div>
 
   <!-- message section strip + white card -->
-  <div class="crop" style="left:0; top:4092px; width:2002px; height:448px;">
-    <img src="images/message-strip.png" alt="" style="left:-13px; top:0; width:2018px; height:448px; object-fit:cover;">
-  </div>
+  <!-- runs out into both gutters so the pink carries unbroken from the "who are
+       we" panel down through "a message from Emmalee" -->
+  <img class="abs" src="images/message-strip.png" alt="" style="left:calc(-1 * var(--pad)); top:4092px; width:calc(2002px + 2 * var(--pad)); height:448px; object-fit:cover;">
   <div class="abs" style="left:176px; top:4132px; width:1645px; height:699px; background:#fff; border-radius:28px;"></div>
 
   <!-- gallery row 2, image 1 -->
@@ -388,16 +388,23 @@
   <img class="abs" src="images/header-crown.png" alt="" style="left:531px; top:24px; width:111px; height:54px; object-fit:cover;">
   <img class="abs" src="images/header-crown.png" alt="" style="left:1351px; top:24px; width:111px; height:54px; object-fit:cover;">
 
-  <!-- reviews band -->
-  <div class="abs" style="left:-8px; top:2413px; width:2027px; height:664px; background:#CF9AAB;"></div>
-  <div class="abs" style="left:-8px; top:2413px; width:2057px; height:664px; filter:blur(4.55px);">
-    <div class="crop" style="inset:0; opacity:0.78;">
-      <img src="images/hero-photo.png" alt="" style="height:262.38%; left:-0.03%; top:-54.33%; width:100%;">
+  <!-- reviews band: the bar stops level with the 90px page margins. The blurred
+       glass layer sits in a rounded clip of exactly the same box, with the photo
+       inside it left oversized so the blur still samples past the visible edge
+       instead of fading out against it. -->
+  <div class="abs" style="left:0; top:2413px; width:2002px; height:664px; background:#CF9AAB; border-radius:20px;"></div>
+  <div class="crop" style="left:0; top:2413px; width:2002px; height:664px; border-radius:20px;">
+    <div class="abs" style="left:-27.5px; top:0; width:2057px; height:664px; filter:blur(4.55px);">
+      <div class="crop" style="inset:0; opacity:0.78;">
+        <img src="images/hero-photo.png" alt="" style="height:262.38%; left:-0.03%; top:-54.33%; width:100%;">
+      </div>
     </div>
   </div>
 
   <!-- review cards -->
-  <div class="abs review-marquee" style="left:0; top:2422.98px; width:2002px;">
+  <!-- inset 22px inside the bar on each side, clipped to the same rounded shape
+       so the cards are masked by what reads as a smaller copy of the bar -->
+  <div class="abs review-marquee" style="left:22px; top:2422.98px; width:1958px; border-radius:20px;">
     <div class="review-track">
     <div class="review-card" style="height:590px;">
       <div class="review-bg"></div>
@@ -461,7 +468,9 @@
 
   <!-- review borders -->
   <div class="abs" style="left:136px; top:2370px; width:1742px; height:43px; background:#fff;"></div>
-  <div class="abs" style="left:122px; top:3074px; width:1742px; height:43px; background:#fff;"></div>
+  <!-- nudged from 3074 to sit flush under the band: it was covering its bottom
+       3px, which showed as a step once the band gained rounded corners -->
+  <div class="abs" style="left:122px; top:3077px; width:1742px; height:43px; background:#fff;"></div>
 
   <!-- who are we section -- the pink panel fills the gutters; the white card,
        the photo and the script keep their design positions -->
