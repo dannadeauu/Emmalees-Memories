@@ -229,11 +229,12 @@
   <img class="abs" src="images/footer-strip.png" alt="" style="left:-33px; top:8070px; width:2153px; height:171px;">
   <div class="abs" style="left:0; top:8241px; width:2002px; height:706px; background:#F4E8EA;"></div>
 
-  <!-- newsletter banner (twice, as in Figma) -->
-  <div class="crop" style="left:212px; top:7526px; width:1575px; height:384px; border-radius:15px;">
+  <!-- newsletter banner (twice, as in Figma) -- 60% of the Figma size, see the
+       matching scale applied to the newsletter type further down -->
+  <div class="crop" style="left:497px; top:7583px; width:945px; height:230px; border-radius:9px;">
     <img src="images/newsletter-banner.png" alt="" style="height:224.03%; left:0; top:-29.98%; width:100%;">
   </div>
-  <div class="crop" style="left:212px; top:7526px; width:1575px; height:384px; border-radius:15px; filter:blur(0px);">
+  <div class="crop" style="left:497px; top:7583px; width:945px; height:230px; border-radius:9px; filter:blur(0px);">
     <img src="images/newsletter-banner.png" alt="" style="height:224.03%; left:0; top:-29.98%; width:100%;">
   </div>
 
@@ -474,12 +475,16 @@
   <p class="abs instrument" style="left:1204px; top:4210px; width:489px; height:67px; font-size:48px; color:#000;">A MESSAGE FROM</p>
   <img class="abs" src="images/emmalee-script.png" alt="Emmalee" style="left:1088px; top:4230px; width:714px; height:266px; mix-blend-mode:darken; object-fit:cover;">
 
-  <!-- trusted by logos -->
-  <img class="abs" src="images/logo-aquarium.png" alt="Aquarium of Niagara" style="left:445px; top:7104px; width:283.08px; height:135.88px; object-fit:cover;">
-  <img class="abs" src="images/logo-curtiss.png" alt="Curtiss Hotel" style="left:127px; top:7066px; width:206.12px; height:211.78px; object-fit:cover;">
-  <img class="abs" src="images/logo-summit.png" alt="The Summit Center" style="left:1165px; top:7066px; width:273.08px; height:183.97px; object-fit:cover;">
-  <img class="abs" src="images/logo-salvatores.png" alt="" style="left:839px; top:7068px; width:215.04px; height:215.04px; object-fit:cover;">
-  <img class="abs" src="images/logo-moog.png" alt="MOOG" style="left:1549px; top:7158px; width:341.27px; height:44.25px; object-fit:cover;">
+  <!-- trusted by logos: a centred row at 78% of the Figma size, kept inside the
+       margins set by the "Trusted by..." script (x 246) and "& many more!" (x 1723).
+       NB the aquarium/curtiss filenames are swapped in the source art. -->
+  <div class="abs" style="left:246px; top:7088px; width:1477px; height:168px; display:flex; align-items:center; justify-content:center; gap:64px;">
+    <img src="images/logo-curtiss.png" alt="Aquarium of Niagara" style="width:160.77px; height:165.19px; object-fit:cover;">
+    <img src="images/logo-aquarium.png" alt="Curtiss Hotel" style="width:220.8px; height:105.99px; object-fit:cover;">
+    <img src="images/logo-salvatores.png" alt="Buffalo Bisons" style="width:167.73px; height:167.73px; object-fit:cover;">
+    <img src="images/logo-summit.png" alt="The Summit Center" style="width:213px; height:143.5px; object-fit:cover;">
+    <img src="images/logo-moog.png" alt="MOOG" style="width:266.19px; height:34.52px; object-fit:cover;">
+  </div>
 
   <!-- footer legal -->
   <p class="abs inter" style="left:469px; top:8597px; width:1061px; font-size:20px; color:#91576D; text-align:center; white-space:pre-wrap;">We do not offer licensed and/or trademarked characters. All characters  shown come from fairy tales and storybooks that are public domain or are original characters. We are not affiliated with any copyright designs  nor do we intend to infringe on any Copyrighted materials.</p>
@@ -607,14 +612,16 @@
     <img class="abs deco" src="images/gold-flourish.png" alt="" style="left:312px; top:405px; width:104px; height:51px; object-fit:cover;">
   </div>
 
-  <!-- newsletter -->
-  <p class="abs instrument" style="left:317px; top:7437px; width:1491px; height:104px; font-size:64px; color:#000; text-align:center; text-transform:capitalize;">Discounts. Upcoming events. Exclusive character content.</p>
-  <div class="abs" style="left:279px; top:7644px; width:956px; height:123px; background:#fff; border-radius:15px;"></div>
-  <p class="abs instrument" style="left:315px; top:7680px; width:405px; height:52px; font-size:40px; color:#705962; white-space:nowrap;">Enter your email address here</p>
-  <div class="abs" style="left:1192px; top:7644px; width:516px; height:123px; background:#F4E8EA; border-radius:0 15px 15px 0;"></div>
-  <p class="abs instrument" style="left:1223.51px; top:7679px; width:205.86px; height:53px; font-size:40px; color:#000;">Join our</p>
-  <img class="abs" src="images/royal-newsletter-script.png" alt="royal newsletter" style="left:1340px; top:7656px; width:349px; height:105px; mix-blend-mode:darken; object-fit:cover;">
-  <p class="abs instrument" style="left:226px; top:7925px; width:1665px; height:184px; font-size:32px; color:#81525E; text-align:center;">Get exclusive discounts, enchanting bonus material, and get the inside info on all the MAGICAL events by signing up for our mailing list!</p>
+  <!-- newsletter -- every position and size here (and on the banner above) is the
+       Figma value x 0.6, then re-centred on the stage and in the gap between
+       "& many more!" and the footer strip -->
+  <p class="abs instrument" style="left:560px; top:7530px; width:895px; height:63px; font-size:38.4px; color:#000; text-align:center; text-transform:capitalize;">Discounts. Upcoming events. Exclusive character content.</p>
+  <div class="abs" style="left:537px; top:7654px; width:574px; height:74px; background:#fff; border-radius:9px;"></div>
+  <p class="abs instrument" style="left:559px; top:7676px; width:243px; height:31px; font-size:24px; color:#705962; white-space:nowrap;">Enter your email address here</p>
+  <div class="abs" style="left:1085px; top:7654px; width:310px; height:74px; background:#F4E8EA; border-radius:0 9px 9px 0;"></div>
+  <p class="abs instrument" style="left:1104.11px; top:7675px; width:123.52px; height:32px; font-size:24px; color:#000;">Join our</p>
+  <img class="abs" src="images/royal-newsletter-script.png" alt="royal newsletter" style="left:1174px; top:7661px; width:209.4px; height:63px; mix-blend-mode:darken; object-fit:cover;">
+  <p class="abs instrument" style="left:506px; top:7823px; width:999px; height:110px; font-size:19.2px; color:#81525E; text-align:center;">Get exclusive discounts, enchanting bonus material, and get the inside info on all the MAGICAL events by signing up for our mailing list!</p>
 
   <!-- celebrate heading -->
   <!-- the empty lower half of this text box overhangs the top of cards 1 and 2,
@@ -665,23 +672,34 @@
 </div>
 
 <script>
-  // Scale the fixed 2002px design to the viewport width (preserves the exact layout).
+  // Scale the fixed 2002px design to the viewport width (preserves the exact layout),
+  // leaving a white gutter down each side so the page reads a little smaller.
   (function () {
     var DESIGN_WIDTH = 2002;
-    var scale = 1;
+    var MARGIN = 90; // real CSS pixels of white on each side
+    var scale = 1, margin = 0, pad = 0;
     function fit() {
-      scale = window.innerWidth / DESIGN_WIDTH;
+      // On a phone a flat 90px each side would eat most of the width, so the
+      // gutter never takes more than a tenth of the viewport per side.
+      margin = Math.min(MARGIN, window.innerWidth * 0.1);
+      scale = (window.innerWidth - margin * 2) / DESIGN_WIDTH;
+      // The padding sits inside the zoomed subtree, so divide the zoom back out
+      // of it to land on exactly `margin` real pixels.
+      pad = margin / scale;
       document.body.style.zoom = scale;
+      document.body.style.paddingLeft = pad + 'px';
+      document.body.style.paddingRight = pad + 'px';
       stick();
     }
     // position:sticky does not engage inside a zoomed subtree in Chromium,
     // so the nav is pinned manually once the pink header scrolls away.
+    // Fixed positioning escapes the body padding, hence the explicit left.
     var nav = document.getElementById('nav-sticky');
     function stick() {
       if (window.scrollY >= 95 * scale) {
         nav.style.position = 'fixed';
         nav.style.top = '0';
-        nav.style.left = '0';
+        nav.style.left = pad + 'px';
       } else {
         nav.style.position = 'sticky';
         nav.style.top = '0';
