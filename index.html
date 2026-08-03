@@ -118,13 +118,17 @@
     width:2002px;
     pointer-events:auto;
   }
-  /* the glass runs out into both gutters; the nav buttons stay where they are */
+  /* The glass runs out into both gutters; the nav buttons stay where they are.
+     No mix-blend-mode on this panel: blending it with its own backdrop defeated
+     the backdrop-filter, so the page ran under the bar perfectly sharp and the
+     blur never showed. Compositing it normally over the blurred backdrop is what
+     actually reads as glass. The radius is in stage px like everything else, so
+     it scales with the page (53 here is ~16 real px on a narrow window, ~35 on a
+     wide one) and the bar keeps the same look at any size. */
   #nav-glass {
     position:absolute; top:0; bottom:0;
     left:calc(-1 * var(--pad)); right:calc(-1 * var(--pad));
-    background:rgba(244,232,234,0.82);
-    mix-blend-mode:overlay;
-    opacity:0.9;
+    background:rgba(244,232,234,0.74);
     -webkit-backdrop-filter:blur(53px);
     backdrop-filter:blur(53px);
   }
