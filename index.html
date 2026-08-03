@@ -22,13 +22,31 @@
   .ssp        { font-family:'Source Serif Pro','Source Serif 4', serif; }
   .inter      { font-family:'Inter', sans-serif; font-weight:400; }
 
-  /* 2002px design stage (1728 + 137px added to each side), scaled to viewport width */
+  /* --pad is the white side gutter, in stage pixels; the fit() script keeps it
+     in step with the zoom so it always lands on 90 real pixels. */
+  :root { --pad:0px; }
+
+  /* 2002px design stage (1728 + 137px added to each side), scaled to viewport width.
+     #stage spans the full viewport, gutters included, so the full-bleed bands
+     (header, sticky nav, "who are we", footer) can run out into them and still be
+     clipped at the window edge. #stage-inner holds the design at its untouched
+     2002px coordinates, inset by one gutter. */
   #stage {
     position:relative;
-    width:2002px;
+    width:calc(2002px + 2 * var(--pad));
     height:8778px;
     background:#fff;
     overflow:hidden;
+  }
+  #stage-inner {
+    /* flow-root, not overflow:hidden -- #stage used to be the block formatting
+       context that kept #nav-track's 95px top margin from collapsing out, and
+       clipping here would stop the full-bleed bands reaching the gutters */
+    display:flow-root;
+    position:relative;
+    left:var(--pad);
+    width:2002px;
+    height:8778px;
   }
 
   .abs  { position:absolute; }
@@ -55,8 +73,10 @@
     width:2002px;
     pointer-events:auto;
   }
+  /* the glass runs out into both gutters; the nav buttons stay where they are */
   #nav-glass {
-    position:absolute; inset:0;
+    position:absolute; top:0; bottom:0;
+    left:calc(-1 * var(--pad)); right:calc(-1 * var(--pad));
     background:rgba(244,232,234,0.82);
     mix-blend-mode:overlay;
     opacity:0.9;
@@ -221,20 +241,22 @@
 </head>
 <body>
 <div id="stage">
+<div id="stage-inner">
 
   <!-- celebrate script -->
   <img class="abs" src="images/celebrate-script.png" alt="Celebrate" style="left:576px; top:5488px; width:414px; height:171px;">
 
-  <!-- footer strip image + pink footer bg -->
-  <img class="abs" src="images/footer-strip.png" alt="" style="left:-33px; top:8070px; width:2153px; height:171px;">
-  <div class="abs" style="left:0; top:8241px; width:2002px; height:706px; background:#F4E8EA;"></div>
+  <!-- footer strip image + pink footer bg -- the contact-us gradient and the pink
+       block behind it both fill the gutters; the footer content is untouched -->
+  <img class="abs" src="images/footer-strip.png" alt="" style="left:calc(-1 * var(--pad)); top:8070px; width:calc(2002px + 2 * var(--pad)); height:171px;">
+  <div class="abs" style="left:calc(-1 * var(--pad)); top:8241px; width:calc(2002px + 2 * var(--pad)); height:706px; background:#F4E8EA;"></div>
 
-  <!-- newsletter banner (twice, as in Figma) -- 60% of the Figma size, see the
-       matching scale applied to the newsletter type further down -->
-  <div class="crop" style="left:497px; top:7583px; width:945px; height:230px; border-radius:9px;">
+  <!-- newsletter banner (twice, as in Figma) -- 1000px wide, i.e. 63.49% of the
+       Figma size; the newsletter type further down carries the same scale -->
+  <div class="crop" style="left:468px; top:7574px; width:1000px; height:243.8px; border-radius:9.5px;">
     <img src="images/newsletter-banner.png" alt="" style="height:224.03%; left:0; top:-29.98%; width:100%;">
   </div>
-  <div class="crop" style="left:497px; top:7583px; width:945px; height:230px; border-radius:9px; filter:blur(0px);">
+  <div class="crop" style="left:468px; top:7574px; width:1000px; height:243.8px; border-radius:9.5px; filter:blur(0px);">
     <img src="images/newsletter-banner.png" alt="" style="height:224.03%; left:0; top:-29.98%; width:100%;">
   </div>
 
@@ -242,7 +264,9 @@
   <div class="abs" style="left:209px; top:4952px; width:1578px; height:514px; background:rgba(244,232,234,0.65); border-radius:21px;"></div>
 
   <!-- message section strip + white card -->
-  <img class="abs" src="images/message-strip.png" alt="" style="left:-13px; top:4092px; width:2018px; height:448px; object-fit:cover;">
+  <div class="crop" style="left:0; top:4092px; width:2002px; height:448px;">
+    <img src="images/message-strip.png" alt="" style="left:-13px; top:0; width:2018px; height:448px; object-fit:cover;">
+  </div>
   <div class="abs" style="left:176px; top:4132px; width:1645px; height:699px; background:#fff; border-radius:28px;"></div>
 
   <!-- gallery row 2, image 1 -->
@@ -250,8 +274,9 @@
     <img src="images/gallery-4.png" alt="" style="height:116.16%; left:0; top:0; width:100.01%;">
   </div>
 
-  <!-- pink header bar -->
-  <div class="abs" style="left:0; top:0; width:2002px; height:95px; background:#CF9AAB;"></div>
+  <!-- pink header bar (runs out into both gutters; the crowns and the title
+       keep their design positions) -->
+  <div class="abs" style="left:calc(-1 * var(--pad)); top:0; width:calc(2002px + 2 * var(--pad)); height:95px; background:#CF9AAB;"></div>
   <!-- box centred on the 2002px page (Figma has it 67px right of centre, colliding with the right crown) -->
   <p class="abs instrument" style="left:332px; top:28px; width:1338px; height:61px; font-size:48px; text-align:center; color:#fff;">WNY PRINCESS &amp; SUPERHERO PARTIES</p>
 
@@ -438,8 +463,9 @@
   <div class="abs" style="left:136px; top:2370px; width:1742px; height:43px; background:#fff;"></div>
   <div class="abs" style="left:122px; top:3074px; width:1742px; height:43px; background:#fff;"></div>
 
-  <!-- who are we section -->
-  <div class="abs" style="left:-55px; top:3181px; width:2302px; height:926px; background:#F4E8EA;"></div>
+  <!-- who are we section -- the pink panel fills the gutters; the white card,
+       the photo and the script keep their design positions -->
+  <div class="abs" style="left:calc(-1 * var(--pad)); top:3181px; width:calc(2002px + 2 * var(--pad)); height:926px; background:#F4E8EA;"></div>
   <div class="crop" style="left:1041px; top:3238px; width:780px; height:851px; border-radius:0 20px 20px 0;">
     <img src="images/cinderella-photo.png" alt="" style="height:103.94%; left:-0.93%; top:0; width:100.94%;">
   </div>
@@ -613,15 +639,16 @@
   </div>
 
   <!-- newsletter -- every position and size here (and on the banner above) is the
-       Figma value x 0.6, then re-centred on the stage and in the gap between
-       "& many more!" and the footer strip -->
-  <p class="abs instrument" style="left:560px; top:7530px; width:895px; height:63px; font-size:38.4px; color:#000; text-align:center; text-transform:capitalize;">Discounts. Upcoming events. Exclusive character content.</p>
-  <div class="abs" style="left:537px; top:7654px; width:574px; height:74px; background:#fff; border-radius:9px;"></div>
-  <p class="abs instrument" style="left:559px; top:7676px; width:243px; height:31px; font-size:24px; color:#705962; white-space:nowrap;">Enter your email address here</p>
-  <div class="abs" style="left:1085px; top:7654px; width:310px; height:74px; background:#F4E8EA; border-radius:0 9px 9px 0;"></div>
-  <p class="abs instrument" style="left:1104.11px; top:7675px; width:123.52px; height:32px; font-size:24px; color:#000;">Join our</p>
-  <img class="abs" src="images/royal-newsletter-script.png" alt="royal newsletter" style="left:1174px; top:7661px; width:209.4px; height:63px; mix-blend-mode:darken; object-fit:cover;">
-  <p class="abs instrument" style="left:506px; top:7823px; width:999px; height:110px; font-size:19.2px; color:#81525E; text-align:center;">Get exclusive discounts, enchanting bonus material, and get the inside info on all the MAGICAL events by signing up for our mailing list!</p>
+       Figma value x 0.6349, the scale that puts the banner photo at 1000px wide,
+       then re-centred on the stage and in the gap between "& many more!" and the
+       footer strip -->
+  <p class="abs instrument" style="left:534.7px; top:7518px; width:946.7px; height:66px; font-size:40.6px; color:#000; text-align:center; text-transform:capitalize;">Discounts. Upcoming events. Exclusive character content.</p>
+  <div class="abs" style="left:510.5px; top:7649.4px; width:607px; height:78.1px; background:#fff; border-radius:9.5px;"></div>
+  <p class="abs instrument" style="left:533.4px; top:7672.3px; width:257.1px; height:33px; font-size:25.4px; color:#705962; white-space:nowrap;">Enter your email address here</p>
+  <div class="abs" style="left:1090.2px; top:7649.4px; width:327.6px; height:78.1px; background:#F4E8EA; border-radius:0 9.5px 9.5px 0;"></div>
+  <p class="abs instrument" style="left:1110.2px; top:7671.7px; width:130.7px; height:33.7px; font-size:25.4px; color:#000;">Join our</p>
+  <img class="abs" src="images/royal-newsletter-script.png" alt="royal newsletter" style="left:1184.2px; top:7657px; width:221.6px; height:66.7px; mix-blend-mode:darken; object-fit:cover;">
+  <p class="abs instrument" style="left:476.9px; top:7827.8px; width:1057.2px; height:116.8px; font-size:20.3px; color:#81525E; text-align:center;">Get exclusive discounts, enchanting bonus material, and get the inside info on all the MAGICAL events by signing up for our mailing list!</p>
 
   <!-- celebrate heading -->
   <!-- the empty lower half of this text box overhangs the top of cards 1 and 2,
@@ -670,6 +697,7 @@
   </div>
 
 </div>
+</div>
 
 <script>
   // Scale the fixed 2002px design to the viewport width (preserves the exact layout),
@@ -683,12 +711,11 @@
       // gutter never takes more than a tenth of the viewport per side.
       margin = Math.min(MARGIN, window.innerWidth * 0.1);
       scale = (window.innerWidth - margin * 2) / DESIGN_WIDTH;
-      // The padding sits inside the zoomed subtree, so divide the zoom back out
+      // --pad is consumed inside the zoomed subtree, so divide the zoom back out
       // of it to land on exactly `margin` real pixels.
       pad = margin / scale;
       document.body.style.zoom = scale;
-      document.body.style.paddingLeft = pad + 'px';
-      document.body.style.paddingRight = pad + 'px';
+      document.documentElement.style.setProperty('--pad', pad + 'px');
       stick();
     }
     // position:sticky does not engage inside a zoomed subtree in Chromium,
