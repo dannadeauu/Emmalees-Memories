@@ -155,7 +155,11 @@
     background:#000;
   }
 
-  .review-card { position:relative; flex-shrink:0; width:566px; }
+  .review-card {
+    position:relative; flex-shrink:0; width:566px;
+    transition:transform 0.35s ease-out;
+  }
+  .review-card:hover { transform:scale(1.035); z-index:2; }
   .review-bg { position:absolute; inset:0; background:#fff; border-radius:20px; }
   .review-placeholder {
     position:absolute; left:0; right:0; top:27%;
@@ -165,13 +169,15 @@
 
   /* The review row scrolls slowly and endlessly. The track is duplicated at
      runtime and shifted by exactly one set width plus one gap, so the loop
-     repeats without a visible seam. */
-  .review-marquee { overflow:hidden; }
+     repeats without a visible seam. Motion is driven in JS rather than by a
+     keyframe animation, so it can ease to a stop on hover, be scrubbed by
+     horizontal scrolling, and ease back up to speed afterwards.
+     The vertical padding gives the hover scale room inside the clip. */
+  .review-marquee { overflow:hidden; padding:16px 0; }
   .review-track {
     display:flex; gap:38px; align-items:flex-start; width:max-content;
-    animation:review-scroll 60s linear infinite;
+    will-change:transform;
   }
-  @keyframes review-scroll { to { transform:translateX(calc(-1 * var(--review-shift, 3624px))); } }
 
   /* ---- animated "Magical Memories" heading ----
      The handwriting strokes are an SVG mask over the very same PNG the heading
@@ -210,7 +216,6 @@
     .mm-d { opacity:1; animation:none; }
     .hero-fade { opacity:1; animation:none; }
     .reveal-line { opacity:1; transition:none; }
-    .review-track { animation:none; }
   }
 </style>
 </head>
@@ -366,7 +371,7 @@
   </div>
 
   <!-- review cards -->
-  <div class="abs review-marquee" style="left:0; top:2438.98px; width:2002px;">
+  <div class="abs review-marquee" style="left:0; top:2422.98px; width:2002px;">
     <div class="review-track">
     <div class="review-card" style="height:694.717px;">
       <div class="review-bg"></div>
@@ -717,24 +722,82 @@
     io.observe(lines[0]);
   })();
 
-  // Duplicate the review row so the horizontal scroll loops seamlessly, and
-  // measure the exact shift (one set of cards plus one gap) for the keyframe.
+  // Review marquee. The row is duplicated so it can loop seamlessly, then
+  // advanced every frame in JS. Speed is eased toward a target rather than set
+  // outright, which is what makes it glide to a stop on hover and drift back up
+  // to speed afterwards instead of snapping.
   (function () {
     var track = document.querySelector('.review-track');
-    if (!track) return;
+    var marquee = document.querySelector('.review-marquee');
+    if (!track || !marquee) return;
+
     var GAP = 38;
     var cards = Array.prototype.slice.call(track.children);
     if (!cards.length) return;
 
     var setWidth = cards.reduce(function (sum, c) { return sum + c.offsetWidth; }, 0)
                  + GAP * (cards.length - 1);
-    track.style.setProperty('--review-shift', (setWidth + GAP) + 'px');
+    var shift = setWidth + GAP;   // one full set: wrapping here is invisible
 
     cards.forEach(function (c) {
       var copy = c.cloneNode(true);
       copy.setAttribute('aria-hidden', 'true');
       track.appendChild(copy);
     });
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var CRUISE = reduced ? 0 : shift / 60;  // px per second — one lap per minute
+    var EASE_TAU = 0.45;                    // seconds; higher is a lazier ramp
+    var RESUME_DELAY = 700;                 // ms of stillness before resuming
+
+    var offset = 0, speed = 0, targetSpeed = CRUISE;
+    var hovering = false, scrollTimer = null, last = null;
+
+    function wrap(v) { return ((v % shift) + shift) % shift; }
+
+    function tick(now) {
+      if (last === null) last = now;
+      var dt = Math.min((now - last) / 1000, 0.1);  // clamp after a background tab
+      last = now;
+      speed += (targetSpeed - speed) * (1 - Math.exp(-dt / EASE_TAU));
+      offset = wrap(offset + speed * dt);
+      track.style.transform = 'translateX(' + (-offset) + 'px)';
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    function maybeResume() {
+      if (!hovering && !scrollTimer) targetSpeed = CRUISE;
+    }
+
+    // mouseover/mouseout bubble, unlike mouseenter/mouseleave
+    track.addEventListener('mouseover', function (e) {
+      if (e.target.closest && e.target.closest('.review-card')) {
+        hovering = true;
+        targetSpeed = 0;
+      }
+    });
+    track.addEventListener('mouseout', function (e) {
+      var to = e.relatedTarget;
+      if (to && to.closest && to.closest('.review-card')) return;  // card to card
+      hovering = false;
+      maybeResume();
+    });
+
+    // Horizontal scrolling scrubs the row. Vertical intent is left alone so the
+    // page keeps scrolling normally through this section.
+    marquee.addEventListener('wheel', function (e) {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+      e.preventDefault();
+      offset = wrap(offset + e.deltaX);
+      speed = 0;
+      targetSpeed = 0;
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(function () {
+        scrollTimer = null;
+        maybeResume();
+      }, RESUME_DELAY);
+    }, { passive: false });
   })();
 </script>
 </body>
