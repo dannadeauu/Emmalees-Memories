@@ -392,8 +392,8 @@
        glass layer sits in a rounded clip of exactly the same box, with the photo
        inside it left oversized so the blur still samples past the visible edge
        instead of fading out against it. -->
-  <div class="abs" style="left:0; top:2413px; width:2002px; height:664px; background:#CF9AAB; border-radius:20px;"></div>
-  <div class="crop" style="left:0; top:2413px; width:2002px; height:664px; border-radius:20px;">
+  <div class="abs" style="left:0; top:2323px; width:2002px; height:664px; background:#CF9AAB; border-radius:20px;"></div>
+  <div class="crop" style="left:0; top:2323px; width:2002px; height:664px; border-radius:20px;">
     <div class="abs" style="left:-27.5px; top:0; width:2057px; height:664px; filter:blur(4.55px);">
       <div class="crop" style="inset:0; opacity:0.78;">
         <img src="images/hero-photo.png" alt="" style="height:262.38%; left:-0.03%; top:-54.33%; width:100%;">
@@ -404,7 +404,7 @@
   <!-- review cards -->
   <!-- inset 22px inside the bar on each side, clipped to the same rounded shape
        so the cards are masked by what reads as a smaller copy of the bar -->
-  <div class="abs review-marquee" style="left:22px; top:2422.98px; width:1958px; border-radius:20px;">
+  <div class="abs review-marquee" style="left:22px; top:2332.98px; width:1958px; border-radius:20px;">
     <div class="review-track">
     <div class="review-card" style="height:590px;">
       <div class="review-bg"></div>
@@ -440,8 +440,8 @@
   </div>
 
   <!-- FROM OUR + royal customers -->
-  <p class="abs instrument" style="left:382px; top:2322px; width:1067px; height:170px; font-size:48px; color:#000;">FROM OUR</p>
-  <img class="abs" src="images/gold-flourish.png" alt="" style="left:162px; top:2296px; width:193px; height:94px; object-fit:cover; z-index:5;">
+  <p class="abs instrument" style="left:382px; top:2232px; width:1067px; height:170px; font-size:48px; color:#000;">FROM OUR</p>
+  <img class="abs" src="images/gold-flourish.png" alt="" style="left:162px; top:2206px; width:193px; height:94px; object-fit:cover; z-index:5;">
 
   <!-- left-edge bleed photos added with the 2002px widening (mostly off-canvas) -->
   <div class="abs px-lag" style="left:-139px; top:1093px; width:241px; height:365px; background:url('images/gallery-row1-left.png') center/cover no-repeat;"></div>
@@ -469,10 +469,10 @@
   <div class="abs" style="left:1003px; top:3460px; width:845px; height:495px; background:#fff; border:3px solid #fff; border-radius:92px;"></div>
 
   <!-- review borders -->
-  <div class="abs" style="left:136px; top:2370px; width:1742px; height:43px; background:#fff;"></div>
+  <div class="abs" style="left:136px; top:2280px; width:1742px; height:43px; background:#fff;"></div>
   <!-- nudged from 3074 to sit flush under the band: it was covering its bottom
        3px, which showed as a step once the band gained rounded corners -->
-  <div class="abs" style="left:122px; top:3077px; width:1742px; height:43px; background:#fff;"></div>
+  <div class="abs" style="left:122px; top:2987px; width:1742px; height:43px; background:#fff;"></div>
 
   <!-- who are we section -- the pink panel fills the gutters; the white card,
        the photo and the script keep their design positions -->
@@ -501,7 +501,7 @@
   <img class="abs" src="images/who-are-we-script.png" alt="Who Are We?" style="left:168px; top:3238px; width:878px; height:222px; mix-blend-mode:darken; object-fit:cover;">
 
   <!-- royal customers script -->
-  <div class="crop" style="left:550px; top:2233px; width:703px; height:236px; mix-blend-mode:multiply;">
+  <div class="crop" style="left:550px; top:2143px; width:703px; height:236px; mix-blend-mode:multiply;">
     <img src="images/royal-customers-script.png" alt="Royal Customers" style="height:100.11%; left:0; top:-0.06%; width:100%;">
   </div>
 
@@ -760,8 +760,8 @@
     var lag = document.querySelectorAll('.px-lag');
     if (!rise.length && !lag.length) return;
 
-    var RISE = 90, LAG = 45;        // stage px of travel across the whole pass
-    var TOP = 1092, BOTTOM = 1853;  // the gallery band in stage coordinates
+    var RISE = 90, LAG = 45;  // stage px of travel across the whole pass
+    var ANCHOR = 2050;        // centre of the intro copy, in stage coordinates
     var inner = document.getElementById('stage-inner');
     var queued = false;
 
@@ -770,14 +770,13 @@
       var z = parseFloat(document.body.style.zoom) || 1;
       var vh = window.innerHeight;
       // #stage-inner is never transformed, so its box stays a reliable origin
-      var innerTop = inner.getBoundingClientRect().top;
-      var bandTop = innerTop + TOP * z;
-      var bandHeight = (BOTTOM - TOP) * z;
+      var anchor = inner.getBoundingClientRect().top + ANCHOR * z;
 
-      // 0 while the band is still below the fold, 1 once it has cleared the top.
-      // Clamping at 0 keeps the design position as the resting state, so nothing
-      // ever travels below where Figma put it.
-      var p = (vh - bandTop) / (vh + bandHeight);
+      // 0 as the copy enters at the bottom of the window, 1 once it has climbed
+      // to the middle. Clamping at 0 keeps the design position as the resting
+      // state, so nothing ever travels below where Figma put it -- which is what
+      // keeps the gradient's fade sitting on the gallery's hard bottom edge.
+      var p = (vh - anchor) / (vh / 2);
       p = p < 0 ? 0 : p > 1 ? 1 : p;
 
       var up = 'translateY(' + (-p * RISE).toFixed(2) + 'px)';
