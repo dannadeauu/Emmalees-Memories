@@ -34,7 +34,7 @@
   #stage {
     position:relative;
     width:calc(2002px + 2 * var(--pad));
-    height:8778px;
+    height:8692px;
     background:#fff;
     overflow:hidden;
   }
@@ -46,7 +46,7 @@
     position:relative;
     left:var(--pad);
     width:2002px;
-    height:8778px;
+    height:8692px;
   }
 
   /* Bokeh backdrop for the lower half of the page, built to the Figma section.
@@ -55,19 +55,29 @@
      past the page width. Over them, top to bottom:
        - 450px fade from #F4E8EA to transparent at the very top
        - a solid white block behind the step 1-4 cards, from mid-"Celebrate"
-         (y5580) to the bottom of the Bisons logo (y7256), with a 337px fade in
+         (y5494) to the bottom of the Bisons logo (y7170), with a 337px fade in
          above and a 720px fade out below
        - a 500px fade into #F4E8EA ending between the "Emmalee's Memories" and
-         "21 Elm Street" footer lines (y8440), then solid pink to the bottom
+         "21 Elm Street" footer lines (y8354), then solid pink to the bottom
      Child tops are container-relative: stage y minus 2890. The container starts
      100px above where the backdrop should read, because it drifts that far down
      at full parallax -- the reviews band covers the overhang until then. */
   /* --bleed reaches out of the stage into the window gutters, sized by fit() so
-     exactly 25 real pixels of white remain at each window edge. */
+     exactly 25 real pixels of white remain at each window edge.
+     The clip is STATIC while the backdrop drifts inside it, so the white bar
+     under the reviews and the rounded corners into the margins hold their shape
+     instead of sliding with the parallax. Its top edge is what creates the bar:
+     the band ends at y2987, the sparkle starts at y3080. */
+  #sparkle-clip {
+    position:absolute;
+    left:calc(-1 * var(--bleed, 0px)); top:3080px;
+    width:calc(2002px + 2 * var(--bleed, 0px)); height:5612px;
+    overflow:hidden;
+    border-radius:40px 40px 0 0;
+  }
   #sparkle-bg {
     position:absolute;
-    left:calc(-1 * var(--bleed, 0px)); top:2890px;
-    width:calc(2002px + 2 * var(--bleed, 0px)); height:5888px;
+    left:0; top:-190px; width:100%; height:5888px;
   }
   #sparkle-bg > div { position:absolute; left:0; width:100%; }
   /* cover, not stretch: the container width varies with the window, so a fixed
@@ -85,7 +95,7 @@
   /* ---- sticky glass nav ---- */
   #nav-track {
     margin-top:95px;
-    height:8683px;
+    height:8597px;
     width:2002px;
     pointer-events:none;
     position:relative;
@@ -188,7 +198,7 @@
   /* ---- video player ---- */
   #ems-video-wrap {
     position:absolute;
-    left:149px; top:4184px;
+    left:149px; top:4098px;
     width:1111px; height:535px;
     border-radius:90px;
     overflow:hidden;
@@ -269,29 +279,33 @@
 <div id="stage-inner">
 
   <!-- bokeh backdrop, behind everything from the reviews band down.
+       The static clip gives the section its rounded top corners and the white
+       bar above them; the backdrop drifts inside it.
        Layer order matters: sparkles first, gradients painted over them. -->
+  <div id="sparkle-clip">
   <div id="sparkle-bg" class="px-bg">
     <div class="sp-img" style="top:0;"></div>
-    <div class="sp-img" style="top:4033px;"></div>
+    <div class="sp-img" style="top:3947px;"></div>
     <!-- 450px fade from the reviews-band pink down into the sparkle -->
     <div style="top:0; height:450px; background:linear-gradient(to bottom, #F4E8EA, rgba(244,232,234,0));"></div>
-    <!-- white block behind steps 1-4: fade in 337px (stage 5243-5580), solid to
-         the bottom of the Bisons logo (stage 7256), fade out 720px (to 7976) -->
-    <div style="top:2353px; height:337px; background:linear-gradient(to bottom, rgba(255,255,255,0), #fff);"></div>
-    <div style="top:2690px; height:1676px; background:#fff;"></div>
-    <div style="top:4366px; height:720px; background:linear-gradient(to bottom, #fff, rgba(255,255,255,0));"></div>
+    <!-- white block behind steps 1-4: fade in 337px (stage 5157-5494), solid to
+         the bottom of the Bisons logo (stage 7170), fade out 720px (to 7890) -->
+    <div style="top:2267px; height:337px; background:linear-gradient(to bottom, rgba(255,255,255,0), #fff);"></div>
+    <div style="top:2604px; height:1676px; background:#fff;"></div>
+    <div style="top:4280px; height:720px; background:linear-gradient(to bottom, #fff, rgba(255,255,255,0));"></div>
     <!-- 500px fade into pink, then solid behind the contact info. Rest positions
-         sit 210px above the spec anchors (7940/8440) to cancel the ~+210 drift
+         sit 210px above the spec anchors (7854/8354) to cancel the ~+210 drift
          the backdrop carries when the footer is actually in view, so the solid
          edge lands between the two contact lines as seen. Runs long past the
          stage bottom so the drift never uncovers the page end. -->
-    <div style="top:4840px; height:500px; background:linear-gradient(to bottom, rgba(244,232,234,0), #F4E8EA);"></div>
-    <div style="top:5340px; height:910px; background:#F4E8EA;"></div>
+    <div style="top:4754px; height:500px; background:linear-gradient(to bottom, rgba(244,232,234,0), #F4E8EA);"></div>
+    <div style="top:5254px; height:910px; background:#F4E8EA;"></div>
+  </div>
   </div>
 
   <!-- celebrate script: multiply drops its white box out against whatever is
        beneath, including the drifting backdrop -->
-  <img class="abs" src="images/celebrate-script.png" alt="Celebrate" style="left:576px; top:5488px; width:414px; height:171px; mix-blend-mode:multiply;">
+  <img class="abs" src="images/celebrate-script.png" alt="Celebrate" style="left:576px; top:5402px; width:414px; height:171px; mix-blend-mode:multiply;">
 
   <!-- the footer-strip gradient image is gone: the backdrop's 500px fade into
        #F4E8EA and the solid pink block behind the contact info replace it -->
@@ -300,10 +314,10 @@
   <!-- newsletter banner (twice, as in Figma) -- boxes are 87.5% of the Figma
        size and centred on the stage; the type is sized independently, see the
        newsletter block further down -->
-  <div class="crop" style="left:312px; top:7552px; width:1378px; height:336px; border-radius:13px;">
+  <div class="crop" style="left:312px; top:7466px; width:1378px; height:336px; border-radius:13px;">
     <img src="images/newsletter-banner.png" alt="" style="height:224.03%; left:0; top:-29.98%; width:100%;">
   </div>
-  <div class="crop" style="left:312px; top:7552px; width:1378px; height:336px; border-radius:13px; filter:blur(0px);">
+  <div class="crop" style="left:312px; top:7466px; width:1378px; height:336px; border-radius:13px; filter:blur(0px);">
     <img src="images/newsletter-banner.png" alt="" style="height:224.03%; left:0; top:-29.98%; width:100%;">
   </div>
 
@@ -312,10 +326,10 @@
        panel so the panel's translucent pink still reads on top of it.
        (The old message-strip gradient img is gone: it was full-bleed and read
        as a flat band across the sparkle. The backdrop carries this stretch.) -->
-  <div class="abs" style="left:176px; top:4132px; width:1645px; height:1344px; background:#fff; border-radius:28px;"></div>
+  <div class="abs" style="left:176px; top:4046px; width:1645px; height:1344px; background:#fff; border-radius:28px;"></div>
 
   <!-- what makes us pink panel -->
-  <div class="abs" style="left:209px; top:4952px; width:1578px; height:514px; background:rgba(244,232,234,0.65); border-radius:21px;"></div>
+  <div class="abs" style="left:209px; top:4866px; width:1578px; height:514px; background:rgba(244,232,234,0.65); border-radius:21px;"></div>
 
   <!-- gallery row 2, image 1 -->
   <div class="crop px-lag" style="left:73px; top:1459px; width:651px; height:393px;">
@@ -515,7 +529,7 @@
   <p class="abs playfair reveal-line px-rise" style="left:396px; top:1918px; width:1210px; height:39px; font-size:29px; color:#000; text-align:center;">Planning your child's birthday party can without a doubt feel <span style="font-style:italic; color:#D08597;">anything but magical</span>...</p>
 
   <!-- hidden white rounded rect (under pink bg, kept for fidelity) -->
-  <div class="abs" style="left:1003px; top:3460px; width:845px; height:495px; background:#fff; border:3px solid #fff; border-radius:92px;"></div>
+  <div class="abs" style="left:1003px; top:3374px; width:845px; height:495px; background:#fff; border:3px solid #fff; border-radius:92px;"></div>
 
   <!-- review borders -->
   <div class="abs" style="left:136px; top:2280px; width:1742px; height:43px; background:#fff;"></div>
@@ -525,11 +539,11 @@
 
   <!-- who are we section -- the flat pink panel here is gone too; the sparkle
        backdrop shows through instead. Card, photo and script are untouched. -->
-  <div class="crop" style="left:1041px; top:3238px; width:780px; height:851px; border-radius:0 20px 20px 0;">
+  <div class="crop" style="left:1041px; top:3152px; width:780px; height:851px; border-radius:0 20px 20px 0;">
     <img src="images/cinderella-photo.png" alt="" style="height:103.94%; left:-0.93%; top:0; width:100.94%;">
   </div>
-  <div class="abs" style="left:176px; top:3238px; width:870px; height:851px; background:#fff; border-radius:20px 0 0 20px;"></div>
-  <div class="abs playfair" style="left:214px; top:3469px; width:779px; height:638px; font-size:27px; line-height:40px; color:#000;">
+  <div class="abs" style="left:176px; top:3152px; width:870px; height:851px; background:#fff; border-radius:20px 0 0 20px;"></div>
+  <div class="abs playfair" style="left:214px; top:3383px; width:779px; height:638px; font-size:27px; line-height:40px; color:#000;">
     <p>At Emmalee's Memories, we understand how much these Birthday Parties and  Special Events mean to you and your Family. We treat each visit as an  opportunity to create a <span style="font-style:italic; color:#D08597;">one-of-a-kind memory</span> for your Child through Professional Character Entertainment.</p>
     <p>&#8203;</p>
     <p>Our Royal Staff will work alongside you to plan the most MAGICAL day that  your Child and Guests will remember for the rest of their lives.</p>
@@ -546,7 +560,7 @@
   </div>
 
   <!-- who are we script -->
-  <img class="abs" src="images/who-are-we-script.png" alt="Who Are We?" style="left:168px; top:3238px; width:878px; height:222px; mix-blend-mode:darken; object-fit:cover;">
+  <img class="abs" src="images/who-are-we-script.png" alt="Who Are We?" style="left:168px; top:3152px; width:878px; height:222px; mix-blend-mode:darken; object-fit:cover;">
 
   <!-- royal customers script -->
   <div class="crop" style="left:550px; top:2143px; width:703px; height:236px; mix-blend-mode:multiply;">
@@ -554,16 +568,16 @@
   </div>
 
   <!-- trusted by script -->
-  <img class="abs" src="images/trusted-by-script.png" alt="Trusted by..." style="left:246px; top:6911px; width:429px; height:157px; mix-blend-mode:multiply; object-fit:cover;">
+  <img class="abs" src="images/trusted-by-script.png" alt="Trusted by..." style="left:246px; top:6825px; width:429px; height:157px; mix-blend-mode:multiply; object-fit:cover;">
 
   <!-- a message from -->
-  <p class="abs instrument" style="left:1204px; top:4210px; width:489px; height:67px; font-size:48px; color:#000;">A MESSAGE FROM</p>
-  <img class="abs" src="images/emmalee-script.png" alt="Emmalee" style="left:1088px; top:4230px; width:714px; height:266px; mix-blend-mode:darken; object-fit:cover;">
+  <p class="abs instrument" style="left:1204px; top:4124px; width:489px; height:67px; font-size:48px; color:#000;">A MESSAGE FROM</p>
+  <img class="abs" src="images/emmalee-script.png" alt="Emmalee" style="left:1088px; top:4144px; width:714px; height:266px; mix-blend-mode:darken; object-fit:cover;">
 
   <!-- trusted by logos: a centred row at 78% of the Figma size, kept inside the
        margins set by the "Trusted by..." script (x 246) and "& many more!" (x 1723).
        NB the aquarium/curtiss filenames are swapped in the source art. -->
-  <div class="abs" style="left:246px; top:7088px; width:1477px; height:168px; display:flex; align-items:center; justify-content:center; gap:64px;">
+  <div class="abs" style="left:246px; top:7002px; width:1477px; height:168px; display:flex; align-items:center; justify-content:center; gap:64px;">
     <img src="images/logo-curtiss.png" alt="Aquarium of Niagara" style="width:160.77px; height:165.19px; object-fit:cover;">
     <img src="images/logo-aquarium.png" alt="Curtiss Hotel" style="width:220.8px; height:105.99px; object-fit:cover;">
     <img src="images/logo-salvatores.png" alt="Buffalo Bisons" style="width:167.73px; height:167.73px; object-fit:cover;">
@@ -572,62 +586,62 @@
   </div>
 
   <!-- footer legal -->
-  <p class="abs inter" style="left:469px; top:8597px; width:1061px; font-size:20px; color:#91576D; text-align:center; white-space:pre-wrap;">We do not offer licensed and/or trademarked characters. All characters  shown come from fairy tales and storybooks that are public domain or are original characters. We are not affiliated with any copyright designs  nor do we intend to infringe on any Copyrighted materials.</p>
-  <p class="abs inter" style="left:469px; top:8693px; width:1198px; font-size:20px; color:#91576D; text-align:center;">&copy; 2026 by Emmalee's Memories</p>
-  <p class="abs inter" style="left:469px; top:8549px; width:1198px; font-size:20px; color:#91576D; text-align:center; text-decoration:underline;">Privacy Policy</p>
+  <p class="abs inter" style="left:469px; top:8511px; width:1061px; font-size:20px; color:#91576D; text-align:center; white-space:pre-wrap;">We do not offer licensed and/or trademarked characters. All characters  shown come from fairy tales and storybooks that are public domain or are original characters. We are not affiliated with any copyright designs  nor do we intend to infringe on any Copyrighted materials.</p>
+  <p class="abs inter" style="left:469px; top:8607px; width:1198px; font-size:20px; color:#91576D; text-align:center;">&copy; 2026 by Emmalee's Memories</p>
+  <p class="abs inter" style="left:469px; top:8463px; width:1198px; font-size:20px; color:#91576D; text-align:center; text-decoration:underline;">Privacy Policy</p>
 
   <!-- checklist items -->
-  <div class="abs vc" style="left:391px; top:4998px; width:1149.12px; height:65px;">
+  <div class="abs vc" style="left:391px; top:4912px; width:1149.12px; height:65px;">
     <p class="playfair" style="font-size:32px; color:#000;"><span style="font-style:italic; color:#B96C7F;">Theatrical-grade performances</span> with singing, dancing, and more!</p>
   </div>
-  <div class="abs vc" style="left:391px; top:5094px; width:1375.43px; height:63px;">
+  <div class="abs vc" style="left:391px; top:5008px; width:1375.43px; height:63px;">
     <p class="playfair" style="font-size:32px; color:#000;">Highly trained &amp; strictly casted Featured Performers that have <span style="font-style:italic; color:#B96C7F;">extensive experience</span> working with children</p>
   </div>
-  <div class="abs vc" style="left:391px; top:5176px; width:1424px; height:81px;">
+  <div class="abs vc" style="left:391px; top:5090px; width:1424px; height:81px;">
     <p class="playfair" style="font-size:32px; color:#000;">Interactive &amp; engaging activities that <span style="font-style:italic; color:#B96C7F;">captivate guests</span> of all ages from start to finish</p>
   </div>
-  <div class="abs vc" style="left:391px; top:5244px; width:1235.92px; height:89px;">
+  <div class="abs vc" style="left:391px; top:5158px; width:1235.92px; height:89px;">
     <p class="playfair" style="font-size:32px; color:#000;">Customization to ensure that each visit feels <span style="font-style:italic; color:#B96C7F;">special and unique</span></p>
   </div>
-  <div class="abs vc" style="left:391px; top:5310px; width:1287.59px; height:108px;">
+  <div class="abs vc" style="left:391px; top:5224px; width:1287.59px; height:108px;">
     <p class="playfair" style="font-size:32px; color:#000;">24/7 on-call Royal Staff available</p>
   </div>
 
   <!-- & many more -->
-  <p class="abs instrument" style="left:1027px; top:7296px; width:696px; height:97px; font-style:italic; font-size:48px; color:#000; text-align:right;">&amp; many more!</p>
+  <p class="abs instrument" style="left:1027px; top:7210px; width:696px; height:97px; font-style:italic; font-size:48px; color:#000; text-align:right;">&amp; many more!</p>
 
   <!-- founder -->
-  <img class="abs" src="images/ems-logo.png" alt="Emmalee's Memories logo" style="left:1204px; top:4582px; width:136px; height:135px; object-fit:cover;">
-  <p class="abs instrument" style="left:1363px; top:4602px; width:424px; height:78px; font-size:36px; color:#000;">Emmalee Cinnotti, founder of Emmalee&rsquo;s Memories</p>
+  <img class="abs" src="images/ems-logo.png" alt="Emmalee's Memories logo" style="left:1204px; top:4496px; width:136px; height:135px; object-fit:cover;">
+  <p class="abs instrument" style="left:1363px; top:4516px; width:424px; height:78px; font-size:36px; color:#000;">Emmalee Cinnotti, founder of Emmalee&rsquo;s Memories</p>
 
   <!-- what makes us -->
-  <div class="abs vc" style="left:422px; top:4849px; width:526px; height:96px;">
+  <div class="abs vc" style="left:422px; top:4763px; width:526px; height:96px;">
     <p class="instrument" style="font-size:48px; color:#000;">WHAT MAKES US</p>
   </div>
-  <img class="abs" src="images/perfect-party-script.png" alt="Perfect for Your Party?" style="left:673px; top:4814px; width:859px; height:205px; mix-blend-mode:multiply; object-fit:cover;">
-  <img class="abs" src="images/gold-flourish.png" alt="" style="left:209px; top:4835px; width:193px; height:94px; object-fit:cover;">
+  <img class="abs" src="images/perfect-party-script.png" alt="Perfect for Your Party?" style="left:673px; top:4728px; width:859px; height:205px; mix-blend-mode:multiply; object-fit:cover;">
+  <img class="abs" src="images/gold-flourish.png" alt="" style="left:209px; top:4749px; width:193px; height:94px; object-fit:cover;">
 
   <!-- contact info -->
-  <p class="abs instrument" style="left:498px; top:8385px; width:805px; height:279px; font-size:40px; color:#000; white-space:pre-wrap;"> Emmalee's Memories<br> 21 Elm Street, East Aurora, NY 14052</p>
-  <div class="abs instrument" style="left:791px; top:8385px; width:698px; height:208px; font-size:40px; color:#000; text-align:right;">
+  <p class="abs instrument" style="left:498px; top:8299px; width:805px; height:279px; font-size:40px; color:#000; white-space:pre-wrap;"> Emmalee's Memories<br> 21 Elm Street, East Aurora, NY 14052</p>
+  <div class="abs instrument" style="left:791px; top:8299px; width:698px; height:208px; font-size:40px; color:#000; text-align:right;">
     <p> 716-997-8518&nbsp;&nbsp;</p>
     <p>info@emmaleesmemories.com</p>
   </div>
 
   <!-- socials -->
-  <img class="abs" src="images/social-instagram.png" alt="Instagram" style="left:825px; top:8278px; width:81.4px; height:76.05px; object-fit:cover;">
-  <img class="abs" src="images/social-facebook.png" alt="Facebook" style="left:967.29px; top:8278.82px; width:74.57px; height:74.42px; object-fit:cover;">
-  <img class="abs" src="images/social-tiktok.png" alt="TikTok" style="left:1102.22px; top:8281.27px; width:72.49px; height:69.51px; object-fit:cover;">
+  <img class="abs" src="images/social-instagram.png" alt="Instagram" style="left:825px; top:8192px; width:81.4px; height:76.05px; object-fit:cover;">
+  <img class="abs" src="images/social-facebook.png" alt="Facebook" style="left:967.29px; top:8192.82px; width:74.57px; height:74.42px; object-fit:cover;">
+  <img class="abs" src="images/social-tiktok.png" alt="TikTok" style="left:1102.22px; top:8195.27px; width:72.49px; height:69.51px; object-fit:cover;">
 
   <!-- contact us script -->
-  <div class="crop" style="left:758px; top:8085px; width:501px; height:178px; mix-blend-mode:multiply;">
+  <div class="crop" style="left:758px; top:7999px; width:501px; height:178px; mix-blend-mode:multiply;">
     <img src="images/contact-us-script.png" alt="Contact Us:" style="height:100%; left:-0.06%; top:0; width:103.11%;">
   </div>
 
   <!-- ==== step cards 1-4 (photo + overlays + script + caption + button) ==== -->
 
   <!-- Step 1 -->
-  <div class="step-card" style="left:273px; top:5670px;">
+  <div class="step-card" style="left:273px; top:5584px;">
     <div class="crop deco" style="left:0; top:2px; width:696px; height:556px; border-radius:25px;">
       <img src="images/step1-photo.png" alt="" style="height:100%; left:-13.26%; top:0; width:113.31%;">
     </div>
@@ -644,7 +658,7 @@
   </div>
 
   <!-- Step 2 -->
-  <div class="step-card" style="left:1025px; top:5670px;">
+  <div class="step-card" style="left:1025px; top:5584px;">
     <div class="abs deco" style="left:1px; top:2px; width:696px; height:556px; border-radius:25px; overflow:hidden;">
       <img class="cover cover-bottom" src="images/step2-photo.png" alt="" style="border-radius:25px;">
     </div>
@@ -664,7 +678,7 @@
   </div>
 
   <!-- Step 3 -->
-  <div class="step-card" style="left:273px; top:6270px;">
+  <div class="step-card" style="left:273px; top:6184px;">
     <div class="abs deco" style="left:0; top:0; width:694px; height:558px; border-radius:25px; overflow:hidden;">
       <img class="cover cover-bottom" src="images/step3-photo.png" alt="" style="border-radius:25px;">
     </div>
@@ -681,7 +695,7 @@
   </div>
 
   <!-- Step 4 -->
-  <div class="step-card" style="left:1027px; top:6274px;">
+  <div class="step-card" style="left:1027px; top:6188px;">
     <div class="crop deco" style="left:-1px; top:0; width:695px; height:556px; border-radius:25px;">
       <img src="images/step4-photo.png" alt="" style="height:114.47%; left:0.29%; top:-3.09%; width:103.79%;">
     </div>
@@ -701,46 +715,46 @@
        Figma value x 0.6349, the scale that puts the banner photo at 1000px wide,
        then re-centred on the stage and in the gap between "& many more!" and the
        footer strip -->
-  <p class="abs instrument" style="left:348.7px; top:7484px; width:1304.6px; height:78px; font-size:48px; color:#000; text-align:center; text-transform:capitalize;">Discounts. Upcoming events. Exclusive character content.</p>
+  <p class="abs instrument" style="left:348.7px; top:7398px; width:1304.6px; height:78px; font-size:48px; color:#000; text-align:center; text-transform:capitalize;">Discounts. Upcoming events. Exclusive character content.</p>
   <!-- the pill reads slimmer than a straight 0.875 in the mockup, so it carries
        its own 0.823 scale and is centred on the banner -->
-  <div class="abs" style="left:428px; top:7667px; width:786.8px; height:84px; background:#fff; border-radius:12px;"></div>
-  <p class="abs instrument" style="left:457.6px; top:7690px; width:333.3px; height:37px; font-size:32px; color:#705962; white-space:nowrap;">Enter your email address here</p>
-  <div class="abs" style="left:1179.3px; top:7667px; width:424.7px; height:84px; background:#F4E8EA; border-radius:0 12px 12px 0;"></div>
-  <p class="abs instrument" style="left:1205.2px; top:7690px; width:169.4px; height:37px; font-size:32px; color:#000;">Join our</p>
-  <img class="abs" src="images/royal-newsletter-script.png" alt="royal newsletter" style="left:1301.1px; top:7666px; width:287.2px; height:86.4px; mix-blend-mode:darken; object-fit:cover;">
+  <div class="abs" style="left:428px; top:7581px; width:786.8px; height:84px; background:#fff; border-radius:12px;"></div>
+  <p class="abs instrument" style="left:457.6px; top:7604px; width:333.3px; height:37px; font-size:32px; color:#705962; white-space:nowrap;">Enter your email address here</p>
+  <div class="abs" style="left:1179.3px; top:7581px; width:424.7px; height:84px; background:#F4E8EA; border-radius:0 12px 12px 0;"></div>
+  <p class="abs instrument" style="left:1205.2px; top:7604px; width:169.4px; height:37px; font-size:32px; color:#000;">Join our</p>
+  <img class="abs" src="images/royal-newsletter-script.png" alt="royal newsletter" style="left:1301.1px; top:7580px; width:287.2px; height:86.4px; mix-blend-mode:darken; object-fit:cover;">
   <!-- 1260px is the band (1242-1278) that breaks the line after "signing up",
        matching the mockup's two-line split -->
-  <p class="abs instrument" style="left:371px; top:7901px; width:1260px; height:161px; font-size:32px; color:#81525E; text-align:center;">Get exclusive discounts, enchanting bonus material, and get the inside info on all the MAGICAL events by signing up for our mailing list!</p>
+  <p class="abs instrument" style="left:371px; top:7815px; width:1260px; height:161px; font-size:32px; color:#81525E; text-align:center;">Get exclusive discounts, enchanting bonus material, and get the inside info on all the MAGICAL events by signing up for our mailing list!</p>
 
   <!-- celebrate heading -->
   <!-- the empty lower half of this text box overhangs the top of cards 1 and 2,
        so it must not intercept the pointer or it would block their hover -->
-  <p class="abs instrument" style="left:414px; top:5568px; width:1561px; height:128px; font-size:48px; color:#000; text-align:center; pointer-events:none;">with Emmalee&rsquo;s Memories!</p>
+  <p class="abs instrument" style="left:414px; top:5482px; width:1561px; height:128px; font-size:48px; color:#000; text-align:center; pointer-events:none;">with Emmalee&rsquo;s Memories!</p>
 
   <!-- footer flourishes -->
-  <img class="abs" src="images/gold-flourish.png" alt="" style="left:518px; top:8111px; width:193px; height:94px; object-fit:cover;">
-  <img class="abs" src="images/gold-flourish.png" alt="" style="left:1306px; top:8124px; width:193px; height:94px; object-fit:cover;">
+  <img class="abs" src="images/gold-flourish.png" alt="" style="left:518px; top:8025px; width:193px; height:94px; object-fit:cover;">
+  <img class="abs" src="images/gold-flourish.png" alt="" style="left:1306px; top:8038px; width:193px; height:94px; object-fit:cover;">
 
   <!-- checklist checkboxes + hearts -->
-  <div class="abs" style="left:274.21px; top:5008px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
-  <img class="abs" src="images/checklist-heart.png" alt="" style="left:271.21px; top:4941px; width:87px; height:134px; object-fit:cover;">
-  <div class="abs" style="left:274.21px; top:5085px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
-  <div class="abs" style="left:265px; top:5029.18px; width:89.42px; height:126.63px; display:flex; align-items:center; justify-content:center;">
+  <div class="abs" style="left:274.21px; top:4922px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
+  <img class="abs" src="images/checklist-heart.png" alt="" style="left:271.21px; top:4855px; width:87px; height:134px; object-fit:cover;">
+  <div class="abs" style="left:274.21px; top:4999px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
+  <div class="abs" style="left:265px; top:4943.18px; width:89.42px; height:126.63px; display:flex; align-items:center; justify-content:center;">
     <div style="transform:rotate(6.21deg); flex:none;">
       <img src="images/checklist-heart.png" alt="" style="width:77px; height:119px; object-fit:cover;">
     </div>
   </div>
-  <div class="abs" style="left:274.21px; top:5197px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
-  <div class="abs" style="left:267.51px; top:5136.72px; width:88.89px; height:129.98px; display:flex; align-items:center; justify-content:center;">
+  <div class="abs" style="left:274.21px; top:5111px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
+  <div class="abs" style="left:267.51px; top:5050.72px; width:88.89px; height:129.98px; display:flex; align-items:center; justify-content:center;">
     <div style="transform:rotate(-3.75deg); flex:none;">
       <img src="images/checklist-heart.png" alt="" style="width:80.891px; height:124.959px; object-fit:cover;">
     </div>
   </div>
-  <div class="abs" style="left:274.21px; top:5271px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
-  <img class="abs" src="images/checklist-heart.png" alt="" style="left:271.21px; top:5204px; width:87px; height:134px; object-fit:cover;">
-  <div class="abs" style="left:274.21px; top:5347.65px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
-  <div class="abs" style="left:267px; top:5289px; width:86.44px; height:127.23px; display:flex; align-items:center; justify-content:center;">
+  <div class="abs" style="left:274.21px; top:5185px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
+  <img class="abs" src="images/checklist-heart.png" alt="" style="left:271.21px; top:5118px; width:87px; height:134px; object-fit:cover;">
+  <div class="abs" style="left:274.21px; top:5261.65px; width:47px; height:44px; border:2px solid #000; border-radius:9px;"></div>
+  <div class="abs" style="left:267px; top:5203px; width:86.44px; height:127.23px; display:flex; align-items:center; justify-content:center;">
     <div style="transform:rotate(3.28deg); flex:none;">
       <img src="images/checklist-heart.png" alt="" style="width:79.549px; height:122.886px; object-fit:cover;">
     </div>
@@ -825,7 +839,7 @@
     // you see it; the pink footer layers are shifted up in the markup to absorb
     // the sag this speed produces down there. The clamp keeps the drift inside
     // the layers' painted overhangs (band cover above, pink overrun below).
-    var BG_K = 0.12, BG_CENTER = 5834, BG_MAX = 300;
+    var BG_K = 0.12, BG_CENTER = 5748, BG_MAX = 300;
 
     var RISE = 45, LAG = 22.5;  // stage px of travel across the whole pass
     var END = 2 / 3;            // fraction down the window where the travel
