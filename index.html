@@ -448,10 +448,11 @@
   <div class="abs px-lag" style="left:-139px; top:1093px; width:241px; height:365px; background:url('images/gallery-row1-left.png') center/cover no-repeat;"></div>
   <div class="abs px-lag" style="left:-251px; top:1458px; width:324px; height:394px; background:url('images/gallery-row2-left.png') center/cover no-repeat;"></div>
 
-  <!-- white gradient fade over gallery: spans the full page, and carries 120px of
-       solid white past the end of the fade so that when it rises against the
-       lagging gallery it still hides the gallery's hard bottom edge -->
-  <div class="abs px-rise" style="left:calc(-1 * var(--pad)); top:1577px; width:calc(2002px + 2 * var(--pad)); height:456px; background:linear-gradient(to bottom, rgba(217,217,217,0) 0, #fff 276px);"></div>
+  <!-- white fade over the BOTTOM edge of the gallery: spans the full page, reaches
+       full white 1px above the lowest photo edge (y1851 vs y1852), and carries
+       182px of solid white past that so it still hides the edge once it rises
+       against the lagging photos and joins the white page background below -->
+  <div class="abs px-rise" style="left:calc(-1 * var(--pad)); top:1577px; width:calc(2002px + 2 * var(--pad)); height:456px; background:linear-gradient(to bottom, rgba(217,217,217,0) 0, #fff 274px);"></div>
 
   <!-- cinderella (gallery end) -->
   <div class="crop px-lag" style="left:1713px; top:1092px; width:335.99px; height:367px;">
