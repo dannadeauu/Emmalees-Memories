@@ -766,7 +766,10 @@
     if (!rise.length && !lag.length) return;
 
     var RISE = 90, LAG = 45;  // stage px of travel across the whole pass
-    var ANCHOR = 2050;        // centre of the intro copy, in stage coordinates
+    var RISE = 45, LAG = 22.5;  // stage px of travel across the whole pass
+    var END = 2 / 3;            // fraction down the window where the travel
+                                // finishes, i.e. a third of the way up
+    var ANCHOR = 2050;          // centre of the intro copy, in stage coordinates
     var inner = document.getElementById('stage-inner');
     var queued = false;
 
@@ -778,14 +781,16 @@
       var anchor = inner.getBoundingClientRect().top + ANCHOR * z;
 
       // 0 as the copy enters at the bottom of the window, 1 once it has climbed
-      // to the middle. Clamping at 0 keeps the design position as the resting
-      // state, so nothing ever travels below where Figma put it -- which is what
-      // keeps the gradient's fade sitting on the gallery's hard bottom edge.
-      var p = (vh - anchor) / (vh / 2);
+      // a third of the way up. Clamping at 0 keeps the design position as the
+      // resting state, so nothing ever travels below where Figma put it -- which
+      // is what keeps the fade sitting on the gallery's hard bottom edge.
+      var p = (vh - anchor) / (vh * (1 - END));
       p = p < 0 ? 0 : p > 1 ? 1 : p;
+      // ease out: quick off the mark, settling as it reaches the end
+      var e = 1 - Math.pow(1 - p, 3);
 
-      var up = 'translateY(' + (-p * RISE).toFixed(2) + 'px)';
-      var down = 'translateY(' + (p * LAG).toFixed(2) + 'px)';
+      var up = 'translateY(' + (-e * RISE).toFixed(2) + 'px)';
+      var down = 'translateY(' + (e * LAG).toFixed(2) + 'px)';
       for (var i = 0; i < rise.length; i++) rise[i].style.transform = up;
       for (var j = 0; j < lag.length; j++) lag[j].style.transform = down;
     }
