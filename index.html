@@ -280,10 +280,13 @@
     <div style="top:2353px; height:337px; background:linear-gradient(to bottom, rgba(255,255,255,0), #fff);"></div>
     <div style="top:2690px; height:1676px; background:#fff;"></div>
     <div style="top:4366px; height:720px; background:linear-gradient(to bottom, #fff, rgba(255,255,255,0));"></div>
-    <!-- 500px fade into pink (stage 7940-8440), then solid behind the contact
-         info; runs long so the parallax drift never uncovers the page bottom -->
-    <div style="top:5050px; height:500px; background:linear-gradient(to bottom, rgba(244,232,234,0), #F4E8EA);"></div>
-    <div style="top:5550px; height:700px; background:#F4E8EA;"></div>
+    <!-- 500px fade into pink, then solid behind the contact info. Rest positions
+         sit 210px above the spec anchors (7940/8440) to cancel the ~+210 drift
+         the backdrop carries when the footer is actually in view, so the solid
+         edge lands between the two contact lines as seen. Runs long past the
+         stage bottom so the drift never uncovers the page end. -->
+    <div style="top:4840px; height:500px; background:linear-gradient(to bottom, rgba(244,232,234,0), #F4E8EA);"></div>
+    <div style="top:5340px; height:910px; background:#F4E8EA;"></div>
   </div>
 
   <!-- celebrate script: multiply drops its white box out against whatever is
@@ -815,12 +818,14 @@
     if (!rise.length && !lag.length && !bg.length) return;
 
     // The backdrop trails the scroll by BG_K stage px for every stage px the
-    // viewport centre moves -- a true speed differential, so the depth effect is
-    // visible on every screenful (~30 real px of relative motion per viewport).
-    // Displacement is zero when the section's centre is centred in the window,
-    // which keeps the white block and pink anchors on spec where you see them,
-    // and the clamp keeps the drift inside the layers' painted overhangs.
-    var BG_K = 0.035, BG_CENTER = 5834, BG_MAX = 110;
+    // viewport centre moves -- a true speed differential (~96 real px of relative
+    // motion per screenful at a desktop window), so the content reads clearly in
+    // front of the backdrop. Displacement is zero when the section's centre is
+    // centred in the window, which keeps the white block anchored on spec where
+    // you see it; the pink footer layers are shifted up in the markup to absorb
+    // the sag this speed produces down there. The clamp keeps the drift inside
+    // the layers' painted overhangs (band cover above, pink overrun below).
+    var BG_K = 0.12, BG_CENTER = 5834, BG_MAX = 300;
 
     var RISE = 45, LAG = 22.5;  // stage px of travel across the whole pass
     var END = 2 / 3;            // fraction down the window where the travel
