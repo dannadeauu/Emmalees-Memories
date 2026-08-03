@@ -270,7 +270,7 @@
   <div class="abs" style="left:176px; top:4132px; width:1645px; height:699px; background:#fff; border-radius:28px;"></div>
 
   <!-- gallery row 2, image 1 -->
-  <div class="crop" style="left:73px; top:1459px; width:651px; height:393px;">
+  <div class="crop px-lag" style="left:73px; top:1459px; width:651px; height:393px;">
     <img src="images/gallery-4.png" alt="" style="height:116.16%; left:0; top:0; width:100.01%;">
   </div>
 
@@ -346,13 +346,13 @@
   <p class="abs instrument hero-fade" style="left:876px; top:543px; width:443px; height:60px; font-size:40px; color:#000; animation-delay:2s;">since 2017.</p>
 
   <!-- photo strip row 1 -->
-  <div class="crop" style="left:102px; top:1093px; width:552px; height:368px;">
+  <div class="crop px-lag" style="left:102px; top:1093px; width:552px; height:368px;">
     <img src="images/gallery-1.png" alt="" style="height:112.5%; left:-0.1%; top:-12.5%; width:100.2%;">
   </div>
-  <div class="crop" style="left:654px; top:1092px; width:416px; height:367px;">
+  <div class="crop px-lag" style="left:654px; top:1092px; width:416px; height:367px;">
     <img src="images/gallery-2.png" alt="" style="height:112.26%; left:-0.05%; top:-5.99%; width:100.09%;">
   </div>
-  <div class="crop" style="left:1070px; top:1092px; width:648px; height:367px;">
+  <div class="crop px-lag" style="left:1070px; top:1092px; width:648px; height:367px;">
     <img src="images/gallery-3.png" alt="" style="height:122.92%; left:-2.92%; top:-13.39%; width:105.33%;">
   </div>
 
@@ -366,13 +366,13 @@
   </a>
 
   <!-- photo strip row 2 -->
-  <div class="abs" style="left:724px; top:1459px; width:393px; height:392px;">
+  <div class="abs px-lag" style="left:724px; top:1459px; width:393px; height:392px;">
     <img class="cover" src="images/gallery-5.png" alt="">
   </div>
-  <div class="abs" style="left:1117px; top:1458px; width:522px; height:392px;">
+  <div class="abs px-lag" style="left:1117px; top:1458px; width:522px; height:392px;">
     <img class="cover cover-bottom" src="images/gallery-6.png" alt="">
   </div>
-  <div class="crop" style="left:1639px; top:1460px; width:450px; height:392px;">
+  <div class="crop px-lag" style="left:1639px; top:1460px; width:450px; height:392px;">
     <img src="images/gallery-7.png" alt="" style="height:100.02%; left:-17.45%; top:-0.01%; width:117.45%;">
   </div>
 
@@ -444,24 +444,26 @@
   <img class="abs" src="images/gold-flourish.png" alt="" style="left:162px; top:2296px; width:193px; height:94px; object-fit:cover; z-index:5;">
 
   <!-- left-edge bleed photos added with the 2002px widening (mostly off-canvas) -->
-  <div class="abs" style="left:-139px; top:1093px; width:241px; height:365px; background:url('images/gallery-row1-left.png') center/cover no-repeat;"></div>
-  <div class="abs" style="left:-251px; top:1458px; width:324px; height:394px; background:url('images/gallery-row2-left.png') center/cover no-repeat;"></div>
+  <div class="abs px-lag" style="left:-139px; top:1093px; width:241px; height:365px; background:url('images/gallery-row1-left.png') center/cover no-repeat;"></div>
+  <div class="abs px-lag" style="left:-251px; top:1458px; width:324px; height:394px; background:url('images/gallery-row2-left.png') center/cover no-repeat;"></div>
 
-  <!-- white gradient fade over gallery -->
-  <div class="abs" style="left:-41px; top:1577px; width:2114px; height:276px; background:linear-gradient(to bottom, rgba(217,217,217,0), #fff);"></div>
+  <!-- white gradient fade over gallery: spans the full page, and carries 120px of
+       solid white past the end of the fade so that when it rises against the
+       lagging gallery it still hides the gallery's hard bottom edge -->
+  <div class="abs px-rise" style="left:calc(-1 * var(--pad)); top:1577px; width:calc(2002px + 2 * var(--pad)); height:456px; background:linear-gradient(to bottom, rgba(217,217,217,0) 0, #fff 276px);"></div>
 
   <!-- cinderella (gallery end) -->
-  <div class="crop" style="left:1713px; top:1092px; width:335.99px; height:367px;">
+  <div class="crop px-lag" style="left:1713px; top:1092px; width:335.99px; height:367px;">
     <img src="images/cinderella-photo.png" alt="" style="height:103.94%; left:-0.93%; top:0; width:100.94%;">
   </div>
 
   <!-- planning copy -->
-  <div class="abs vc reveal-line" style="left:303.5px; top:2093px; width:1395px; height:98px; text-align:center;">
+  <div class="abs vc reveal-line px-rise" style="left:303.5px; top:2093px; width:1395px; height:98px; text-align:center;">
     <p class="playfair" style="font-size:29px; color:#000;">But what if we told you that we could help you create an UNFORGETTABLE experience for your child <span style="font-style:italic; color:#D08597;">without worrying</span> about any of these things?&nbsp;</p>
   </div>
-  <p class="abs playfair reveal-line" style="left:809px; top:2036px; width:384px; height:39px; font-size:29px; color:#000; text-align:center;">There&rsquo;s a LOT to it.</p>
-  <p class="abs playfair reveal-line" style="left:524.5px; top:1977px; width:953px; height:39px; font-size:29px; color:#000; text-align:center;">The party flow. The management of guests. The entertainment.&nbsp;</p>
-  <p class="abs playfair reveal-line" style="left:396px; top:1918px; width:1210px; height:39px; font-size:29px; color:#000; text-align:center;">Planning your child's birthday party can without a doubt feel <span style="font-style:italic; color:#D08597;">anything but magical</span>...</p>
+  <p class="abs playfair reveal-line px-rise" style="left:809px; top:2036px; width:384px; height:39px; font-size:29px; color:#000; text-align:center;">There&rsquo;s a LOT to it.</p>
+  <p class="abs playfair reveal-line px-rise" style="left:524.5px; top:1977px; width:953px; height:39px; font-size:29px; color:#000; text-align:center;">The party flow. The management of guests. The entertainment.&nbsp;</p>
+  <p class="abs playfair reveal-line px-rise" style="left:396px; top:1918px; width:1210px; height:39px; font-size:29px; color:#000; text-align:center;">Planning your child's birthday party can without a doubt feel <span style="font-style:italic; color:#D08597;">anything but magical</span>...</p>
 
   <!-- hidden white rounded rect (under pink bg, kept for fidelity) -->
   <div class="abs" style="left:1003px; top:3460px; width:845px; height:495px; background:#fff; border:3px solid #fff; border-radius:92px;"></div>
@@ -745,6 +747,51 @@
     window.addEventListener('resize', fit);
     window.addEventListener('scroll', stick, { passive: true });
     fit();
+  })();
+
+  // Parallax over the gallery. The white gradient and the four intro lines run
+  // ahead of the scroll so they read as rising, while the photo strips fall a
+  // little behind it. Offsets are in stage pixels, so the travel scales with the
+  // page exactly like the layout does.
+  (function () {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var rise = document.querySelectorAll('.px-rise');
+    var lag = document.querySelectorAll('.px-lag');
+    if (!rise.length && !lag.length) return;
+
+    var RISE = 90, LAG = 45;        // stage px of travel across the whole pass
+    var TOP = 1092, BOTTOM = 1853;  // the gallery band in stage coordinates
+    var inner = document.getElementById('stage-inner');
+    var queued = false;
+
+    function apply() {
+      queued = false;
+      var z = parseFloat(document.body.style.zoom) || 1;
+      var vh = window.innerHeight;
+      // #stage-inner is never transformed, so its box stays a reliable origin
+      var innerTop = inner.getBoundingClientRect().top;
+      var bandTop = innerTop + TOP * z;
+      var bandHeight = (BOTTOM - TOP) * z;
+
+      // 0 while the band is still below the fold, 1 once it has cleared the top.
+      // Clamping at 0 keeps the design position as the resting state, so nothing
+      // ever travels below where Figma put it.
+      var p = (vh - bandTop) / (vh + bandHeight);
+      p = p < 0 ? 0 : p > 1 ? 1 : p;
+
+      var up = 'translateY(' + (-p * RISE).toFixed(2) + 'px)';
+      var down = 'translateY(' + (p * LAG).toFixed(2) + 'px)';
+      for (var i = 0; i < rise.length; i++) rise[i].style.transform = up;
+      for (var j = 0; j < lag.length; j++) lag[j].style.transform = down;
+    }
+
+    function onScroll() {
+      if (!queued) { queued = true; requestAnimationFrame(apply); }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    apply();
   })();
 
   // Reveal the four intro lines in quick succession once the block is scrolled
