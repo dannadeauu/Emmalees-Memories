@@ -251,12 +251,13 @@
   <img class="abs" src="images/footer-strip.png" alt="" style="left:calc(-1 * var(--pad)); top:8070px; width:calc(2002px + 2 * var(--pad)); height:171px;">
   <div class="abs" style="left:calc(-1 * var(--pad)); top:8241px; width:calc(2002px + 2 * var(--pad)); height:706px; background:#F4E8EA;"></div>
 
-  <!-- newsletter banner (twice, as in Figma) -- 1000px wide, i.e. 63.49% of the
-       Figma size; the newsletter type further down carries the same scale -->
-  <div class="crop" style="left:468px; top:7574px; width:1000px; height:243.8px; border-radius:9.5px;">
+  <!-- newsletter banner (twice, as in Figma) -- boxes are 87.5% of the Figma
+       size and centred on the stage; the type is sized independently, see the
+       newsletter block further down -->
+  <div class="crop" style="left:312px; top:7552px; width:1378px; height:336px; border-radius:13px;">
     <img src="images/newsletter-banner.png" alt="" style="height:224.03%; left:0; top:-29.98%; width:100%;">
   </div>
-  <div class="crop" style="left:468px; top:7574px; width:1000px; height:243.8px; border-radius:9.5px; filter:blur(0px);">
+  <div class="crop" style="left:312px; top:7552px; width:1378px; height:336px; border-radius:13px; filter:blur(0px);">
     <img src="images/newsletter-banner.png" alt="" style="height:224.03%; left:0; top:-29.98%; width:100%;">
   </div>
 
@@ -653,13 +654,17 @@
        Figma value x 0.6349, the scale that puts the banner photo at 1000px wide,
        then re-centred on the stage and in the gap between "& many more!" and the
        footer strip -->
-  <p class="abs instrument" style="left:534.7px; top:7518px; width:946.7px; height:66px; font-size:40.6px; color:#000; text-align:center; text-transform:capitalize;">Discounts. Upcoming events. Exclusive character content.</p>
-  <div class="abs" style="left:510.5px; top:7649.4px; width:607px; height:78.1px; background:#fff; border-radius:9.5px;"></div>
-  <p class="abs instrument" style="left:533.4px; top:7672.3px; width:257.1px; height:33px; font-size:25.4px; color:#705962; white-space:nowrap;">Enter your email address here</p>
-  <div class="abs" style="left:1090.2px; top:7649.4px; width:327.6px; height:78.1px; background:#F4E8EA; border-radius:0 9.5px 9.5px 0;"></div>
-  <p class="abs instrument" style="left:1110.2px; top:7671.7px; width:130.7px; height:33.7px; font-size:25.4px; color:#000;">Join our</p>
-  <img class="abs" src="images/royal-newsletter-script.png" alt="royal newsletter" style="left:1184.2px; top:7657px; width:221.6px; height:66.7px; mix-blend-mode:darken; object-fit:cover;">
-  <p class="abs instrument" style="left:476.9px; top:7827.8px; width:1057.2px; height:116.8px; font-size:20.3px; color:#81525E; text-align:center;">Get exclusive discounts, enchanting bonus material, and get the inside info on all the MAGICAL events by signing up for our mailing list!</p>
+  <p class="abs instrument" style="left:348.7px; top:7484px; width:1304.6px; height:78px; font-size:48px; color:#000; text-align:center; text-transform:capitalize;">Discounts. Upcoming events. Exclusive character content.</p>
+  <!-- the pill reads slimmer than a straight 0.875 in the mockup, so it carries
+       its own 0.823 scale and is centred on the banner -->
+  <div class="abs" style="left:428px; top:7667px; width:786.8px; height:84px; background:#fff; border-radius:12px;"></div>
+  <p class="abs instrument" style="left:457.6px; top:7690px; width:333.3px; height:37px; font-size:32px; color:#705962; white-space:nowrap;">Enter your email address here</p>
+  <div class="abs" style="left:1179.3px; top:7667px; width:424.7px; height:84px; background:#F4E8EA; border-radius:0 12px 12px 0;"></div>
+  <p class="abs instrument" style="left:1205.2px; top:7690px; width:169.4px; height:37px; font-size:32px; color:#000;">Join our</p>
+  <img class="abs" src="images/royal-newsletter-script.png" alt="royal newsletter" style="left:1301.1px; top:7666px; width:287.2px; height:86.4px; mix-blend-mode:darken; object-fit:cover;">
+  <!-- 1260px is the band (1242-1278) that breaks the line after "signing up",
+       matching the mockup's two-line split -->
+  <p class="abs instrument" style="left:371px; top:7901px; width:1260px; height:161px; font-size:32px; color:#81525E; text-align:center;">Get exclusive discounts, enchanting bonus material, and get the inside info on all the MAGICAL events by signing up for our mailing list!</p>
 
   <!-- celebrate heading -->
   <!-- the empty lower half of this text box overhangs the top of cards 1 and 2,
