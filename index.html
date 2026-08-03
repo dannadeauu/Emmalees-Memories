@@ -92,6 +92,16 @@
   /* vertically-centred fixed-height text boxes */
   .vc { display:flex; flex-direction:column; justify-content:center; }
 
+  /* The header crown ships as a near-white shape (254,253,250) with alpha, so it
+     is used as a mask over a colour fill rather than as an image: that sets the
+     light yellow exactly instead of chasing it through a filter chain, and the
+     art's own soft edges still carry the antialiasing. */
+  .header-crown {
+    background:#F7E9B4;
+    -webkit-mask:url('images/header-crown.png') center / 100% 100% no-repeat;
+    mask:url('images/header-crown.png') center / 100% 100% no-repeat;
+  }
+
   /* ---- sticky glass nav ---- */
   #nav-track {
     margin-top:95px;
@@ -492,8 +502,8 @@
   <p class="abs instrument hero-fade" style="left:876px; top:704px; width:784px; height:104px; font-size:36px; color:#000; animation-delay:2.1s;">Join hundreds of happy royal customers in booking WNY&rsquo;s <span style="font-style:italic; color:#D08597;">first choice</span> for character entertainment.</p>
 
   <!-- header crowns -->
-  <img class="abs" src="images/header-crown.png" alt="" style="left:531px; top:24px; width:111px; height:54px; object-fit:cover;">
-  <img class="abs" src="images/header-crown.png" alt="" style="left:1351px; top:24px; width:111px; height:54px; object-fit:cover;">
+  <div class="abs header-crown" style="left:531px; top:24px; width:111px; height:54px;"></div>
+  <div class="abs header-crown" style="left:1351px; top:24px; width:111px; height:54px;"></div>
 
   <!-- reviews band: the bar stops level with the 90px page margins. The blurred
        glass layer sits in a rounded clip of exactly the same box, with the photo
@@ -509,9 +519,10 @@
   </div>
 
   <!-- review cards -->
-  <!-- inset 22px inside the bar on each side, clipped to the same rounded shape
-       so the cards are masked by what reads as a smaller copy of the bar -->
-  <div class="abs review-marquee" style="left:22px; top:2332.98px; width:1958px; border-radius:20px;">
+  <!-- flush with the bar on both sides now (was inset 22px), clipped to the same
+       rounded shape so the row ends on the bar's own edge with no strip of bare
+       band beside it -->
+  <div class="abs review-marquee" style="left:0; top:2332.98px; width:2002px; border-radius:20px;">
     <div class="review-track">
     <div class="review-card" style="height:590px;">
       <div class="review-bg"></div>
@@ -550,9 +561,24 @@
   <p class="abs instrument" style="left:382px; top:2232px; width:1067px; height:170px; font-size:48px; color:#000;">FROM OUR</p>
   <img class="abs" src="images/gold-flourish.png" alt="" style="left:162px; top:2206px; width:193px; height:94px; object-fit:cover; z-index:5;">
 
-  <!-- left-edge bleed photos added with the 2002px widening (mostly off-canvas) -->
-  <div class="abs" style="left:-139px; top:1093px; width:241px; height:365px; background:url('images/gallery-row1-left.png') center/cover no-repeat;"></div>
+  <!-- left-edge bleed photos added with the 2002px widening (mostly off-canvas).
+       The top one used to start at x-139, which left white beside it: the gutter
+       reaches x-250 at its widest (--pad tops out at 250.25 stage px, the same on
+       any window narrower than 900 real px). It now starts at -251 like the row
+       below, so both rows run out to the page edge at every size. -->
+  <div class="abs" style="left:-251px; top:1093px; width:353px; height:365px; background:url('images/gallery-row1-left.png') center/cover no-repeat;"></div>
   <div class="abs" style="left:-251px; top:1458px; width:324px; height:394px; background:url('images/gallery-row2-left.png') center/cover no-repeat;"></div>
+
+  <!-- Right-edge bleed photos, the mirror of the two above. Each row stopped
+       short of the gutter -- the top at x2049 where the cinderella photo ends,
+       the bottom at x2089 where gallery-7 does -- leaving white beside them.
+       Both run out to x2320, past the widest gutter the fit() script produces
+       (--pad tops out around 250 stage px on a narrow window, 135 on a wide
+       one), so the row stays full-bleed at every size and the overrun clips.
+       Background images rather than <img>, matching the left pair: the box just
+       stays empty if the file is missing instead of showing a broken icon. -->
+  <div class="abs" style="left:2049px; top:1092px; width:271px; height:367px; background:url('images/gallery-row1-right.png') center/cover no-repeat;"></div>
+  <div class="abs" style="left:2089px; top:1459px; width:231px; height:393px; background:url('images/gallery-row2-right.png') center/cover no-repeat;"></div>
 
   <!-- White fade over the BOTTOM edge of the gallery: spans the full page and
        dissolves the photos out from y1530 down. What used to be a straight 274px
