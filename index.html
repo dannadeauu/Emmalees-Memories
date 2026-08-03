@@ -366,7 +366,7 @@
   <div class="abs" style="left:209px; top:4817px; width:1578px; height:514px; background:rgba(244,232,234,0.65); border-radius:21px;"></div>
 
   <!-- gallery row 2, image 1 -->
-  <div class="crop px-lag" style="left:73px; top:1459px; width:651px; height:393px;">
+  <div class="crop" style="left:73px; top:1459px; width:651px; height:393px;">
     <img src="images/gallery-4.png" alt="" style="height:116.16%; left:0; top:0; width:100.01%;">
   </div>
 
@@ -442,13 +442,13 @@
   <p class="abs instrument hero-fade" style="left:876px; top:543px; width:443px; height:60px; font-size:40px; color:#000; animation-delay:1.5s;">since 2017.</p>
 
   <!-- photo strip row 1 -->
-  <div class="crop px-lag" style="left:102px; top:1093px; width:552px; height:368px;">
+  <div class="crop" style="left:102px; top:1093px; width:552px; height:368px;">
     <img src="images/gallery-1.png" alt="" style="height:112.5%; left:-0.1%; top:-12.5%; width:100.2%;">
   </div>
-  <div class="crop px-lag" style="left:654px; top:1092px; width:416px; height:367px;">
+  <div class="crop" style="left:654px; top:1092px; width:416px; height:367px;">
     <img src="images/gallery-2.png" alt="" style="height:112.26%; left:-0.05%; top:-5.99%; width:100.09%;">
   </div>
-  <div class="crop px-lag" style="left:1070px; top:1092px; width:648px; height:367px;">
+  <div class="crop" style="left:1070px; top:1092px; width:648px; height:367px;">
     <img src="images/gallery-3.png" alt="" style="height:122.92%; left:-2.92%; top:-13.39%; width:105.33%;">
   </div>
 
@@ -462,13 +462,13 @@
   </a>
 
   <!-- photo strip row 2 -->
-  <div class="abs px-lag" style="left:724px; top:1459px; width:393px; height:392px;">
+  <div class="abs" style="left:724px; top:1459px; width:393px; height:392px;">
     <img class="cover" src="images/gallery-5.png" alt="">
   </div>
-  <div class="abs px-lag" style="left:1117px; top:1458px; width:522px; height:392px;">
+  <div class="abs" style="left:1117px; top:1458px; width:522px; height:392px;">
     <img class="cover cover-bottom" src="images/gallery-6.png" alt="">
   </div>
-  <div class="crop px-lag" style="left:1639px; top:1460px; width:450px; height:392px;">
+  <div class="crop" style="left:1639px; top:1460px; width:450px; height:392px;">
     <img src="images/gallery-7.png" alt="" style="height:100.02%; left:-17.45%; top:-0.01%; width:117.45%;">
   </div>
 
@@ -540,17 +540,17 @@
   <img class="abs" src="images/gold-flourish.png" alt="" style="left:162px; top:2206px; width:193px; height:94px; object-fit:cover; z-index:5;">
 
   <!-- left-edge bleed photos added with the 2002px widening (mostly off-canvas) -->
-  <div class="abs px-lag" style="left:-139px; top:1093px; width:241px; height:365px; background:url('images/gallery-row1-left.png') center/cover no-repeat;"></div>
-  <div class="abs px-lag" style="left:-251px; top:1458px; width:324px; height:394px; background:url('images/gallery-row2-left.png') center/cover no-repeat;"></div>
+  <div class="abs" style="left:-139px; top:1093px; width:241px; height:365px; background:url('images/gallery-row1-left.png') center/cover no-repeat;"></div>
+  <div class="abs" style="left:-251px; top:1458px; width:324px; height:394px; background:url('images/gallery-row2-left.png') center/cover no-repeat;"></div>
 
   <!-- white fade over the BOTTOM edge of the gallery: spans the full page, reaches
        full white 1px above the lowest photo edge (y1851 vs y1852), and carries
        182px of solid white past that so it still hides the edge once it rises
-       against the lagging photos and joins the white page background below -->
+       against the static photos and joins the white page background below -->
   <div class="abs px-rise" style="left:calc(-1 * var(--pad)); top:1577px; width:calc(2002px + 2 * var(--pad)); height:456px; background:linear-gradient(to bottom, rgba(217,217,217,0) 0, #fff 274px);"></div>
 
   <!-- cinderella (gallery end) -->
-  <div class="crop px-lag" style="left:1713px; top:1092px; width:335.99px; height:367px;">
+  <div class="crop" style="left:1713px; top:1092px; width:335.99px; height:367px;">
     <img src="images/cinderella-photo.png" alt="" style="height:103.94%; left:-0.93%; top:0; width:100.94%;">
   </div>
 
@@ -861,16 +861,15 @@
   })();
 
   // Parallax over the gallery. The white gradient and the four intro lines run
-  // ahead of the scroll so they read as rising, while the photo strips fall a
-  // little behind it. Offsets are in stage pixels, so the travel scales with the
-  // page exactly like the layout does.
+  // ahead of the scroll so they read as rising; the gallery photos themselves
+  // are static. Offsets are in stage pixels, so the travel scales with the page
+  // exactly like the layout does.
   (function () {
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     var rise = document.querySelectorAll('.px-rise');
-    var lag = document.querySelectorAll('.px-lag');
     var bg = document.querySelectorAll('.px-bg');
-    if (!rise.length && !lag.length && !bg.length) return;
+    if (!rise.length && !bg.length) return;
 
     // The backdrop trails the scroll by BG_K stage px for every stage px the
     // viewport centre moves -- a true speed differential (~96 real px of relative
@@ -882,9 +881,11 @@
     // the layers' painted overhangs (band cover above, pink overrun below).
     var BG_K = 0.12, BG_CENTER = 5748, BG_MAX = 300;
 
-    var RISE = 45, LAG = 22.5;  // stage px of travel across the whole pass
-    var END = 2 / 3;            // fraction down the window where the travel
-                                // finishes, i.e. a third of the way up
+    // 59 stage px lands the bottom intro line 50px above the top of the R in
+    // the "royal customers" script, which is where the block should come to rest
+    var RISE = 59;
+    var END = 0.5;              // fraction down the window where the travel
+                                // finishes, i.e. with the copy dead centre
     var ANCHOR = 2050;          // centre of the intro copy, in stage coordinates
     var inner = document.getElementById('stage-inner');
     var queued = false;
@@ -897,19 +898,18 @@
       var innerTop = inner.getBoundingClientRect().top;
       var anchor = innerTop + ANCHOR * z;
 
-      // 0 as the copy enters at the bottom of the window, 1 once it has climbed
-      // a third of the way up. Clamping at 0 keeps the design position as the
-      // resting state, so nothing ever travels below where Figma put it -- which
-      // is what keeps the fade sitting on the gallery's hard bottom edge.
+      // 0 as the copy enters at the bottom of the window, 1 once it reaches the
+      // middle. Clamping at 0 keeps the design position as the resting state, so
+      // nothing ever travels below where Figma put it -- which is what keeps the
+      // fade sitting on the gallery's hard bottom edge.
       var p = (vh - anchor) / (vh * (1 - END));
       p = p < 0 ? 0 : p > 1 ? 1 : p;
-      // ease out: quick off the mark, settling as it reaches the end
-      var e = 1 - Math.pow(1 - p, 3);
+      // quintic ease out: nearly all of the travel is spent in the first part of
+      // the pass, so the copy drifts the last few px very slowly into place
+      var e = 1 - Math.pow(1 - p, 5);
 
       var up = 'translateY(' + (-e * RISE).toFixed(2) + 'px)';
-      var down = 'translateY(' + (e * LAG).toFixed(2) + 'px)';
       for (var i = 0; i < rise.length; i++) rise[i].style.transform = up;
-      for (var j = 0; j < lag.length; j++) lag[j].style.transform = down;
 
       // stage-space y currently sitting at the viewport centre
       var centre = (vh / 2 - innerTop) / z;
