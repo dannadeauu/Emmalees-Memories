@@ -49,34 +49,25 @@
     height:8778px;
   }
 
-  /* Bokeh backdrop for the lower half of the page. The sparkle art sits at the
-     bottom of the stack with two gradients over it: a white veil that opens up
-     through the middle of the section (Celebrate / steps / trusted by) and closes
-     again for the newsletter and footer, and a pink tint keeping the top and
-     bottom warm. Inset 60px inside the 2002px page rather than off the window,
-     so the white margin sits within the existing page dimensions.
-     Box starts 100px above where the sparkle should read, because it drifts that
-     far down at full parallax -- the reviews band covers the overhang until then. */
+  /* Bokeh backdrop for the lower half of the page, built to the Figma section.
+     Two copies of the sparkle art tile vertically at exactly the container width
+     (1952px -- 25px white borders inside the 2002px page), so neither is scaled
+     past the page width. Over them, top to bottom:
+       - 450px fade from #F4E8EA to transparent at the very top
+       - a solid white block behind the step 1-4 cards, from mid-"Celebrate"
+         (y5580) to the bottom of the Bisons logo (y7256), with a 337px fade in
+         above and a 720px fade out below
+       - a 500px fade into #F4E8EA ending between the "Emmalee's Memories" and
+         "21 Elm Street" footer lines (y8440), then solid pink to the bottom
+     Child tops are container-relative: stage y minus 2890. The container starts
+     100px above where the backdrop should read, because it drifts that far down
+     at full parallax -- the reviews band covers the overhang until then. */
   #sparkle-bg {
     position:absolute;
-    left:60px; top:2890px; width:1882px; height:5888px;
-    background:
-      linear-gradient(to bottom,
-        rgba(255,255,255,0.10) 0%,
-        rgba(255,255,255,0.20) 18%,
-        rgba(255,255,255,0.60) 35%,
-        rgba(255,255,255,0.86) 48%,
-        rgba(255,255,255,0.88) 67%,
-        rgba(255,255,255,0.55) 75%,
-        rgba(255,255,255,0.12) 84%,
-        rgba(255,255,255,0.02) 100%),
-      linear-gradient(to bottom,
-        rgba(244,232,234,0.55) 0%,
-        rgba(244,232,234,0.20) 40%,
-        rgba(244,232,234,0.20) 70%,
-        rgba(235,208,214,0.55) 100%),
-      url('images/sparkle-bg.jpg') center/cover no-repeat;
+    left:25px; top:2890px; width:1952px; height:5888px;
   }
+  #sparkle-bg > div { position:absolute; left:0; width:100%; }
+  .sp-img { height:3956px; background:url('images/sparkle-bg.jpg') center top / 100% 100% no-repeat; }
 
   .abs  { position:absolute; }
   .crop { position:absolute; overflow:hidden; }
@@ -272,16 +263,30 @@
 <div id="stage">
 <div id="stage-inner">
 
-  <!-- bokeh backdrop, behind everything from the reviews band down -->
-  <div id="sparkle-bg" class="px-bg"></div>
+  <!-- bokeh backdrop, behind everything from the reviews band down.
+       Layer order matters: sparkles first, gradients painted over them. -->
+  <div id="sparkle-bg" class="px-bg">
+    <div class="sp-img" style="top:0;"></div>
+    <div class="sp-img" style="top:3956px;"></div>
+    <!-- 450px fade from the reviews-band pink down into the sparkle -->
+    <div style="top:0; height:450px; background:linear-gradient(to bottom, #F4E8EA, rgba(244,232,234,0));"></div>
+    <!-- white block behind steps 1-4: fade in 337px (stage 5243-5580), solid to
+         the bottom of the Bisons logo (stage 7256), fade out 720px (to 7976) -->
+    <div style="top:2353px; height:337px; background:linear-gradient(to bottom, rgba(255,255,255,0), #fff);"></div>
+    <div style="top:2690px; height:1676px; background:#fff;"></div>
+    <div style="top:4366px; height:720px; background:linear-gradient(to bottom, #fff, rgba(255,255,255,0));"></div>
+    <!-- 500px fade into pink (stage 7940-8440), then solid behind the contact
+         info; runs long so the parallax drift never uncovers the page bottom -->
+    <div style="top:5050px; height:500px; background:linear-gradient(to bottom, rgba(244,232,234,0), #F4E8EA);"></div>
+    <div style="top:5550px; height:700px; background:#F4E8EA;"></div>
+  </div>
 
   <!-- celebrate script -->
   <img class="abs" src="images/celebrate-script.png" alt="Celebrate" style="left:576px; top:5488px; width:414px; height:171px;">
 
-  <!-- contact-us gradient, inset to the backdrop's 60px margin. The flat #F4E8EA
-       block that used to sit under the footer is gone: the sparkle backdrop and
-       its gradients carry that pink now. -->
-  <img class="abs" src="images/footer-strip.png" alt="" style="left:60px; top:8070px; width:1882px; height:171px;">
+  <!-- the footer-strip gradient image is gone: the backdrop's 500px fade into
+       #F4E8EA and the solid pink block behind the contact info replace it -->
+
 
   <!-- newsletter banner (twice, as in Figma) -- boxes are 87.5% of the Figma
        size and centred on the stage; the type is sized independently, see the
