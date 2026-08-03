@@ -549,11 +549,18 @@
   <div class="abs" style="left:-139px; top:1093px; width:241px; height:365px; background:url('images/gallery-row1-left.png') center/cover no-repeat;"></div>
   <div class="abs" style="left:-251px; top:1458px; width:324px; height:394px; background:url('images/gallery-row2-left.png') center/cover no-repeat;"></div>
 
-  <!-- white fade over the BOTTOM edge of the gallery: spans the full page, reaches
-       full white 1px above the lowest photo edge (y1851 vs y1852), and carries
-       182px of solid white past that so it still hides the edge once it rises
-       against the static photos and joins the white page background below -->
-  <div class="abs px-rise" style="left:calc(-1 * var(--pad)); top:1577px; width:calc(2002px + 2 * var(--pad)); height:456px; background:linear-gradient(to bottom, rgba(217,217,217,0) 0, #fff 274px);"></div>
+  <!-- White fade over the BOTTOM edge of the gallery: spans the full page and
+       dissolves the photos out from y1530 down. What used to be a straight 274px
+       ramp is now a 355px one on a smootherstep curve, so the alpha eases into
+       full white instead of hitting it on a hard knee -- that knee was the abrupt
+       line you could pick out across the photos. Full white lands at y1885,
+       which is past the top of "Planning your child's..." at y1873 rather than
+       22px short of it, so the flat white that used to sit above that line is
+       gradient now. The last 165px stay solid so the lowest photo edge (y1852)
+       is still hidden once the whole thing has risen, and so it joins the white
+       page background below. The copy rides with it, so its 99.8%-white backing
+       holds at every point in the travel. -->
+  <div class="abs px-rise" style="left:calc(-1 * var(--pad)); top:1530px; width:calc(2002px + 2 * var(--pad)); height:520px; background:linear-gradient(to bottom, rgba(255,255,255,0) 0, rgba(255,255,255,0.018) 44px, rgba(255,255,255,0.104) 89px, rgba(255,255,255,0.259) 133px, rgba(255,255,255,0.5) 178px, rgba(255,255,255,0.742) 222px, rgba(255,255,255,0.896) 266px, rgba(255,255,255,0.982) 311px, #fff 355px);"></div>
 
   <!-- cinderella (gallery end) -->
   <div class="crop" style="left:1713px; top:1092px; width:335.99px; height:367px;">
@@ -871,8 +878,6 @@
   // are static. Offsets are in stage pixels, so the travel scales with the page
   // exactly like the layout does.
   (function () {
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
     var rise = document.querySelectorAll('.px-rise');
     var bg = document.querySelectorAll('.px-bg');
     if (!rise.length && !bg.length) return;
@@ -889,14 +894,23 @@
     // the bottom only while scrolled well above it.
     var BG_K = 0.28, BG_CENTER = 5748, BG_MAX = 850;
 
-    // 59 stage px lands the bottom intro line 50px above the top of the R in
-    // the "royal customers" script, which is where the block should come to rest
-    var RISE = 59;
-    var END = 0.5;              // fraction down the window where the travel
-                                // finishes, i.e. with the copy dead centre
-    var ANCHOR = 2050;          // centre of the intro copy, in stage coordinates
+    // The copy and the fade start 59 stage px up -- where the travel used to
+    // finish -- and climb a further 100 from there, spread over the reader's
+    // whole scroll through the section rather than a fixed slice of the window.
+    // The section is the gallery's top edge down to the last line of copy.
+    var RISE = 59, LIFT = 100;
+    var SEC_TOP = 1092, SEC_BOTTOM = 2191;
     var inner = document.getElementById('stage-inner');
     var queued = false;
+
+    // With motion reduced there is no pass to run, but the copy and the fade
+    // still belong at the end of the travel -- that is where they sit while you
+    // are actually reading them, and where the fade covers the photo edge.
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      var rest = 'translateY(' + -(RISE + LIFT) + 'px)';
+      for (var r = 0; r < rise.length; r++) rise[r].style.transform = rest;
+      return;
+    }
 
     function apply() {
       queued = false;
@@ -904,19 +918,26 @@
       var vh = window.innerHeight;
       // #stage-inner is never transformed, so its box stays a reliable origin
       var innerTop = inner.getBoundingClientRect().top;
-      var anchor = innerTop + ANCHOR * z;
+      var y = window.pageYOffset;
+      var origin = innerTop + y;   // document y of the top of the stage
 
-      // 0 as the copy enters at the bottom of the window, 1 once it reaches the
-      // middle. Clamping at 0 keeps the design position as the resting state, so
-      // nothing ever travels below where Figma put it -- which is what keeps the
-      // fade sitting on the gallery's hard bottom edge.
-      var p = (vh - anchor) / (vh * (1 - END));
+      // The pass runs from the scroll that puts the section's top edge at the
+      // bottom of the window to the one that puts its bottom edge at the top --
+      // but the section starts less than a windowful down the page, so that first
+      // scroll is off the top of the document. Clamping the start to 0 (and the
+      // end to the last scrollable pixel) spends the whole travel over the scroll
+      // the reader can actually make through it, instead of banking most of it
+      // before the page has even moved.
+      var start = Math.max(0, origin + SEC_TOP * z - vh);
+      var end = Math.min(origin + SEC_BOTTOM * z,
+                         document.documentElement.scrollHeight - vh);
+      var p = end > start ? (y - start) / (end - start) : 1;
       p = p < 0 ? 0 : p > 1 ? 1 : p;
       // quintic ease out: nearly all of the travel is spent in the first part of
       // the pass, so the copy drifts the last few px very slowly into place
       var e = 1 - Math.pow(1 - p, 5);
 
-      var up = 'translateY(' + (-e * RISE).toFixed(2) + 'px)';
+      var up = 'translateY(' + (-(RISE + e * LIFT)).toFixed(2) + 'px)';
       for (var i = 0; i < rise.length; i++) rise[i].style.transform = up;
 
       // stage-space y currently sitting at the viewport centre
