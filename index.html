@@ -894,11 +894,13 @@
     // the bottom only while scrolled well above it.
     var BG_K = 0.28, BG_CENTER = 5748, BG_MAX = 850;
 
-    // The copy and the fade start 59 stage px up -- where the travel used to
-    // finish -- and climb a further 100 from there, spread over the reader's
-    // whole scroll through the section rather than a fixed slice of the window.
-    // The section is the gallery's top edge down to the last line of copy.
-    var RISE = 59, LIFT = 100;
+    // The copy and the fade start 24 stage px up and climb a further 100 from
+    // there, spread over the reader's whole scroll through the section rather
+    // than a fixed slice of the window. The section is the gallery's top edge
+    // down to the last line of copy. Both ends of the travel sit 35px below
+    // where they were first set, so the copy lands 115px clear of the top of the
+    // R in "Royal Customers" rather than 150.
+    var RISE = 24, LIFT = 100;
     var SEC_TOP = 1092, SEC_BOTTOM = 2191;
     var inner = document.getElementById('stage-inner');
     var queued = false;
