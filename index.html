@@ -49,6 +49,35 @@
     height:8778px;
   }
 
+  /* Bokeh backdrop for the lower half of the page. The sparkle art sits at the
+     bottom of the stack with two gradients over it: a white veil that opens up
+     through the middle of the section (Celebrate / steps / trusted by) and closes
+     again for the newsletter and footer, and a pink tint keeping the top and
+     bottom warm. Inset 60px inside the 2002px page rather than off the window,
+     so the white margin sits within the existing page dimensions.
+     Box starts 100px above where the sparkle should read, because it drifts that
+     far down at full parallax -- the reviews band covers the overhang until then. */
+  #sparkle-bg {
+    position:absolute;
+    left:60px; top:2890px; width:1882px; height:5888px;
+    background:
+      linear-gradient(to bottom,
+        rgba(255,255,255,0.10) 0%,
+        rgba(255,255,255,0.20) 18%,
+        rgba(255,255,255,0.60) 35%,
+        rgba(255,255,255,0.86) 48%,
+        rgba(255,255,255,0.88) 67%,
+        rgba(255,255,255,0.55) 75%,
+        rgba(255,255,255,0.12) 84%,
+        rgba(255,255,255,0.02) 100%),
+      linear-gradient(to bottom,
+        rgba(244,232,234,0.55) 0%,
+        rgba(244,232,234,0.20) 40%,
+        rgba(244,232,234,0.20) 70%,
+        rgba(235,208,214,0.55) 100%),
+      url('images/sparkle-bg.jpg') center/cover no-repeat;
+  }
+
   .abs  { position:absolute; }
   .crop { position:absolute; overflow:hidden; }
   .crop > img { position:absolute; max-width:none; }
@@ -243,13 +272,16 @@
 <div id="stage">
 <div id="stage-inner">
 
+  <!-- bokeh backdrop, behind everything from the reviews band down -->
+  <div id="sparkle-bg" class="px-bg"></div>
+
   <!-- celebrate script -->
   <img class="abs" src="images/celebrate-script.png" alt="Celebrate" style="left:576px; top:5488px; width:414px; height:171px;">
 
-  <!-- footer strip image + pink footer bg -- the contact-us gradient and the pink
-       block behind it both fill the gutters; the footer content is untouched -->
-  <img class="abs" src="images/footer-strip.png" alt="" style="left:calc(-1 * var(--pad)); top:8070px; width:calc(2002px + 2 * var(--pad)); height:171px;">
-  <div class="abs" style="left:calc(-1 * var(--pad)); top:8241px; width:calc(2002px + 2 * var(--pad)); height:706px; background:#F4E8EA;"></div>
+  <!-- contact-us gradient, inset to the backdrop's 60px margin. The flat #F4E8EA
+       block that used to sit under the footer is gone: the sparkle backdrop and
+       its gradients carry that pink now. -->
+  <img class="abs" src="images/footer-strip.png" alt="" style="left:60px; top:8070px; width:1882px; height:171px;">
 
   <!-- newsletter banner (twice, as in Figma) -- boxes are 87.5% of the Figma
        size and centred on the stage; the type is sized independently, see the
@@ -265,9 +297,9 @@
   <div class="abs" style="left:209px; top:4952px; width:1578px; height:514px; background:rgba(244,232,234,0.65); border-radius:21px;"></div>
 
   <!-- message section strip + white card -->
-  <!-- runs out into both gutters so the pink carries unbroken from the "who are
-       we" panel down through "a message from Emmalee" -->
-  <img class="abs" src="images/message-strip.png" alt="" style="left:calc(-1 * var(--pad)); top:4092px; width:calc(2002px + 2 * var(--pad)); height:448px; object-fit:cover;">
+  <!-- the message-strip gradient that used to sit here is gone: it was full-bleed
+       (so it broke the 60px margin) and read as a flat band across the sparkle.
+       The backdrop carries this stretch now. -->
   <div class="abs" style="left:176px; top:4132px; width:1645px; height:699px; background:#fff; border-radius:28px;"></div>
 
   <!-- gallery row 2, image 1 -->
@@ -476,9 +508,8 @@
        3px, which showed as a step once the band gained rounded corners -->
   <div class="abs" style="left:122px; top:2987px; width:1742px; height:43px; background:#fff;"></div>
 
-  <!-- who are we section -- the pink panel fills the gutters; the white card,
-       the photo and the script keep their design positions -->
-  <div class="abs" style="left:calc(-1 * var(--pad)); top:3181px; width:calc(2002px + 2 * var(--pad)); height:926px; background:#F4E8EA;"></div>
+  <!-- who are we section -- the flat pink panel here is gone too; the sparkle
+       backdrop shows through instead. Card, photo and script are untouched. -->
   <div class="crop" style="left:1041px; top:3238px; width:780px; height:851px; border-radius:0 20px 20px 0;">
     <img src="images/cinderella-photo.png" alt="" style="height:103.94%; left:-0.93%; top:0; width:100.94%;">
   </div>
@@ -764,7 +795,12 @@
 
     var rise = document.querySelectorAll('.px-rise');
     var lag = document.querySelectorAll('.px-lag');
-    if (!rise.length && !lag.length) return;
+    var bg = document.querySelectorAll('.px-bg');
+    if (!rise.length && !lag.length && !bg.length) return;
+
+    // The backdrop runs on its own progress, spanning the whole lower page, and
+    // drifts down as you scroll so it reads slower than the content over it.
+    var BG = 100, BG_TOP = 2890, BG_BOTTOM = 8778;
 
     var RISE = 45, LAG = 22.5;  // stage px of travel across the whole pass
     var END = 2 / 3;            // fraction down the window where the travel
@@ -778,7 +814,8 @@
       var z = parseFloat(document.body.style.zoom) || 1;
       var vh = window.innerHeight;
       // #stage-inner is never transformed, so its box stays a reliable origin
-      var anchor = inner.getBoundingClientRect().top + ANCHOR * z;
+      var innerTop = inner.getBoundingClientRect().top;
+      var anchor = innerTop + ANCHOR * z;
 
       // 0 as the copy enters at the bottom of the window, 1 once it has climbed
       // a third of the way up. Clamping at 0 keeps the design position as the
@@ -793,6 +830,13 @@
       var down = 'translateY(' + (e * LAG).toFixed(2) + 'px)';
       for (var i = 0; i < rise.length; i++) rise[i].style.transform = up;
       for (var j = 0; j < lag.length; j++) lag[j].style.transform = down;
+
+      // 0 as the backdrop enters at the bottom of the window, 1 once it has
+      // cleared the top; linear, so the drift stays even the whole way down.
+      var q = (vh - (innerTop + BG_TOP * z)) / (vh + (BG_BOTTOM - BG_TOP) * z);
+      q = q < 0 ? 0 : q > 1 ? 1 : q;
+      var back = 'translateY(' + (q * BG).toFixed(2) + 'px)';
+      for (var k = 0; k < bg.length; k++) bg[k].style.transform = back;
     }
 
     function onScroll() {
