@@ -104,8 +104,8 @@
     position:absolute; inset:0;
     background:rgba(226,214,217,0.62);
     border-radius:25px;
-    -webkit-backdrop-filter:blur(12px);
-    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(9.6px);
+    backdrop-filter:blur(9.6px);
   }
   .step-glass {
     position:absolute; inset:0;
@@ -116,8 +116,8 @@
     position:absolute; inset:0;
     background:rgba(207,199,199,0.28);
     border-radius:25px;
-    -webkit-backdrop-filter:blur(17.4px);
-    backdrop-filter:blur(17.4px);
+    -webkit-backdrop-filter:blur(13.92px);
+    backdrop-filter:blur(13.92px);
     transition:background-color 0.3s ease-out;
   }
   .step-card:hover .step-dark { background:rgba(96,19,33,0.66); }
@@ -157,6 +157,21 @@
 
   .review-card { position:relative; flex-shrink:0; width:566px; }
   .review-bg { position:absolute; inset:0; background:#fff; border-radius:20px; }
+  .review-placeholder {
+    position:absolute; left:0; right:0; top:27%;
+    font-family:'Source Serif Pro','Source Serif 4', serif;
+    font-style:italic; font-size:29px; color:#000; opacity:0.77; text-align:center;
+  }
+
+  /* The review row scrolls slowly and endlessly. The track is duplicated at
+     runtime and shifted by exactly one set width plus one gap, so the loop
+     repeats without a visible seam. */
+  .review-marquee { overflow:hidden; }
+  .review-track {
+    display:flex; gap:38px; align-items:flex-start; width:max-content;
+    animation:review-scroll 60s linear infinite;
+  }
+  @keyframes review-scroll { to { transform:translateX(calc(-1 * var(--review-shift, 3624px))); } }
 
   /* ---- animated "Magical Memories" heading ----
      The handwriting strokes are an SVG mask over the very same PNG the heading
@@ -195,6 +210,7 @@
     .mm-d { opacity:1; animation:none; }
     .hero-fade { opacity:1; animation:none; }
     .reveal-line { opacity:1; transition:none; }
+    .review-track { animation:none; }
   }
 </style>
 </head>
@@ -350,7 +366,8 @@
   </div>
 
   <!-- review cards -->
-  <div class="abs" style="left:176px; top:2438.98px; display:flex; gap:38px; align-items:flex-start;">
+  <div class="abs review-marquee" style="left:0; top:2438.98px; width:2002px;">
+    <div class="review-track">
     <div class="review-card" style="height:694.717px;">
       <div class="review-bg"></div>
       <p class="abs ssp" style="inset:24.25% 7.67% 4.02% 7.77%; font-style:italic; opacity:0.77; font-size:29px; color:#000; text-align:center; white-space:pre-wrap;">&ldquo;I am lucky to have experienced MANY princesses with Emmalee's Memories  over the past five years for my daughter's birthday parties. Emmalee's  Memories is the best and most talented princess company in WNY! The  characters not only entertain the kids with games, stories and  activities, they are also talented performers. Truly <span style="color:#C57589;">worth every penny</span> and more!!!</p>
@@ -377,6 +394,10 @@
       </div>
       <p class="abs ssp" style="inset:21.12% 5.69% 1.6% 5.49%; font-style:italic; opacity:0.77; font-size:29px; color:#000; text-align:center; white-space:pre-wrap;">&ldquo;We invited *Beauty Princess* to my daughter's birthday party... Emmalee's  Memories crew took care of everything. They managed the children, took  pictures, and made my daughter's birthday a <span style="color:#B96C7F;">very memorable one</span>. I loved  how I could sit back and watch my daughter enjoy the story, songs, dance party and more. We definitely will use Emmalee's Memories in the  future.</p>
       <p class="abs playfair" style="inset:74.24% 48.18% 11.84% 40.72%; font-style:italic; font-size:128px; color:#000; text-align:center;">&rdquo;</p>
+    </div>
+    <div class="review-card" style="height:693.72px;"><div class="review-bg"></div><p class="review-placeholder">(Review)</p></div>
+    <div class="review-card" style="height:693.72px;"><div class="review-bg"></div><p class="review-placeholder">(Review)</p></div>
+    <div class="review-card" style="height:693.72px;"><div class="review-bg"></div><p class="review-placeholder">(Review)</p></div>
     </div>
   </div>
 
@@ -694,6 +715,26 @@
       }
     }, { threshold: 0.35 });
     io.observe(lines[0]);
+  })();
+
+  // Duplicate the review row so the horizontal scroll loops seamlessly, and
+  // measure the exact shift (one set of cards plus one gap) for the keyframe.
+  (function () {
+    var track = document.querySelector('.review-track');
+    if (!track) return;
+    var GAP = 38;
+    var cards = Array.prototype.slice.call(track.children);
+    if (!cards.length) return;
+
+    var setWidth = cards.reduce(function (sum, c) { return sum + c.offsetWidth; }, 0)
+                 + GAP * (cards.length - 1);
+    track.style.setProperty('--review-shift', (setWidth + GAP) + 'px');
+
+    cards.forEach(function (c) {
+      var copy = c.cloneNode(true);
+      copy.setAttribute('aria-hidden', 'true');
+      track.appendChild(copy);
+    });
   })();
 </script>
 </body>
