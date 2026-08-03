@@ -51,7 +51,7 @@
 
   /* Bokeh backdrop for the lower half of the page, built to the Figma section.
      Two copies of the sparkle art tile vertically at exactly the container width
-     (1952px -- 25px white borders inside the 2002px page), so neither is scaled
+     (1990px -- 6px white borders inside the 2002px page), so neither is scaled
      past the page width. Over them, top to bottom:
        - 450px fade from #F4E8EA to transparent at the very top
        - a solid white block behind the step 1-4 cards, from mid-"Celebrate"
@@ -64,10 +64,11 @@
      at full parallax -- the reviews band covers the overhang until then. */
   #sparkle-bg {
     position:absolute;
-    left:25px; top:2890px; width:1952px; height:5888px;
+    left:6px; top:2890px; width:1990px; height:5888px;
   }
   #sparkle-bg > div { position:absolute; left:0; width:100%; }
-  .sp-img { height:3956px; background:url('images/sparkle-bg.jpg') center top / 100% 100% no-repeat; }
+  /* 4033 = 1990 x the art's 3648/1800 aspect, so the tiles stay undistorted */
+  .sp-img { height:4033px; background:url('images/sparkle-bg.jpg') center top / 100% 100% no-repeat; }
 
   .abs  { position:absolute; }
   .crop { position:absolute; overflow:hidden; }
@@ -267,7 +268,7 @@
        Layer order matters: sparkles first, gradients painted over them. -->
   <div id="sparkle-bg" class="px-bg">
     <div class="sp-img" style="top:0;"></div>
-    <div class="sp-img" style="top:3956px;"></div>
+    <div class="sp-img" style="top:4033px;"></div>
     <!-- 450px fade from the reviews-band pink down into the sparkle -->
     <div style="top:0; height:450px; background:linear-gradient(to bottom, #F4E8EA, rgba(244,232,234,0));"></div>
     <!-- white block behind steps 1-4: fade in 337px (stage 5243-5580), solid to
@@ -281,8 +282,9 @@
     <div style="top:5550px; height:700px; background:#F4E8EA;"></div>
   </div>
 
-  <!-- celebrate script -->
-  <img class="abs" src="images/celebrate-script.png" alt="Celebrate" style="left:576px; top:5488px; width:414px; height:171px;">
+  <!-- celebrate script: multiply drops its white box out against whatever is
+       beneath, including the drifting backdrop -->
+  <img class="abs" src="images/celebrate-script.png" alt="Celebrate" style="left:576px; top:5488px; width:414px; height:171px; mix-blend-mode:multiply;">
 
   <!-- the footer-strip gradient image is gone: the backdrop's 500px fade into
        #F4E8EA and the solid pink block behind the contact info replace it -->
@@ -298,14 +300,15 @@
     <img src="images/newsletter-banner.png" alt="" style="height:224.03%; left:0; top:-29.98%; width:100%;">
   </div>
 
+  <!-- message section white card, extended down to 10px past the bottom of the
+       what-makes-us pink panel (4952 + 514 + 10 = 5476). Painted BEFORE the
+       panel so the panel's translucent pink still reads on top of it.
+       (The old message-strip gradient img is gone: it was full-bleed and read
+       as a flat band across the sparkle. The backdrop carries this stretch.) -->
+  <div class="abs" style="left:176px; top:4132px; width:1645px; height:1344px; background:#fff; border-radius:28px;"></div>
+
   <!-- what makes us pink panel -->
   <div class="abs" style="left:209px; top:4952px; width:1578px; height:514px; background:rgba(244,232,234,0.65); border-radius:21px;"></div>
-
-  <!-- message section strip + white card -->
-  <!-- the message-strip gradient that used to sit here is gone: it was full-bleed
-       (so it broke the 60px margin) and read as a flat band across the sparkle.
-       The backdrop carries this stretch now. -->
-  <div class="abs" style="left:176px; top:4132px; width:1645px; height:699px; background:#fff; border-radius:28px;"></div>
 
   <!-- gallery row 2, image 1 -->
   <div class="crop px-lag" style="left:73px; top:1459px; width:651px; height:393px;">
