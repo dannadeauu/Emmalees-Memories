@@ -220,10 +220,11 @@
   /* ---- video player ---- */
   #ems-video-wrap {
     position:absolute;
-    /* cropped 55px in on each side (was left 149 / width 1111); the video keeps
-       object-fit:cover, so the narrower frame center-crops rather than squashes */
-    left:204px; top:4098px;
-    width:1001px; height:535px;
+    /* cropped 73px in on each side (was left 149 / width 1111, then 55, now a
+       further 18); the video keeps object-fit:cover, so the narrower frame
+       center-crops rather than squashes */
+    left:222px; top:4098px;
+    width:965px; height:535px;
     border-radius:90px;
     overflow:hidden;
   }
@@ -321,14 +322,18 @@
          it. Raising BG_K therefore squeezes these tops and heights toward 5748;
          the "seen" figures in the notes are what stays fixed.
 
-         White block behind steps 1-4: fade in (seen 5077-5460), solid down to
-         seen 6799 -- the top of the "Trusted by..." script, so the script, the
-         logo row and "& many more!" all sit on the gradient rather than on flat
-         white -- then fade out over the same run as before, now ending at seen
-         7617 with the sparkle carrying the newsletter banner below it. -->
-    <div style="top:2375px; height:276px; background:linear-gradient(to bottom, rgba(255,255,255,0), #fff);"></div>
-    <div style="top:2651px; height:964px; background:#fff;"></div>
-    <div style="top:3615px; height:589px; background:linear-gradient(to bottom, #fff, rgba(255,255,255,0));"></div>
+         White block behind "Celebrate with Emmalee's Memories", steps 1-4 and
+         "Trusted by...": fade in (seen 5021-5404), solid down to seen 6743, then
+         fade out to seen 7561, with the sparkle carrying the newsletter banner
+         below it. The whole run -- both gradients and the solid between them --
+         sits 55 seen px higher than it was first set, so full white now arrives
+         right at the "Celebrate" script rather than below it, and the solid still
+         gives out above the "Trusted by..." script so that script, the logo row
+         and "& many more!" all sit on gradient rather than on flat white. The
+         55px is 40 in these coordinates, being pre-squeezed by 1 - BG_K. -->
+    <div style="top:2335px; height:276px; background:linear-gradient(to bottom, rgba(255,255,255,0), #fff);"></div>
+    <div style="top:2611px; height:964px; background:#fff;"></div>
+    <div style="top:3575px; height:589px; background:linear-gradient(to bottom, #fff, rgba(255,255,255,0));"></div>
     <!-- Fade into pink (seen 7902), then solid behind the contact info (seen
          8470), so the solid edge lands between the two contact lines. Runs long
          past the stage bottom so the drift never uncovers the page end. -->
