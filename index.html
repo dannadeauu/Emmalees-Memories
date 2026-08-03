@@ -315,19 +315,25 @@
     <div class="sp-img" style="top:3947px;"></div>
     <!-- 450px fade from the reviews-band pink down into the sparkle -->
     <div style="top:0; height:450px; background:linear-gradient(to bottom, #F4E8EA, rgba(244,232,234,0));"></div>
-    <!-- white block behind steps 1-4: fade in 337px (stage 5157-5494), solid to
-         stage 6970 (was 7170, the bottom of the Bisons logo -- 200px trimmed so
-         less flat white sits behind "Trusted by..."), fade out 720px (to 7690) -->
-    <div style="top:2267px; height:337px; background:linear-gradient(to bottom, rgba(255,255,255,0), #fff);"></div>
-    <div style="top:2604px; height:1476px; background:#fff;"></div>
-    <div style="top:4080px; height:720px; background:linear-gradient(to bottom, #fff, rgba(255,255,255,0));"></div>
-    <!-- 500px fade into pink, then solid behind the contact info. Rest positions
-         sit 210px above the spec anchors (7854/8354) to cancel the ~+210 drift
-         the backdrop carries when the footer is actually in view, so the solid
-         edge lands between the two contact lines as seen. Runs long past the
-         stage bottom so the drift never uncovers the page end. -->
-    <div style="top:4754px; height:500px; background:linear-gradient(to bottom, rgba(244,232,234,0), #F4E8EA);"></div>
-    <div style="top:5254px; height:910px; background:#F4E8EA;"></div>
+    <!-- Everything below is authored in "as seen" stage coordinates and then
+         pulled back toward BG_CENTER (stage 5748) by the 1 - BG_K factor, since
+         that is where the drift puts each edge at the moment you are looking at
+         it. Raising BG_K therefore squeezes these tops and heights toward 5748;
+         the "seen" figures in the notes are what stays fixed.
+
+         White block behind steps 1-4: fade in (seen 5077-5460), solid down to
+         seen 6799 -- the top of the "Trusted by..." script, so the script, the
+         logo row and "& many more!" all sit on the gradient rather than on flat
+         white -- then fade out over the same run as before, now ending at seen
+         7617 with the sparkle carrying the newsletter banner below it. -->
+    <div style="top:2375px; height:276px; background:linear-gradient(to bottom, rgba(255,255,255,0), #fff);"></div>
+    <div style="top:2651px; height:964px; background:#fff;"></div>
+    <div style="top:3615px; height:589px; background:linear-gradient(to bottom, #fff, rgba(255,255,255,0));"></div>
+    <!-- Fade into pink (seen 7902), then solid behind the contact info (seen
+         8470), so the solid edge lands between the two contact lines. Runs long
+         past the stage bottom so the drift never uncovers the page end. -->
+    <div style="top:4409px; height:409px; background:linear-gradient(to bottom, rgba(244,232,234,0), #F4E8EA);"></div>
+    <div style="top:4818px; height:1100px; background:#F4E8EA;"></div>
   </div>
   </div>
 
@@ -872,14 +878,16 @@
     if (!rise.length && !bg.length) return;
 
     // The backdrop trails the scroll by BG_K stage px for every stage px the
-    // viewport centre moves -- a true speed differential (~96 real px of relative
-    // motion per screenful at a desktop window), so the content reads clearly in
-    // front of the backdrop. Displacement is zero when the section's centre is
-    // centred in the window, which keeps the white block anchored on spec where
-    // you see it; the pink footer layers are shifted up in the markup to absorb
-    // the sag this speed produces down there. The clamp keeps the drift inside
-    // the layers' painted overhangs (band cover above, pink overrun below).
-    var BG_K = 0.12, BG_CENTER = 5748, BG_MAX = 300;
+    // viewport centre moves -- a true speed differential (~250 real px of
+    // relative motion per screenful at a desktop window), so the sparkle reads
+    // as clearly further back than the content sitting on it. Displacement is
+    // zero at BG_CENTER; every layer inside #sparkle-bg is authored pre-squeezed
+    // toward that point by 1 - BG_K so its edges still land where they should
+    // once the drift is applied. The clamp only has to stop the drift running
+    // away entirely -- at this speed the exposed ends of the backdrop are always
+    // off-screen, since the top only uncovers while scrolled well past it and
+    // the bottom only while scrolled well above it.
+    var BG_K = 0.28, BG_CENTER = 5748, BG_MAX = 850;
 
     // 59 stage px lands the bottom intro line 50px above the top of the R in
     // the "royal customers" script, which is where the block should come to rest
